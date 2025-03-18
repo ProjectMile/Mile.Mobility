@@ -93,7 +93,7 @@ typedef MO_UINT64 MO_UINTN;
 #define MO_INTN_MIN MO_INT64_MIN
 #define MO_INTN_MAX MO_INT64_MAX
 #define MO_UINTN_MAX MO_UINT64_MAX
-#elif
+#else
 typedef MO_INT32 MO_INTN;
 typedef MO_UINT32 MO_UINTN;
 

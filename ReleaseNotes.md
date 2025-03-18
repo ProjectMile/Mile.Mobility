@@ -1,6 +1,6 @@
 ﻿# Mile.Mobility Release Notes
 
-**Mile.Mobility 1.0.135.0**
+**Mile.Mobility 1.0.136.0**
 
 - Initial release.
 - Introduce Mile.Mobility.Portable.Types.h for standardized C definitions.
