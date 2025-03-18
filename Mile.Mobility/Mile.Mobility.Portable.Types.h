@@ -27,6 +27,7 @@
 #endif
 #endif
 
+#ifdef MILE_MOBILITY_ENABLE_MINIMUM_SAL
 #ifndef _In_
 #define _In_
 #endif
@@ -41,6 +42,7 @@
 
 #ifndef _Out_opt_
 #define _Out_opt_
+#endif
 #endif
 
 #ifndef MOAPI

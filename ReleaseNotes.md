@@ -1,6 +1,6 @@
 ﻿# Mile.Mobility Release Notes
 
-**Mile.Mobility 1.0.134.0**
+**Mile.Mobility 1.0.135.0**
 
 - Initial release.
 - Introduce Mile.Mobility.Portable.Types.h for standardized C definitions.
@@ -8,6 +8,7 @@
     - CONST
     - VOID
     - EXTERN_C
+    - MILE_MOBILITY_ENABLE_MINIMUM_SAL
     - \_In\_, \_In\_opt\_, \_Out\_, \_Out\_opt\_
     - MOAPI
   - Introduce following types:
