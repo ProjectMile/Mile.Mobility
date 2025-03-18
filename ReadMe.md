@@ -1,5 +1,7 @@
 ﻿# Mile.Mobility
 
+[![NuGet Package](https://img.shields.io/nuget/vpre/Mile.Mobility)](https://www.nuget.org/packages/Mile.Mobility)
+
 Portable parts of the essential infrastructures.
 
 **Work In Progress**
