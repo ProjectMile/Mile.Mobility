@@ -43,6 +43,10 @@
 #define _Out_opt_
 #endif
 
+#ifndef MOAPI
+#define MOAPI
+#endif
+
 #ifdef _MSC_VER
 typedef signed char MO_INT8, *PMO_INT8;
 typedef signed short MO_INT16, *PMO_INT16;

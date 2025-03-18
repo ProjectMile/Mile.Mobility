@@ -11,6 +11,9 @@
 - VOID
 - EXTERN_C
 - \_In\_, \_In\_opt\_, \_Out\_, \_Out\_opt\_
+- MOAPI
+
+### Types
 
 - Signed Integer
   - MO_INT8, MO_INT16, MO_INT32, MO_INT64
