@@ -13,6 +13,9 @@
 - MILE_MOBILITY_ENABLE_MINIMUM_SAL
 - \_In\_, \_In\_opt\_, \_Out\_, \_Out\_opt\_
 - MOAPI
+- NULL
+- nullptr
+- MO_UNREFERENCED_PARAMETER
 
 ### Types
 

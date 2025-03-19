@@ -1,5 +1,13 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.0.13x.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following macros:
+    - NULL
+    - nullptr
+    - MO_UNREFERENCED_PARAMETER
+
 **Mile.Mobility 1.0.136.0**
 
 - Initial release.

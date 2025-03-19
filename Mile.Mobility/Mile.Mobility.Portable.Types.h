@@ -49,6 +49,22 @@
 #define MOAPI
 #endif
 
+#ifndef NULL
+#ifdef __cplusplus
+#define NULL 0
+#else
+#define NULL ((void*)0)
+#endif
+#endif
+
+#if defined(__cplusplus) && __cplusplus >= 201103L
+#elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L
+#else
+#ifndef nullptr
+#define nullptr NULL
+#endif
+#endif
+
 #ifdef _MSC_VER
 typedef signed char MO_INT8, *PMO_INT8;
 typedef signed short MO_INT16, *PMO_INT16;
@@ -122,5 +138,9 @@ typedef PMO_CHAR MO_STRING, *PMO_STRING;
 typedef PMO_WIDE_CHAR MO_WIDE_STRING, *PMO_WIDE_STRING;
 typedef CONST MO_STRING MO_CONSTANT_STRING, *PMO_CONSTANT_STRING;
 typedef CONST MO_WIDE_STRING MO_CONSTANT_WIDE_STRING, *PMO_CONSTANT_WIDE_STRING;
+
+#ifndef MO_UNREFERENCED_PARAMETER
+#define MO_UNREFERENCED_PARAMETER(P) (P)
+#endif
 
 #endif // !MILE_MOBILITY_PORTABLE_TYPES
