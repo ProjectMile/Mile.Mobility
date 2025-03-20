@@ -7,6 +7,11 @@
     - NULL
     - nullptr
     - MO_UNREFERENCED_PARAMETER
+    - MO_FIELD_OFFSET
+    - MO_FIELD_SIZE
+    - MO_FIELD_SIZE_THROUGH
+    - MO_FIELD_CONTAINS
+    - MO_C_STATIC_ASSERT
 
 **Mile.Mobility 1.0.136.0**
 
