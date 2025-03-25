@@ -1,5 +1,9 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.0.142.0**
+
+- Make MO_INT* and MO_UINT* macro constants preprocessor friendly.
+
 **Mile.Mobility 1.0.137.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
