@@ -168,4 +168,26 @@ typedef CONST MO_WIDE_STRING MO_CONSTANT_WIDE_STRING, *PMO_CONSTANT_WIDE_STRING;
     typedef char __MO_C_STATIC_ASSERT__[(Expression) ? 1 : -1]
 #endif
 
+#ifndef MO_DECLARE_HANDLE
+#define MO_DECLARE_HANDLE(Name) \
+    struct Name##__{ MO_UINTN Unused; }; \
+    typedef struct Name##__ *Name
+#endif // !MO_DECLARE_HANDLE
+
+#ifndef MO_MAX
+#define MO_MAX(Left, Right) (((Left) > (Right)) ? (Left) : (Right))
+#endif // !MO_MAX
+
+#ifndef MO_MIN
+#define MO_MIN(Left, Right) (((Left) < (Right)) ? (Left) : (Right))
+#endif // !MO_MIN
+
+#ifndef MO_ABS
+#define MO_ABS(Value) (((Value) < 0) ? (-(Value)) : (Value))
+#endif // !MO_ABS
+
+#ifndef MO_ARRAY_SIZE
+#define MO_ARRAY_SIZE(Array) (sizeof(Array) / sizeof((Array)[0]))
+#endif // !MO_ARRAY_SIZE
+
 #endif // !MILE_MOBILITY_PORTABLE_TYPES

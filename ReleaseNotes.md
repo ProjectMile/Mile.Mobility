@@ -1,5 +1,14 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.0.1xx.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following macros:
+    - MO_DECLARE_HANDLE
+    - MO_MAX
+    - MO_MIN
+    - MO_ABS
+    - MO_ARRAY_SIZE
 **Mile.Mobility 1.0.142.0**
 
 - Make MO_INT* and MO_UINT* macro constants preprocessor friendly.
