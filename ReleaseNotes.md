@@ -9,6 +9,10 @@
     - MO_MIN
     - MO_ABS
     - MO_ARRAY_SIZE
+  - Introduce following types:
+    - Pointer
+      - MO_POINTER
+
 **Mile.Mobility 1.0.142.0**
 
 - Make MO_INT* and MO_UINT* macro constants preprocessor friendly.
@@ -49,7 +53,7 @@
     - Character 
       - MO_CHAR, MO_WIDE_CHAR
     - String
-      - MO_STRING, MO_WIDE_STRING, 
+      - MO_STRING, MO_WIDE_STRING
     - Constant String
       - MO_CONSTANT_STRING, MO_CONSTANT_WIDE_STRING
   - Introduce following constant values:
