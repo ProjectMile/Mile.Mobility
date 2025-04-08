@@ -12,6 +12,9 @@
   - Introduce following types:
     - Pointer
       - MO_POINTER
+  - Remove following types:
+    - Constant String
+      - MO_CONSTANT_STRING, MO_CONSTANT_WIDE_STRING
 
 **Mile.Mobility 1.0.142.0**
 
