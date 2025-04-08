@@ -1,6 +1,6 @@
 ﻿# Mile.Mobility Release Notes
 
-**Mile.Mobility 1.0.1xx.0**
+**Mile.Mobility 1.0.155.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
   - Introduce following macros:
