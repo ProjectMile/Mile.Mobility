@@ -41,8 +41,12 @@
   - MO_CHAR, MO_WIDE_CHAR
 - String
   - MO_STRING, MO_WIDE_STRING
+- Constant String
+  - MO_CONSTANT_STRING, MO_CONSTANT_WIDE_STRING
 - Pointer
   - MO_POINTER
+- Constant Pointer
+  - MO_CONSTANT_POINTER
 
 ### Constant Values
 

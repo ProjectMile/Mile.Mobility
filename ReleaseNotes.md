@@ -1,5 +1,14 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.0.156.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following types:
+    - Constant String
+      - MO_CONSTANT_STRING, MO_CONSTANT_WIDE_STRING
+    - Constant Pointer
+      - MO_CONSTANT_POINTER
+
 **Mile.Mobility 1.0.155.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
