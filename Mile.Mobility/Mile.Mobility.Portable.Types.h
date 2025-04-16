@@ -195,4 +195,19 @@ typedef MO_CONSTANT_POINTER *PMO_CONSTANT_POINTER;
 #define MO_ARRAY_SIZE(Array) (sizeof(Array) / sizeof((Array)[0]))
 #endif // !MO_ARRAY_SIZE
 
+#ifndef MO_GET_ALIGNED_SIZE
+#define MO_GET_ALIGNED_SIZE(Size, Alignment) \
+    (((Size) + (Alignment) - 1) & ~((Alignment) - 1))
+#endif // !MO_GET_ALIGNED_SIZE
+
+#ifndef MO_GET_VARIABLE_ADDRESS
+#ifdef __cplusplus
+#define MO_GET_VARIABLE_ADDRESS(Variable) \
+    (&const_cast<MO_CHAR&>(reinterpret_cast<const volatile MO_CHAR&>(Variable)))
+#else
+#define MO_GET_VARIABLE_ADDRESS(Variable) \
+    (&(Variable))
+#endif
+#endif // !MO_GET_VARIABLE_ADDRESS
+
 #endif // !MILE_MOBILITY_PORTABLE_TYPES

@@ -1,5 +1,11 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.0.xxx.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following macros:
+    - MO_GET_ALIGNED_SIZE
+    - MO_GET_VARIABLE_ADDRESS
 **Mile.Mobility 1.0.156.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
