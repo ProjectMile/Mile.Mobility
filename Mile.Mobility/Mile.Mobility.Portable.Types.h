@@ -222,7 +222,7 @@ typedef PMO_CHAR MO_VARIABLE_ARGUMENT_LIST;
 #endif
 #endif // !_MO_VARIABLE_ARGUMENT_ALIGNMENT_ADJUSTMENT
 #if defined(_M_AMD64) /* x64 */
-extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) \
     __va_start(&Marker, Parameter)
 #define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) ( \
@@ -234,7 +234,7 @@ extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #elif defined(_M_ARM_NT) /* ARM32 */
 #ifdef __cplusplus
-extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
     &Marker, \
     MO_GET_VARIABLE_ADDRESS(Parameter), \
@@ -252,7 +252,7 @@ extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_END(Marker) \
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #elif defined(_M_ARM64) /* ARM64 */
-extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
     &Marker, \
     MO_GET_VARIABLE_ADDRESS(Parameter), \
@@ -269,7 +269,7 @@ extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_END(Marker) \
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #elif defined(_M_HYBRID_X86_ARM64) /* CHPE */
-void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
     &Marker, \
     MO_GET_VARIABLE_ADDRESS(Parameter), \
@@ -282,7 +282,7 @@ void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_END(Marker) \
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #elif defined(_M_ARM64EC) /* ARM64EC */
-extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
     &Marker, \
     MO_GET_VARIABLE_ADDRESS(Parameter), \
