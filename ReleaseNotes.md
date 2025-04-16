@@ -6,6 +6,14 @@
   - Introduce following macros:
     - MO_GET_ALIGNED_SIZE
     - MO_GET_VARIABLE_ADDRESS
+    - MO_VARIABLE_ARGUMENT_START
+    - MO_VARIABLE_ARGUMENT_READ
+    - MO_VARIABLE_ARGUMENT_END
+    - MO_VARIABLE_ARGUMENT_COPY
+  - Introduce following types:
+    - Variable Argument List
+      - MO_VARIABLE_ARGUMENT_LIST
+
 **Mile.Mobility 1.0.156.0**
 
 - Improve Mile.Mobility.Portable.Types.h.

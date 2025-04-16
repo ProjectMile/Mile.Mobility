@@ -210,4 +210,145 @@ typedef MO_CONSTANT_POINTER *PMO_CONSTANT_POINTER;
 #endif
 #endif // !MO_GET_VARIABLE_ADDRESS
 
+#ifdef _MSC_VER /* MSVC */
+typedef PMO_CHAR MO_VARIABLE_ARGUMENT_LIST;
+#ifndef _MO_VARIABLE_ARGUMENT_ALIGNMENT_ADJUSTMENT
+#if defined(_M_ARM_NT) || defined(_M_ARM64) || \
+    defined(_M_HYBRID_X86_ARM64) || defined(_M_ARM64EC)
+#define _MO_VARIABLE_ARGUMENT_ALIGNMENT_ADJUSTMENT(Marker, TYPE) \
+    (((MO_VARIABLE_ARGUMENT_LIST)0 - (Marker)) & (__alignof(TYPE) - 1))
+#else
+#define _MO_VARIABLE_ARGUMENT_ALIGNMENT_ADJUSTMENT(Marker, TYPE) 0
+#endif
+#endif // !_MO_VARIABLE_ARGUMENT_ALIGNMENT_ADJUSTMENT
+#if defined(_M_AMD64) /* x64 */
+extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) \
+    __va_start(&Marker, Parameter)
+#define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) ( \
+    ((sizeof(TYPE) > sizeof(MO_UINTN)) || \
+    ((sizeof(TYPE) & (sizeof(TYPE) - 1)) != 0)) \
+        ? **(TYPE**)((Marker += sizeof(MO_UINTN)) - sizeof(MO_UINTN)) \
+        : *(TYPE*)((Marker += sizeof(MO_UINTN)) - sizeof(MO_UINTN)))
+#define MO_VARIABLE_ARGUMENT_END(Marker) \
+    (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
+#elif defined(_M_ARM_NT) /* ARM32 */
+#ifdef __cplusplus
+extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
+    &Marker, \
+    MO_GET_VARIABLE_ADDRESS(Parameter), \
+    MO_GET_ALIGNED_SIZE(sizeof(Parameter), sizeof(MO_UINTN)), \
+    MO_GET_VARIABLE_ADDRESS(Parameter))
+#else
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) (Marker = \
+    ((MO_VARIABLE_ARGUMENT_LIST)MO_GET_VARIABLE_ADDRESS(Parameter)) + \
+    MO_GET_ALIGNED_SIZE(sizeof(Parameter), sizeof(MO_UINTN)))
+#endif
+#define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) (*(TYPE*)((Marker += \
+    MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN)) + \
+    _MO_VARIABLE_ARGUMENT_ALIGNMENT_ADJUSTMENT(Marker, TYPE)) - \
+    MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN))))
+#define MO_VARIABLE_ARGUMENT_END(Marker) \
+    (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
+#elif defined(_M_ARM64) /* ARM64 */
+extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
+    &Marker, \
+    MO_GET_VARIABLE_ADDRESS(Parameter), \
+    MO_GET_ALIGNED_SIZE(sizeof(Parameter), sizeof(MO_UINTN)), \
+    __alignof(Parameter), \
+    MO_GET_VARIABLE_ADDRESS(Parameter))
+#define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) ( \
+    (sizeof(TYPE) > (2 * sizeof(__int64))) \
+        ? **(TYPE**)((Marker += sizeof(__int64)) - sizeof(__int64)) \
+        : *(TYPE*)((Marker += \
+            MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN)) + \
+            _MO_VARIABLE_ARGUMENT_ALIGNMENT_ADJUSTMENT(Marker, TYPE)) \
+            - MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN))))
+#define MO_VARIABLE_ARGUMENT_END(Marker) \
+    (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
+#elif defined(_M_HYBRID_X86_ARM64) /* CHPE */
+void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
+    &Marker, \
+    MO_GET_VARIABLE_ADDRESS(Parameter), \
+    MO_GET_ALIGNED_SIZE(sizeof(Parameter), sizeof(MO_UINTN)), \
+    __alignof(Parameter), \
+    MO_GET_VARIABLE_ADDRESS(Parameter))
+#define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) (*(TYPE*)( \
+    (Marker += MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN))) - \
+    MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN))))
+#define MO_VARIABLE_ARGUMENT_END(Marker) \
+    (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
+#elif defined(_M_ARM64EC) /* ARM64EC */
+extern void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
+    &Marker, \
+    MO_GET_VARIABLE_ADDRESS(Parameter), \
+    MO_GET_ALIGNED_SIZE(sizeof(Parameter), sizeof(MO_UINTN)), \
+    __alignof(Parameter), \
+    MO_GET_VARIABLE_ADDRESS(Parameter))
+#define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) ( \
+    ((sizeof(TYPE) > sizeof(MO_UINTN)) || \
+    ((sizeof(TYPE) & (sizeof(TYPE) - 1)) != 0)) \
+        ? **(TYPE**)((Marker += sizeof(MO_UINTN)) - sizeof(MO_UINTN)) \
+        : *(TYPE*)((Marker += \
+            sizeof(MO_UINTN) + \
+            _MO_VARIABLE_ARGUMENT_ALIGNMENT_ADJUSTMENT(Marker, TYPE)) - \
+            sizeof(MO_UINTN)))
+#define MO_VARIABLE_ARGUMENT_END(Marker) \
+    (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
+#else /* x86 */
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) (Marker = \
+    ((MO_VARIABLE_ARGUMENT_LIST)MO_GET_VARIABLE_ADDRESS(Parameter)) + \
+    MO_GET_ALIGNED_SIZE(sizeof(Parameter), sizeof(MO_UINTN)))
+#define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) (*(TYPE*)( \
+    (Marker += MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN))) - \
+    MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN))))
+#define MO_VARIABLE_ARGUMENT_END(Marker) \
+    (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
+#endif
+#define MO_VARIABLE_ARGUMENT_COPY(Destination, Source) \
+    ((VOID)((Destination) = (Source)))
+#elif defined(__GNUC__) || defined (__clang__) /* GCC and Clang */
+#ifndef MILE_MOBILITY_FORCE_MICROSOFT_ABI
+typedef __builtin_ms_va_list MO_VARIABLE_ARGUMENT_LIST;
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) \
+    __builtin_ms_va_start(Marker, Parameter)
+#define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) ((TYPE)( \
+    (sizeof(TYPE) < sizeof(MO_UINTN)) \
+        ? __builtin_va_arg(Marker, MO_UINTN) \
+        : __builtin_va_arg(Marker, TYPE)))
+#define MO_VARIABLE_ARGUMENT_END(Marker) \
+    __builtin_ms_va_end(Marker)
+#define MO_VARIABLE_ARGUMENT_COPY(Destination, Source) \
+    __builtin_ms_va_copy(Destination, Source)
+#else
+typedef __builtin_va_list MO_VARIABLE_ARGUMENT_LIST;
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) \
+    __builtin_va_start(Marker, Parameter)
+#define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) ((TYPE)( \
+    (sizeof(TYPE) < sizeof(MO_UINTN)) \
+        ? __builtin_va_arg(Marker, MO_UINTN) \
+        : __builtin_va_arg(Marker, TYPE)))
+#define MO_VARIABLE_ARGUMENT_END(Marker) \
+    __builtin_va_end(Marker)
+#define MO_VARIABLE_ARGUMENT_COPY(Destination, Source) \
+    __builtin_va_copy(Destination, Source)
+#endif
+#else /* Unknown Compilers */
+typedef MO_UINT8* MO_VARIABLE_ARGUMENT_LIST;
+#define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) (Marker = \
+    ((MO_VARIABLE_ARGUMENT_LIST)MO_GET_VARIABLE_ADDRESS(Parameter)) + \
+    MO_GET_ALIGNED_SIZE(sizeof(Parameter), sizeof(MO_UINTN)))
+#define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) (*(TYPE*)( \
+    (Marker += MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN))) - \
+    MO_GET_ALIGNED_SIZE(sizeof(TYPE), sizeof(MO_UINTN))))
+#define MO_VARIABLE_ARGUMENT_END(Marker) \
+    (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
+#define MO_VARIABLE_ARGUMENT_COPY(Destination, Source) \
+    ((VOID)((Destination) = (Source)))
+#endif
+
 #endif // !MILE_MOBILITY_PORTABLE_TYPES
