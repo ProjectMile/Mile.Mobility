@@ -1,5 +1,13 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.0.1xx.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following types:
+    - Constant Character
+      - MO_CONSTANT_CHAR, MO_CONSTANT_WIDE_CHAR
+  - Fix the definitions of MO_CONSTANT_STRING and MO_CONSTANT_WIDE_STRING.
+
 **Mile.Mobility 1.0.165.0**
 
 - Improve Mile.Mobility.Portable.Types.h.

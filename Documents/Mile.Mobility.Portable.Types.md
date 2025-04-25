@@ -45,6 +45,8 @@
   - MO_BOOL
 - Character 
   - MO_CHAR, MO_WIDE_CHAR
+- Constant Character
+  - MO_CONSTANT_CHAR, MO_CONSTANT_WIDE_CHAR
 - String
   - MO_STRING, MO_WIDE_STRING
 - Constant String
