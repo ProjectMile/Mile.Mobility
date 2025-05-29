@@ -43,6 +43,14 @@
 #ifndef _Out_opt_
 #define _Out_opt_
 #endif
+
+#ifndef _Inout_
+#define _Inout_
+#endif
+
+#ifndef _Inout_opt_
+#define _Inout_opt_
+#endif
 #endif
 
 #ifndef MOAPI

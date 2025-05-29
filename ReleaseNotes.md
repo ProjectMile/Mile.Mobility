@@ -1,5 +1,12 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.0.xxx.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following macros:
+    - \_Inout\_
+    - \_Inout\_opt\_
+
 **Mile.Mobility 1.0.172.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
