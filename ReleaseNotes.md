@@ -1,5 +1,12 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.0.2xx.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following macros:
+    - MO_DECLSPEC_ALIGN
+    - MO_ANYSIZE_ARRAY
+
 **Mile.Mobility 1.0.206.0**
 
 - Improve Mile.Mobility.Portable.Types.h.

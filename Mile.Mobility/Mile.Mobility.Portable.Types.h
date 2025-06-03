@@ -190,6 +190,22 @@ typedef MO_CONSTANT_POINTER *PMO_CONSTANT_POINTER;
     typedef struct Name##__ *Name
 #endif // !MO_DECLARE_HANDLE
 
+#ifndef MO_DECLSPEC_ALIGN
+#ifdef _MSC_VER
+#if (_MSC_VER >= 1300) && !defined(MIDL_PASS)
+#define MO_DECLSPEC_ALIGN(x) __declspec(align(x))
+#else
+#define MO_DECLSPEC_ALIGN(x)
+#endif
+#else
+#define MO_DECLSPEC_ALIGN(x) __attribute__ ((aligned(x)))
+#endif
+#endif // !MO_DECLSPEC_ALIGN
+
+#ifndef MO_ANYSIZE_ARRAY
+#define MO_ANYSIZE_ARRAY 1
+#endif // !MO_ANYSIZE_ARRAY
+
 #ifndef MO_MAX
 #define MO_MAX(Left, Right) (((Left) > (Right)) ? (Left) : (Right))
 #endif // !MO_MAX
