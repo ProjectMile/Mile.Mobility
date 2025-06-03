@@ -1,9 +1,9 @@
 ﻿/*
- * PROJECT:   Mouri Internal Library Essentials
- * FILE:      Mile.Mobility.Portable.Types.h
- * PURPOSE:   Definition for Mobility Portable Types
+ * PROJECT:    Mouri Internal Library Essentials
+ * FILE:       Mile.Mobility.Portable.Types.h
+ * PURPOSE:    Definition for Mobility Portable Types
  *
- * LICENSE:   The MIT License
+ * LICENSE:    The MIT License
  *
  * MAINTAINER: MouriNaruto (Kenji.Mouri@outlook.com)
  */
@@ -158,31 +158,31 @@ typedef MO_CONSTANT_POINTER *PMO_CONSTANT_POINTER;
 
 #ifndef MO_UNREFERENCED_PARAMETER
 #define MO_UNREFERENCED_PARAMETER(P) (P)
-#endif
+#endif // !MO_UNREFERENCED_PARAMETER
 
 #ifndef MO_FIELD_OFFSET
 #define MO_FIELD_OFFSET(TYPE, Field) ((MO_UINTN)&(((TYPE*)0)->Field))
-#endif
+#endif // !MO_FIELD_OFFSET
 
 #ifndef MO_FIELD_SIZE
 #define MO_FIELD_SIZE(TYPE, Field) (sizeof(((TYPE*)0)->Field))
-#endif
+#endif // !MO_FIELD_SIZE
 
 #ifndef MO_FIELD_SIZE_THROUGH
 #define MO_FIELD_SIZE_THROUGH(TYPE, Field) \
     (MO_FIELD_OFFSET(TYPE, Field) + MO_FIELD_SIZE(TYPE, Field))
-#endif
+#endif // !MO_FIELD_SIZE_THROUGH
 
 #ifndef MO_FIELD_CONTAINS
 #define MO_FIELD_CONTAINS(Struct, Size, Field) ( \
     (((PMO_UINT8)(&(Struct)->Field)) + sizeof((Struct)->Field)) \
     <= (((PMO_UINT8)(Struct)) + (Size)))
-#endif
+#endif // !MO_FIELD_CONTAINS
 
 #ifndef MO_C_STATIC_ASSERT
 #define MO_C_STATIC_ASSERT(Expression) \
     typedef char __MO_C_STATIC_ASSERT__[(Expression) ? 1 : -1]
-#endif
+#endif // !MO_C_STATIC_ASSERT
 
 #ifndef MO_DECLARE_HANDLE
 #define MO_DECLARE_HANDLE(Name) \
