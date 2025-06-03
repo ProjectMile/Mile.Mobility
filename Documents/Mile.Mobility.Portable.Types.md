@@ -57,6 +57,8 @@
   - MO_POINTER
 - Constant Pointer
   - MO_CONSTANT_POINTER
+- Globally Unique Identifiers
+  - MO_GUID
 - Variable Argument List
   - MO_VARIABLE_ARGUMENT_LIST
 

@@ -6,6 +6,9 @@
   - Introduce following macros:
     - MO_DECLSPEC_ALIGN
     - MO_ANYSIZE_ARRAY
+  - Introduce following types:
+    - Globally Unique Identifiers
+      - MO_GUID
   - Fix the comments.
 
 **Mile.Mobility 1.0.206.0**
