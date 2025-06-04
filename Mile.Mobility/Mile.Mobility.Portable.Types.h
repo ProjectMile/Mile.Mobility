@@ -13,11 +13,11 @@
 
 #ifndef CONST
 #define CONST const
-#endif
+#endif // !CONST
 
 #ifndef VOID
 #define VOID void
-#endif
+#endif // !VOID
 
 #ifndef EXTERN_C
 #ifdef __cplusplus
@@ -30,32 +30,32 @@
 #ifdef MILE_MOBILITY_ENABLE_MINIMUM_SAL
 #ifndef _In_
 #define _In_
-#endif
+#endif // !_In_
 
 #ifndef _In_opt_
 #define _In_opt_
-#endif
+#endif // !_In_opt_
 
 #ifndef _Out_
 #define _Out_
-#endif
+#endif // !_Out_
 
 #ifndef _Out_opt_
 #define _Out_opt_
-#endif
+#endif // !_Out_opt_
 
 #ifndef _Inout_
 #define _Inout_
-#endif
+#endif // !_Inout_
 
 #ifndef _Inout_opt_
 #define _Inout_opt_
-#endif
-#endif
+#endif // !_Inout_opt_
+#endif // MILE_MOBILITY_ENABLE_MINIMUM_SAL
 
 #ifndef MOAPI
 #define MOAPI
-#endif
+#endif // !MOAPI
 
 #ifndef NULL
 #ifdef __cplusplus
@@ -71,7 +71,7 @@
 #else
 #ifndef nullptr
 #define nullptr NULL
-#endif
+#endif // !nullptr
 #endif
 
 #ifdef _MSC_VER
