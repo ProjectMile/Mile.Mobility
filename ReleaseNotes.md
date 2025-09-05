@@ -1,6 +1,6 @@
 ﻿# Mile.Mobility Release Notes
 
-**Mile.Mobility 1.0.xxx.0**
+**Mile.Mobility 1.0.306.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
   - Introduce following macros:
@@ -25,6 +25,7 @@
   - Introduce following types:
     - Result Code
       - MO_RESULT
+- Fix the source code file header comment format.
 
 **Mile.Mobility 1.0.212.0**
 
