@@ -7,6 +7,9 @@
   - Introduce following macros:
     - MO_FORCEINLINE
     - MO_NOINLINE
+  - Introduce following constant values:
+    - Platform Width
+      - MO_POINTER_SIZE, MO_POINTER_WIDTH
 
 **Mile.Mobility 1.0.306.0**
 

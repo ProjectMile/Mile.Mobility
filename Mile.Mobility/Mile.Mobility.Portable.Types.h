@@ -111,6 +111,28 @@ typedef unsigned long long MO_UINT64, *PMO_UINT64;
 #define MO_UINT32_MAX 0xFFFFFFFFU
 #define MO_UINT64_MAX 0xFFFFFFFFFFFFFFFFULL
 
+#ifndef MO_POINTER_SIZE
+#if defined(_WIN64) || defined(_LP64) || defined(__LP64__)
+#define MO_POINTER_SIZE 8
+#else
+#define MO_POINTER_SIZE 4
+#endif
+#endif // !MO_POINTER_SIZE
+
+#ifndef MO_POINTER_WIDTH
+#if (MO_POINTER_SIZE == 8)
+#define MO_POINTER_WIDTH 64
+#elif (MO_POINTER_SIZE == 4)
+#define MO_POINTER_WIDTH 32
+#elif (MO_POINTER_SIZE == 2)
+#define MO_POINTER_WIDTH 16
+#elif (MO_POINTER_SIZE == 1)
+#define MO_POINTER_WIDTH 8
+#else
+#error "[MO_POINTER_WIDTH] Non-standard target. Please define a custom value."
+#endif
+#endif // !MO_POINTER_WIDTH
+
 #if defined(_WIN64) || defined(_LP64) || defined(__LP64__)
 typedef MO_INT64 MO_INTN;
 typedef MO_UINT64 MO_UINTN;
