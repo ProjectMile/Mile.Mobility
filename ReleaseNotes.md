@@ -1,6 +1,6 @@
 ﻿# Mile.Mobility Release Notes
 
-**Mile.Mobility 1.0.37x.0**
+**Mile.Mobility 1.0.372.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
   - Add pointer types definitions for MO_INTN and MO_UINTN.
