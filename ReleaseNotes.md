@@ -3,13 +3,16 @@
 **Mile.Mobility 1.0.37x.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
-  - Introduce PMO_INTN and PMO_UINTN.
+  - Add pointer types definitions for MO_INTN and MO_UINTN.
   - Introduce following macros:
     - MO_FORCEINLINE
     - MO_NOINLINE
   - Introduce following constant values:
     - Platform Width
       - MO_POINTER_SIZE, MO_POINTER_WIDTH
+  - Extend following definitions with MO_POINTER_SIZE macro:
+    - MO_INTN, MO_UINTN
+    - MO_INTN_MIN, MO_INTN_MAX, MO_UINTN_MAX
 
 **Mile.Mobility 1.0.306.0**
 

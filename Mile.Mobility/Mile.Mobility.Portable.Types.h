@@ -133,23 +133,50 @@ typedef unsigned long long MO_UINT64, *PMO_UINT64;
 #endif
 #endif // !MO_POINTER_WIDTH
 
-#if defined(_WIN64) || defined(_LP64) || defined(__LP64__)
+#if (MO_POINTER_SIZE == 8)
 typedef MO_INT64 MO_INTN;
 typedef MO_UINT64 MO_UINTN;
 
 #define MO_INTN_MIN MO_INT64_MIN
 #define MO_INTN_MAX MO_INT64_MAX
 #define MO_UINTN_MAX MO_UINT64_MAX
-#else
+#elif (MO_POINTER_SIZE == 4)
 typedef MO_INT32 MO_INTN;
 typedef MO_UINT32 MO_UINTN;
 
 #define MO_INTN_MIN MO_INT32_MIN
 #define MO_INTN_MAX MO_INT32_MAX
 #define MO_UINTN_MAX MO_UINT32_MAX
+#elif (MO_POINTER_SIZE == 2)
+typedef MO_INT16 MO_INTN;
+typedef MO_UINT16 MO_UINTN;
+
+#define MO_INTN_MIN MO_INT16_MIN
+#define MO_INTN_MAX MO_INT16_MAX
+#define MO_UINTN_MAX MO_UINT16_MAX
+#elif (MO_POINTER_SIZE == 1)
+typedef MO_INT8 MO_INTN;
+typedef MO_UINT8 MO_UINTN;
+
+#define MO_INTN_MIN MO_INT8_MIN
+#define MO_INTN_MAX MO_INT8_MAX
+#define MO_UINTN_MAX MO_UINT8_MAX
+#else
+#error "[MO_INTN, MO_UINTN] Non-standard target. Please define a custom type."
 #endif
+
 typedef MO_INTN *PMO_INTN;
 typedef MO_UINTN *PMO_UINTN;
+
+#ifndef MO_INTN_MIN
+#error "[MO_INTN_MIN] Non-standard target. Please define a custom value."
+#endif // !MO_INTN_MIN
+#ifndef MO_INTN_MAX
+#error "[MO_INTN_MAX] Non-standard target. Please define a custom value."
+#endif // !MO_INTN_MAX
+#ifndef MO_UINTN_MAX
+#error "[MO_UINTN_MAX] Non-standard target. Please define a custom value."
+#endif // !MO_UINTN_MAX
 
 typedef MO_UINT8 MO_BOOL, *PMO_BOOL;
 #define MO_FALSE 0
