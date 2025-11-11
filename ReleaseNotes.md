@@ -1,9 +1,12 @@
 ﻿# Mile.Mobility Release Notes
 
-**Mile.Mobility 1.0.371.0**
+**Mile.Mobility 1.0.37x.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
   - Introduce PMO_INTN and PMO_UINTN.
+  - Introduce following macros:
+    - MO_FORCEINLINE
+    - MO_NOINLINE
 
 **Mile.Mobility 1.0.306.0**
 

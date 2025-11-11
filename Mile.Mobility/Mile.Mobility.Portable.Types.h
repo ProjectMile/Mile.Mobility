@@ -216,6 +216,30 @@ typedef struct _MO_GUID
 #endif
 #endif // !MO_DECLSPEC_ALIGN
 
+#ifndef MO_FORCEINLINE
+#ifdef _MSC_VER
+#if (_MSC_VER >= 1200)
+#define MO_FORCEINLINE __forceinline
+#else
+#define MO_FORCEINLINE __inline
+#endif
+#elif defined(__GNUC__) || defined (__clang__)
+#define MO_FORCEINLINE __attribute__((always_inline)) inline
+#else
+#define MO_FORCEINLINE inline
+#endif
+#endif // !MO_FORCEINLINE
+
+#ifndef MO_NOINLINE
+#if (_MSC_VER >= 1300)
+#define MO_NOINLINE __declspec(noinline)
+#elif defined(__GNUC__) || defined (__clang__)
+#define MO_NOINLINE __attribute__((noinline))
+#else
+#define MO_NOINLINE
+#endif
+#endif // !MO_NOINLINE
+
 #ifndef MO_ANYSIZE_ARRAY
 #define MO_ANYSIZE_ARRAY 1
 #endif // !MO_ANYSIZE_ARRAY
