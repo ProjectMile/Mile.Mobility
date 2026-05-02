@@ -21,6 +21,17 @@
 #define VOID MO_VOID
 #endif /* !VOID */
 
+/* Workaround for Windows SDK, which defines these types in #ifndef VOID */
+/* block. That design is terrible, but needs to have a workaround. */
+#ifdef VOID
+typedef char CHAR;
+typedef short SHORT;
+typedef long LONG;
+#if !defined(MIDL_PASS)
+typedef int INT;
+#endif /* !MIDL_PASS */
+#endif /* VOID */
+
 #ifndef EXTERN_C
 #define EXTERN_C MO_EXTERN_C
 #endif /* !EXTERN_C */
