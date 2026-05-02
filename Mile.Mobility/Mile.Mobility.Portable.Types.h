@@ -73,19 +73,15 @@
 #endif /* !_Mo_InOut_Opt_ */
 
 #ifndef CONST
-#define CONST const
+#define CONST MO_CONST
 #endif // !CONST
 
 #ifndef VOID
-#define VOID void
+#define VOID MO_VOID
 #endif // !VOID
 
 #ifndef EXTERN_C
-#ifdef __cplusplus
-#define EXTERN_C extern "C"
-#else
-#define EXTERN_C extern
-#endif
+#define EXTERN_C MO_EXTERN_C
 #endif
 
 #ifdef MILE_MOBILITY_ENABLE_MINIMUM_SAL
@@ -119,11 +115,7 @@
 #endif // !MOAPI
 
 #ifndef NULL
-#ifdef __cplusplus
-#define NULL 0
-#else
-#define NULL ((void*)0)
-#endif
+#define NULL MO_NULL
 #endif
 
 #if defined(__cplusplus) && __cplusplus >= 201103L
@@ -131,7 +123,7 @@
 #elif defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L
 #else
 #ifndef nullptr
-#define nullptr NULL
+#define nullptr MO_NULL
 #endif // !nullptr
 #endif
 
@@ -281,7 +273,7 @@ typedef struct _MO_GUID
 #endif
 
 #ifndef MO_UNREFERENCED_PARAMETER
-#define MO_UNREFERENCED_PARAMETER(PARAMETER) ((void)(PARAMETER))
+#define MO_UNREFERENCED_PARAMETER(PARAMETER) ((MO_VOID)(PARAMETER))
 #endif // !MO_UNREFERENCED_PARAMETER
 
 #ifndef MO_FIELD_OFFSET
