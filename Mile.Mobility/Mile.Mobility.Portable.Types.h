@@ -73,44 +73,6 @@
 #define _Mo_InOut_Opt_
 #endif /* !_Mo_InOut_Opt_ */
 
-#ifndef CONST
-#define CONST MO_CONST
-#endif /* !CONST */
-
-#ifndef VOID
-#define VOID MO_VOID
-#endif /* !VOID */
-
-#ifndef EXTERN_C
-#define EXTERN_C MO_EXTERN_C
-#endif /* !EXTERN_C */
-
-#ifdef MILE_MOBILITY_ENABLE_MINIMUM_SAL
-#ifndef _In_
-#define _In_
-#endif /* !_In_ */
-
-#ifndef _In_opt_
-#define _In_opt_
-#endif /* !_In_opt_ */
-
-#ifndef _Out_
-#define _Out_
-#endif /* !_Out_ */
-
-#ifndef _Out_opt_
-#define _Out_opt_
-#endif /* !_Out_opt_ */
-
-#ifndef _Inout_
-#define _Inout_
-#endif /* !_Inout_ */
-
-#ifndef _Inout_opt_
-#define _Inout_opt_
-#endif /* !_Inout_opt_ */
-#endif /* MILE_MOBILITY_ENABLE_MINIMUM_SAL */
-
 #ifndef MOAPI
 #define MOAPI
 #endif /* !MOAPI */
