@@ -17,7 +17,8 @@
  *   have a corresponding pointer type definition prefixed with "PMO_".
  * - All mentioned constant value definitions are prefixed with "MO_".
  * - All mentioned Mile.Mobility specific macro definitions are prefixed with
- *   "MO_", "_Mo_" or "MILE_MOBILITY_"; "MOAPI" is the only exception.
+ *   "MO_", "_Mo_" or "MILE_MOBILITY_". "MOAPI" is intentionally reserved as
+ *   the API declaration tag.
  */
 
 #ifndef MO_CONST
