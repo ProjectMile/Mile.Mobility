@@ -307,16 +307,19 @@ typedef struct _MO_GUID
 #endif // !MO_DECLARE_HANDLE
 
 #ifndef MO_DECLSPEC_ALIGN
-#ifdef _MSC_VER
-#if (_MSC_VER >= 1300) && !defined(MIDL_PASS)
+#if defined(MIDL_PASS)
+#define MO_DECLSPEC_ALIGN(x)
+#elif (defined(__cplusplus) && __cplusplus >= 201103L) || \
+    (defined(_MSVC_LANG) && _MSVC_LANG >= 201103L)
+#define MO_DECLSPEC_ALIGN(x) alignas(x)
+#elif defined(_MSC_VER) && (_MSC_VER >= 1300)
 #define MO_DECLSPEC_ALIGN(x) __declspec(align(x))
+#elif defined(__GNUC__) || defined(__clang__)
+#define MO_DECLSPEC_ALIGN(x) __attribute__ ((aligned(x)))
 #else
 #define MO_DECLSPEC_ALIGN(x)
 #endif
-#else
-#define MO_DECLSPEC_ALIGN(x) __attribute__ ((aligned(x)))
-#endif
-#endif // !MO_DECLSPEC_ALIGN
+#endif /* !MO_DECLSPEC_ALIGN */
 
 #ifndef MO_FORCEINLINE
 #ifdef _MSC_VER
