@@ -9,3 +9,8 @@
 - \_In\_, \_In\_opt\_
 - \_Out\_, \_Out\_opt\_
 - \_Inout\_, \_Inout\_opt\_
+
+### Types
+
+- Windows SDK Workarounds
+  - CHAR, SHORT, LONG, INT
