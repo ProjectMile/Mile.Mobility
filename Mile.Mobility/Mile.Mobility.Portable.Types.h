@@ -236,7 +236,7 @@ typedef MO_UINT8 MO_BOOL, *PMO_BOOL;
 #define MO_TRUE 1
 
 typedef char MO_CHAR, *PMO_CHAR;
-typedef CONST char MO_CONSTANT_CHAR, *PMO_CONSTANT_CHAR;
+typedef MO_CONST char MO_CONSTANT_CHAR, *PMO_CONSTANT_CHAR;
 #define MO_CHAR_MIN 0x00
 #define MO_CHAR_MAX 0xFF
 
@@ -245,7 +245,7 @@ typedef wchar_t MO_WIDE_CHAR, *PMO_WIDE_CHAR;
 #else
 typedef MO_UINT16 MO_WIDE_CHAR, *PMO_WIDE_CHAR;
 #endif
-typedef CONST MO_WIDE_CHAR MO_CONSTANT_WIDE_CHAR, *PMO_CONSTANT_WIDE_CHAR;
+typedef MO_CONST MO_WIDE_CHAR MO_CONSTANT_WIDE_CHAR, *PMO_CONSTANT_WIDE_CHAR;
 #define MO_WIDE_CHAR_MIN 0x0000
 #define MO_WIDE_CHAR_MAX 0xFFFF
 
@@ -255,9 +255,9 @@ typedef PMO_CONSTANT_CHAR MO_CONSTANT_STRING, *PMO_CONSTANT_STRING;
 typedef PMO_CONSTANT_WIDE_CHAR MO_CONSTANT_WIDE_STRING;
 typedef MO_CONSTANT_WIDE_STRING *PMO_CONSTANT_WIDE_STRING;
 
-typedef VOID *MO_POINTER;
+typedef MO_VOID *MO_POINTER;
 typedef MO_POINTER *PMO_POINTER;
-typedef CONST VOID *MO_CONSTANT_POINTER;
+typedef MO_CONST MO_VOID *MO_CONSTANT_POINTER;
 typedef MO_CONSTANT_POINTER *PMO_CONSTANT_POINTER;
 
 #ifdef GUID_DEFINED
@@ -392,7 +392,7 @@ typedef PMO_CHAR MO_VARIABLE_ARGUMENT_LIST;
 #endif
 #endif /* !_MO_VARIABLE_ARGUMENT_ALIGNMENT_ADJUSTMENT */
 #if defined(_M_AMD64) /* x64 */
-EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+MO_EXTERN_C MO_VOID __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) \
     __va_start(&Marker, Parameter)
 #define MO_VARIABLE_ARGUMENT_READ(Marker, TYPE) ( \
@@ -404,7 +404,7 @@ EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #elif defined(_M_ARM_NT) /* ARM32 */
 #ifdef __cplusplus
-EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+MO_EXTERN_C MO_VOID __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
     &Marker, \
     MO_GET_VARIABLE_ADDRESS(Parameter), \
@@ -422,7 +422,7 @@ EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_END(Marker) \
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #elif defined(_M_ARM64) /* ARM64 */
-EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+MO_EXTERN_C MO_VOID __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
     &Marker, \
     MO_GET_VARIABLE_ADDRESS(Parameter), \
@@ -439,7 +439,7 @@ EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_END(Marker) \
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #elif defined(_M_HYBRID_X86_ARM64) /* CHPE */
-EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+MO_EXTERN_C MO_VOID __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
     &Marker, \
     MO_GET_VARIABLE_ADDRESS(Parameter), \
@@ -452,7 +452,7 @@ EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_END(Marker) \
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #elif defined(_M_ARM64EC) /* ARM64EC */
-EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
+MO_EXTERN_C MO_VOID __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) __va_start( \
     &Marker, \
     MO_GET_VARIABLE_ADDRESS(Parameter), \
@@ -480,7 +480,7 @@ EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #endif
 #define MO_VARIABLE_ARGUMENT_COPY(Destination, Source) \
-    ((VOID)((Destination) = (Source)))
+    ((MO_VOID)((Destination) = (Source)))
 #elif defined(__GNUC__) || defined(__clang__) /* GCC and Clang */
 #ifdef MILE_MOBILITY_FORCE_MICROSOFT_ABI
 typedef __builtin_ms_va_list MO_VARIABLE_ARGUMENT_LIST;
@@ -518,7 +518,7 @@ typedef MO_UINT8* MO_VARIABLE_ARGUMENT_LIST;
 #define MO_VARIABLE_ARGUMENT_END(Marker) \
     (Marker = (MO_VARIABLE_ARGUMENT_LIST)0)
 #define MO_VARIABLE_ARGUMENT_COPY(Destination, Source) \
-    ((VOID)((Destination) = (Source)))
+    ((MO_VOID)((Destination) = (Source)))
 #endif
 
 /* Defines result code type and values based on HRESULT from Windows. */
