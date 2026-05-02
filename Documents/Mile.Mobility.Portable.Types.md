@@ -5,7 +5,7 @@
   have a corresponding pointer type definition prefixed with "PMO\_".
 - All mentioned constant value definitions are prefixed with "MO\_".
 - All mentioned Mile.Mobility specific macro definitions are prefixed with
-  "MO\_", "\_Mo\_" or "MILE\_MOBILITY\_".
+  "MO\_", "\_Mo\_" or "MILE\_MOBILITY\_"; "MOAPI" is the only exception.
 
 ### Macros
 

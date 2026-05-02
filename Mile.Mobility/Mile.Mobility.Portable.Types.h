@@ -17,7 +17,7 @@
  *   have a corresponding pointer type definition prefixed with "PMO_".
  * - All mentioned constant value definitions are prefixed with "MO_".
  * - All mentioned Mile.Mobility specific macro definitions are prefixed with
- *   "MO_", "_Mo_" or "MILE_MOBILITY_".
+ *   "MO_", "_Mo_" or "MILE_MOBILITY_"; "MOAPI" is the only exception.
  */
 
 #ifndef MO_CONST
@@ -323,7 +323,7 @@ typedef struct _MO_GUID
 
 #ifndef MO_FORCEINLINE
 #ifdef _MSC_VER
-#if (_MSC_VER >= 1200)
+#if defined(_MSC_VER) && (_MSC_VER >= 1200)
 #define MO_FORCEINLINE __forceinline
 #else
 #define MO_FORCEINLINE __inline
@@ -336,7 +336,7 @@ typedef struct _MO_GUID
 #endif /* !MO_FORCEINLINE */
 
 #ifndef MO_NOINLINE
-#if (_MSC_VER >= 1300)
+#if defined(_MSC_VER) && (_MSC_VER >= 1300)
 #define MO_NOINLINE __declspec(noinline)
 #elif defined(__GNUC__) || defined(__clang__)
 #define MO_NOINLINE __attribute__((noinline))
@@ -482,7 +482,7 @@ EXTERN_C void __cdecl __va_start(MO_VARIABLE_ARGUMENT_LIST*, ...);
 #define MO_VARIABLE_ARGUMENT_COPY(Destination, Source) \
     ((VOID)((Destination) = (Source)))
 #elif defined(__GNUC__) || defined(__clang__) /* GCC and Clang */
-#ifndef MILE_MOBILITY_FORCE_MICROSOFT_ABI
+#ifdef MILE_MOBILITY_FORCE_MICROSOFT_ABI
 typedef __builtin_ms_va_list MO_VARIABLE_ARGUMENT_LIST;
 #define MO_VARIABLE_ARGUMENT_START(Marker, Parameter) \
     __builtin_ms_va_start(Marker, Parameter)
