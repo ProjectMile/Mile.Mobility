@@ -48,6 +48,30 @@
 #endif
 #endif /* !MO_NULL */
 
+#ifndef _Mo_In_
+#define _Mo_In_
+#endif /* !_Mo_In_ */
+
+#ifndef _Mo_In_Opt_
+#define _Mo_In_Opt_
+#endif /* !_Mo_In_Opt_ */
+
+#ifndef _Mo_Out_
+#define _Mo_Out_
+#endif /* !_Mo_Out_ */
+
+#ifndef _Mo_Out_Opt_
+#define _Mo_Out_Opt_
+#endif /* !_Mo_Out_Opt_ */
+
+#ifndef _Mo_InOut_
+#define _Mo_InOut_
+#endif /* !_Mo_InOut_ */
+
+#ifndef _Mo_InOut_Opt_
+#define _Mo_InOut_Opt_
+#endif /* !_Mo_InOut_Opt_ */
+
 #ifndef CONST
 #define CONST const
 #endif // !CONST

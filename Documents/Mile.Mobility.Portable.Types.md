@@ -13,6 +13,9 @@
 - MO_VOID
 - MO_EXTERN_C
 - MO_NULL
+- \_Mo\_In\_, \_Mo\_In\_Opt\_
+- \_Mo\_Out\_, \_Mo\_Out\_Opt\_
+- \_Mo\_InOut\_, \_Mo\_InOut\_Opt\_
 - CONST
 - VOID
 - EXTERN_C
