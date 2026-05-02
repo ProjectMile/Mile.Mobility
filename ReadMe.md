@@ -9,6 +9,7 @@ Portable parts of the essential infrastructures.
 ## Standardized Definitions
 
 - [Definitions in Mile.Mobility.Portable.Types.h](Documents/Mile.Mobility.Portable.Types.md)
+- [Definitions in Mile.Mobility.Portable.Types.Legacy.h](Documents/Mile.Mobility.Portable.Types.Legacy.md)
 
 ## Documents
 
