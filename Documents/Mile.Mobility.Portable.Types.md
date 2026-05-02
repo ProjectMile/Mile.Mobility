@@ -1,9 +1,11 @@
 ﻿# Definitions in Mile.Mobility.Portable.Types.h
 
 - All types in this header file are C types with the C++ compatibility.
-- Every mentioned type definition is prefixed with "MO_", has a corresponding
-  pointer type definition prefixed with "PMO_".
+- All mentioned type definitions are prefixed with "MO_", each of which may
+  have a corresponding pointer type definition prefixed with "PMO_".
 - All mentioned constant value definitions are prefixed with "MO_".
+- All mentioned Mile.Mobility specific macro definitions are prefixed with
+  "MO_", "\_Mo_" or "MILE\_MOBILITY_".
 
 ### Macros
 

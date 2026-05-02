@@ -11,6 +11,15 @@
 #ifndef MILE_MOBILITY_PORTABLE_TYPES
 #define MILE_MOBILITY_PORTABLE_TYPES
 
+/*
+ * - All types in this header file are C types with the C++ compatibility.
+ * - All mentioned type definitions are prefixed with "MO_", each of which may
+ *   have a corresponding pointer type definition prefixed with "PMO_".
+ * - All mentioned constant value definitions are prefixed with "MO_".
+ * - All mentioned Mile.Mobility specific macro definitions are prefixed with
+ *   "MO_", "_Mo_" or "MILE_MOBILITY_".
+ */
+
 #ifndef CONST
 #define CONST const
 #endif // !CONST
