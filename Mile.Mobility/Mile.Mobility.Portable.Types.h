@@ -20,6 +20,34 @@
  *   "MO_", "_Mo_" or "MILE_MOBILITY_".
  */
 
+#ifndef MO_CONST
+#define MO_CONST const
+#endif /* !MO_CONST */
+
+#ifndef MO_VOID
+#define MO_VOID void
+#endif /* !MO_VOID */
+
+#ifndef MO_EXTERN_C
+#ifdef __cplusplus
+#define MO_EXTERN_C extern "C"
+#else
+#define MO_EXTERN_C extern
+#endif
+#endif /* !MO_EXTERN_C */
+
+#ifndef MO_NULL
+#if (defined(__cplusplus) && __cplusplus >= 201103L) || \
+    (defined(_MSVC_LANG) && _MSVC_LANG >= 201103L) || \
+    (defined(__STDC_VERSION__) && __STDC_VERSION__ >= 202311L)
+#define MO_NULL nullptr
+#elif defined(__cplusplus)
+#define MO_NULL 0
+#else
+#define MO_NULL ((MO_VOID*)0)
+#endif
+#endif /* !MO_NULL */
+
 #ifndef CONST
 #define CONST const
 #endif // !CONST

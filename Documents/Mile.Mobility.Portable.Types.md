@@ -9,6 +9,10 @@
 
 ### Macros
 
+- MO_CONST
+- MO_VOID
+- MO_EXTERN_C
+- MO_NULL
 - CONST
 - VOID
 - EXTERN_C
