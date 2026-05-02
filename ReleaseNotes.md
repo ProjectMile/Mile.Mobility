@@ -1,5 +1,33 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.1.544.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following macros:
+    - MO_CONST
+    - MO_VOID
+    - MO_EXTERN_C
+    - MO_NULL
+    - \_Mo\_In\_, \_Mo\_In\_Opt\_
+    - \_Mo\_Out\_, \_Mo\_Out\_Opt\_
+    - \_Mo\_InOut\_, \_Mo\_InOut\_Opt\_
+  - Fix the definitions of MO_UNREFERENCED_PARAMETER and MO_DECLSPEC_ALIGN.
+  - Fix the comments.
+- Introduce Mile.Mobility.Portable.Types.Legacy.h for legacy C definitions of
+  Mile.Mobility.Portable.Types.h.
+  - Move following macros from Mile.Mobility.Portable.Types.h to this header:
+    - CONST
+    - VOID
+    - EXTERN_C
+    - MILE_MOBILITY_ENABLE_MINIMUM_SAL
+    - \_In\_, \_In\_opt\_
+    - \_Out\_, \_Out\_opt\_
+    - \_Inout\_, \_Inout\_opt\_
+  - Introduce following types:
+    - Windows SDK Workarounds
+      - CHAR, SHORT, LONG, INT
+- Update Mile.Project.Configurations to 1.0.1917.
+
 **Mile.Mobility 1.0.372.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
