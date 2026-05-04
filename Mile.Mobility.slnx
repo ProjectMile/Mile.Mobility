@@ -1,1 +1,8 @@
-<Solution />
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Mile.Mobility.Test/Mile.Mobility.Test.vcxproj" Id="1243b3e4-9e83-4127-98fe-f2a1fe44d59d" />
+</Solution>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Mile.Mobility.Test.Mobility.cpp" />
+    <ClCompile Include="Mile.Mobility.Test.Windows.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Mile.Mobility">
+      <UniqueIdentifier>{63d4f3fd-fb40-41ff-b7d2-3856da16c550}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Portable.Types.h">
+      <Filter>Mile.Mobility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Portable.Types.Legacy.h">
+      <Filter>Mile.Mobility</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
