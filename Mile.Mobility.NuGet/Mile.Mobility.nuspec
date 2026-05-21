@@ -25,6 +25,7 @@
     <file src="..\Mile.Mobility\**\*.*" target="Source\Native" />
 
     <file src="Mile.Mobility.props" target="build\native" />
+    <file src="Mile.Mobility.targets" target="build\native" />
 
     <file src="..\ReadMe.md" target="." />
     <file src="..\License.md" target="." />

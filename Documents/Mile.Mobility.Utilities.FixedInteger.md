@@ -1,0 +1,7 @@
+﻿# Definitions in Mile.Mobility.Utilities.FixedInteger.h
+
+- All functions in this header file are C functions.
+- All functions are prefixed with "MoMileFixedInteger".
+- Only depends on Mile.Mobility.Portable.Types.h.
+
+### Functions

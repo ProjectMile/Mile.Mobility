@@ -24,9 +24,11 @@
     <IncludePath>$(MSBuildThisFileDirectory)..\Mile.Mobility\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\Mile.Mobility\Mile.Mobility.Utilities.FixedInteger.c" />
     <ClCompile Include="Mile.Mobility.Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Utilities.FixedInteger.h" />
     <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Portable.Types.h" />
     <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Portable.Types.Legacy.h" />
   </ItemGroup>

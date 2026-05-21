@@ -2,6 +2,9 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Mile.Mobility.Test.cpp" />
+    <ClCompile Include="..\Mile.Mobility\Mile.Mobility.Utilities.FixedInteger.c">
+      <Filter>Mile.Mobility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mile.Mobility">
@@ -13,6 +16,9 @@
       <Filter>Mile.Mobility</Filter>
     </ClInclude>
     <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Portable.Types.Legacy.h">
+      <Filter>Mile.Mobility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Utilities.FixedInteger.h">
       <Filter>Mile.Mobility</Filter>
     </ClInclude>
   </ItemGroup>

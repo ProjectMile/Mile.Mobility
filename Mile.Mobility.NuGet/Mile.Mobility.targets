@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  PROJECT:    Mouri Internal Library Essentials
+  FILE:       Mile.Mobility.targets
+  PURPOSE:    MSBuild targets file for Mile.Mobility
+
+  LICENSE:    The MIT License
+
+  MAINTAINER: MouriNaruto (Kenji.Mouri@outlook.com)
+-->
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Target Name="MileMobilityBuildNativeSource" BeforeTargets="BeforeClCompile">
+    <ItemGroup>
+      <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Source\Native\Mile.Mobility.Utilities.FixedInteger.c" />
+    </ItemGroup>
+  </Target>
+</Project>
