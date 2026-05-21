@@ -175,4 +175,82 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication16(
     _Mo_In_ MO_UINT16 Left,
     _Mo_In_ MO_UINT16 Right);
 
+/**
+  * @brief Performs checked addition of two integer values with a fixed 32-bit
+  *        width.
+  * @param Result The pointer to the variable that receives the result of
+  *               (Left + Right). Result must not be null. If the return value
+  *               is MO_FALSE, the value pointed to by Result is not modified.
+  * @param Signed Indicates whether the fixed 32-bit integer values are signed
+  *               (MO_TRUE) or unsigned (MO_FALSE). If MO_FALSE, the valid range
+  *               is 0 to (2 ^ 32) - 1. If MO_TRUE, Left and Right are
+  *               interpreted as signed integer values represented as 32-bit
+  *               unsigned integer values; a negative value -X is represented as
+  *               the 32-bit unsigned integer value (2 ^ 32) - X, and the valid
+  *               range is -(2 ^ 31) to (2 ^ 31) - 1. The result is returned
+  *               using the same representation.
+  * @param Left The first operand.
+  * @param Right The second operand.
+  * @return MO_TRUE if the addition succeeds and the result is representable in
+  *         the range determined by the fixed 32-bit width and Signed. MO_FALSE
+  *         if Result is null or the result is out of range.
+  */
+MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition32(
+    _Mo_Out_ PMO_UINT32 Result,
+    _Mo_In_ MO_BOOL Signed,
+    _Mo_In_ MO_UINT32 Left,
+    _Mo_In_ MO_UINT32 Right);
+
+/**
+  * @brief Performs checked subtraction of two integer values with a fixed
+  *        32-bit width.
+  * @param Result The pointer to the variable that receives the result of
+  *               (Left - Right). Result must not be null. If the return value
+  *               is MO_FALSE, the value pointed to by Result is not modified.
+  * @param Signed Indicates whether the fixed 32-bit integer values are signed
+  *               (MO_TRUE) or unsigned (MO_FALSE). If MO_FALSE, the valid range
+  *               is 0 to (2 ^ 32) - 1. If MO_TRUE, Left and Right are
+  *               interpreted as signed integer values represented as 32-bit
+  *               unsigned integer values; a negative value -X is represented as
+  *               the 32-bit unsigned integer value (2 ^ 32) - X, and the valid
+  *               range is -(2 ^ 31) to (2 ^ 31) - 1. The result is returned
+  *               using the same representation.
+  * @param Left The first operand.
+  * @param Right The second operand.
+  * @return MO_TRUE if the subtraction succeeds and the result is representable
+  *         in the range determined by the fixed 32-bit width and Signed.
+  *         MO_FALSE if Result is null or the result is out of range.
+  */
+MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction32(
+    _Mo_Out_ PMO_UINT32 Result,
+    _Mo_In_ MO_BOOL Signed,
+    _Mo_In_ MO_UINT32 Left,
+    _Mo_In_ MO_UINT32 Right);
+
+/**
+  * @brief Performs checked multiplication of two integer values with a fixed
+  *        32-bit width.
+  * @param Result The pointer to the variable that receives the result of
+  *               (Left * Right). Result must not be null. If the return value
+  *               is MO_FALSE, the value pointed to by Result is not modified.
+  * @param Signed Indicates whether the fixed 32-bit integer values are signed
+  *               (MO_TRUE) or unsigned (MO_FALSE). If MO_FALSE, the valid range
+  *               is 0 to (2 ^ 32) - 1. If MO_TRUE, Left and Right are
+  *               interpreted as signed integer values represented as 32-bit
+  *               unsigned integer values; a negative value -X is represented as
+  *               the 32-bit unsigned integer value (2 ^ 32) - X, and the valid
+  *               range is -(2 ^ 31) to (2 ^ 31) - 1. The result is returned
+  *               using the same representation.
+  * @param Left The first operand.
+  * @param Right The second operand.
+  * @return MO_TRUE if the multiplication succeeds and the result is
+  *         representable in the range determined by the fixed 32-bit width and
+  *         Signed. MO_FALSE if Result is null or the result is out of range.
+  */
+MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication32(
+    _Mo_Out_ PMO_UINT32 Result,
+    _Mo_In_ MO_BOOL Signed,
+    _Mo_In_ MO_UINT32 Left,
+    _Mo_In_ MO_UINT32 Right);
+
 #endif // !MILE_MOBILITY_UTILITIES_FIXEDINTEGER

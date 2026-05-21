@@ -12,3 +12,6 @@
 - MoMileFixedIntegerCheckedAddition16
 - MoMileFixedIntegerCheckedSubtraction16
 - MoMileFixedIntegerCheckedMultiplication16
+- MoMileFixedIntegerCheckedAddition32
+- MoMileFixedIntegerCheckedSubtraction32
+- MoMileFixedIntegerCheckedMultiplication32

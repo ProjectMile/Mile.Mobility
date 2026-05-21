@@ -105,7 +105,7 @@ namespace
         MO_UINT8 const S8Minimum =
             static_cast<MO_UINT8>(static_cast<MO_UINT8>(1) << 7);
 
-        Check(
+        ::Check(
             MO_FALSE == ::MoMileFixedIntegerCheckedAddition8(
                 nullptr,
                 MO_FALSE,
@@ -364,7 +364,7 @@ namespace
         MO_UINT8 const S8Minimum =
             static_cast<MO_UINT8>(static_cast<MO_UINT8>(1) << 7);
 
-        Check(
+        ::Check(
             MO_FALSE == ::MoMileFixedIntegerCheckedSubtraction8(
                 nullptr,
                 MO_FALSE,
@@ -623,7 +623,7 @@ namespace
         MO_UINT8 const S8Minimum =
             static_cast<MO_UINT8>(static_cast<MO_UINT8>(1) << 7);
 
-        Check(
+        ::Check(
             MO_FALSE == ::MoMileFixedIntegerCheckedMultiplication8(
                 nullptr,
                 MO_FALSE,
@@ -906,7 +906,7 @@ namespace
         MO_UINT16 const S16Minimum =
             static_cast<MO_UINT16>(static_cast<MO_UINT16>(1) << 15);
 
-        Check(
+        ::Check(
             MO_FALSE == ::MoMileFixedIntegerCheckedAddition16(
                 nullptr,
                 MO_FALSE,
@@ -1165,7 +1165,7 @@ namespace
         MO_UINT16 const S16Minimum =
             static_cast<MO_UINT16>(static_cast<MO_UINT16>(1) << 15);
 
-        Check(
+        ::Check(
             MO_FALSE == ::MoMileFixedIntegerCheckedSubtraction16(
                 nullptr,
                 MO_FALSE,
@@ -1424,7 +1424,7 @@ namespace
         MO_UINT16 const S16Minimum =
             static_cast<MO_UINT16>(static_cast<MO_UINT16>(1) << 15);
 
-        Check(
+        ::Check(
             MO_FALSE == ::MoMileFixedIntegerCheckedMultiplication16(
                 nullptr,
                 MO_FALSE,
@@ -1650,6 +1650,807 @@ namespace
 
         std::printf("MoMileFixedIntegerCheckedMultiplication16Test passed.\n");
     }
+
+    void MoMileFixedIntegerCheckedAddition32Test()
+    {
+        auto Test = [](
+            MO_BOOL Signed,
+            MO_UINT32 Left,
+            MO_UINT32 Right,
+            MO_BOOL Expected,
+            MO_UINT32 ExpectedResult,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_UINT32 const Sentinel = static_cast<MO_UINT32>(0xA5A5A5A5u);
+            MO_UINT32 Result = Sentinel;
+
+            MO_BOOL Actual = ::MoMileFixedIntegerCheckedAddition32(
+                &Result,
+                Signed,
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            if (Expected)
+            {
+                ::Check(
+                    ExpectedResult == Result,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Sentinel == Result,
+                    Message,
+                    Location);
+            }
+        };
+
+        auto Negative = [](
+            MO_UINT32 Magnitude) -> MO_UINT32
+        {
+            return static_cast<MO_UINT32>(0) - Magnitude;
+        };
+
+        MO_UINT32 const U32Maximum = static_cast<MO_UINT32>(
+            static_cast<MO_UINT32>(0) - static_cast<MO_UINT32>(1));
+
+        MO_UINT32 const S32Maximum =
+            (static_cast<MO_UINT32>(1) << 31) - 1;
+
+        MO_UINT32 const S32Minimum =
+            static_cast<MO_UINT32>(1) << 31;
+
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedAddition32(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "null Result is invalid");
+
+        Test(
+            MO_FALSE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "unsigned 32-bit accepts 0 + 0");
+
+        Test(
+            MO_FALSE,
+            1,
+            2,
+            MO_TRUE,
+            3,
+            "unsigned 32-bit accepts 1 + 2");
+
+        Test(
+            MO_FALSE,
+            U32Maximum - 1,
+            1,
+            MO_TRUE,
+            U32Maximum,
+            "unsigned 32-bit accepts maximum - 1 + 1");
+
+        Test(
+            MO_FALSE,
+            U32Maximum,
+            0,
+            MO_TRUE,
+            U32Maximum,
+            "unsigned 32-bit accepts maximum + 0");
+
+        Test(
+            MO_FALSE,
+            U32Maximum,
+            1,
+            MO_FALSE,
+            0,
+            "unsigned 32-bit rejects maximum + 1");
+
+        Test(
+            MO_FALSE,
+            static_cast<MO_UINT32>(1) << 31,
+            static_cast<MO_UINT32>(1) << 31,
+            MO_FALSE,
+            0,
+            "unsigned 32-bit rejects high-bit + high-bit");
+
+        Test(
+            MO_FALSE,
+            4000000000u,
+            294967295u,
+            MO_TRUE,
+            U32Maximum,
+            "unsigned 32-bit accepts 4000000000 + 294967295");
+
+        Test(
+            MO_FALSE,
+            4000000000u,
+            294967296u,
+            MO_FALSE,
+            0,
+            "unsigned 32-bit rejects 4000000000 + 294967296");
+
+        Test(
+            MO_TRUE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "signed 32-bit accepts 0 + 0");
+
+        Test(
+            MO_TRUE,
+            1,
+            1,
+            MO_TRUE,
+            2,
+            "signed 32-bit accepts 1 + 1");
+
+        Test(
+            MO_TRUE,
+            S32Maximum,
+            0,
+            MO_TRUE,
+            S32Maximum,
+            "signed 32-bit accepts maximum + 0");
+
+        Test(
+            MO_TRUE,
+            S32Maximum - 1,
+            1,
+            MO_TRUE,
+            S32Maximum,
+            "signed 32-bit accepts maximum - 1 + 1");
+
+        Test(
+            MO_TRUE,
+            S32Maximum,
+            1,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects maximum + 1");
+
+        Test(
+            MO_TRUE,
+            static_cast<MO_UINT32>(1) << 30,
+            (static_cast<MO_UINT32>(1) << 30) - 1,
+            MO_TRUE,
+            S32Maximum,
+            "signed 32-bit accepts 2^30 + (2^30 - 1)");
+
+        Test(
+            MO_TRUE,
+            static_cast<MO_UINT32>(1) << 30,
+            static_cast<MO_UINT32>(1) << 30,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects 2^30 + 2^30");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            1,
+            MO_TRUE,
+            0,
+            "signed 32-bit accepts -1 + 1");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            Negative(1),
+            MO_TRUE,
+            Negative(2),
+            "signed 32-bit accepts -1 + -1");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            0,
+            MO_TRUE,
+            S32Minimum,
+            "signed 32-bit accepts minimum + 0");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            1,
+            MO_TRUE,
+            Negative(2147483647u),
+            "signed 32-bit accepts minimum + 1");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            Negative(1),
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects minimum + -1");
+
+        Test(
+            MO_TRUE,
+            Negative(2147483647u),
+            Negative(1),
+            MO_TRUE,
+            S32Minimum,
+            "signed 32-bit accepts -2147483647 + -1");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            S32Minimum,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects minimum + minimum");
+
+        Test(
+            MO_TRUE,
+            S32Maximum,
+            Negative(1),
+            MO_TRUE,
+            S32Maximum - 1,
+            "signed 32-bit accepts maximum + -1");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            S32Maximum,
+            MO_TRUE,
+            Negative(1),
+            "signed 32-bit accepts minimum + maximum");
+
+        std::printf("MoMileFixedIntegerCheckedAddition32Test passed.\n");
+    }
+
+    void MoMileFixedIntegerCheckedSubtraction32Test()
+    {
+        auto Test = [](
+            MO_BOOL Signed,
+            MO_UINT32 Left,
+            MO_UINT32 Right,
+            MO_BOOL Expected,
+            MO_UINT32 ExpectedResult,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_UINT32 const Sentinel = static_cast<MO_UINT32>(0xA5A5A5A5u);
+            MO_UINT32 Result = Sentinel;
+
+            MO_BOOL Actual = ::MoMileFixedIntegerCheckedSubtraction32(
+                &Result,
+                Signed,
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            if (Expected)
+            {
+                ::Check(
+                    ExpectedResult == Result,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Sentinel == Result,
+                    Message,
+                    Location);
+            }
+        };
+
+        auto Negative = [](
+            MO_UINT32 Magnitude) -> MO_UINT32
+        {
+            return static_cast<MO_UINT32>(0) - Magnitude;
+        };
+
+        MO_UINT32 const U32Maximum = static_cast<MO_UINT32>(
+            static_cast<MO_UINT32>(0) - static_cast<MO_UINT32>(1));
+
+        MO_UINT32 const S32Maximum =
+            (static_cast<MO_UINT32>(1) << 31) - 1;
+
+        MO_UINT32 const S32Minimum =
+            static_cast<MO_UINT32>(1) << 31;
+
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedSubtraction32(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "null Result is invalid");
+
+        Test(
+            MO_FALSE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "unsigned 32-bit accepts 0 - 0");
+
+        Test(
+            MO_FALSE,
+            3,
+            2,
+            MO_TRUE,
+            1,
+            "unsigned 32-bit accepts 3 - 2");
+
+        Test(
+            MO_FALSE,
+            U32Maximum,
+            0,
+            MO_TRUE,
+            U32Maximum,
+            "unsigned 32-bit accepts maximum - 0");
+
+        Test(
+            MO_FALSE,
+            U32Maximum,
+            U32Maximum,
+            MO_TRUE,
+            0,
+            "unsigned 32-bit accepts maximum - maximum");
+
+        Test(
+            MO_FALSE,
+            0,
+            1,
+            MO_FALSE,
+            0,
+            "unsigned 32-bit rejects 0 - 1");
+
+        Test(
+            MO_FALSE,
+            1000000000u,
+            1000000001u,
+            MO_FALSE,
+            0,
+            "unsigned 32-bit rejects 1000000000 - 1000000001");
+
+        Test(
+            MO_TRUE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "signed 32-bit accepts 0 - 0");
+
+        Test(
+            MO_TRUE,
+            1,
+            0,
+            MO_TRUE,
+            1,
+            "signed 32-bit accepts 1 - 0");
+
+        Test(
+            MO_TRUE,
+            1,
+            1,
+            MO_TRUE,
+            0,
+            "signed 32-bit accepts 1 - 1");
+
+        Test(
+            MO_TRUE,
+            0,
+            1,
+            MO_TRUE,
+            Negative(1),
+            "signed 32-bit accepts 0 - 1");
+
+        Test(
+            MO_TRUE,
+            S32Maximum,
+            0,
+            MO_TRUE,
+            S32Maximum,
+            "signed 32-bit accepts maximum - 0");
+
+        Test(
+            MO_TRUE,
+            S32Maximum,
+            1,
+            MO_TRUE,
+            S32Maximum - 1,
+            "signed 32-bit accepts maximum - 1");
+
+        Test(
+            MO_TRUE,
+            S32Maximum,
+            Negative(1),
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects maximum - -1");
+
+        Test(
+            MO_TRUE,
+            0,
+            Negative(1),
+            MO_TRUE,
+            1,
+            "signed 32-bit accepts 0 - -1");
+
+        Test(
+            MO_TRUE,
+            2000000000u,
+            Negative(147483647u),
+            MO_TRUE,
+            S32Maximum,
+            "signed 32-bit accepts 2000000000 - -147483647");
+
+        Test(
+            MO_TRUE,
+            2000000000u,
+            Negative(147483648u),
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects 2000000000 - -147483648");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            0,
+            MO_TRUE,
+            S32Minimum,
+            "signed 32-bit accepts minimum - 0");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            Negative(1),
+            MO_TRUE,
+            Negative(2147483647u),
+            "signed 32-bit accepts minimum - -1");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            1,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects minimum - 1");
+
+        Test(
+            MO_TRUE,
+            Negative(2147483647u),
+            1,
+            MO_TRUE,
+            S32Minimum,
+            "signed 32-bit accepts -2147483647 - 1");
+
+        Test(
+            MO_TRUE,
+            Negative(2147483647u),
+            2,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects -2147483647 - 2");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            Negative(1),
+            MO_TRUE,
+            0,
+            "signed 32-bit accepts -1 - -1");
+
+        Test(
+            MO_TRUE,
+            S32Maximum,
+            S32Minimum,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects maximum - minimum");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            S32Maximum,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects minimum - maximum");
+
+        std::printf("MoMileFixedIntegerCheckedSubtraction32Test passed.\n");
+    }
+
+    void MoMileFixedIntegerCheckedMultiplication32Test()
+    {
+        auto Test = [](
+            MO_BOOL Signed,
+            MO_UINT32 Left,
+            MO_UINT32 Right,
+            MO_BOOL Expected,
+            MO_UINT32 ExpectedResult,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_UINT32 const Sentinel = static_cast<MO_UINT32>(0xA5A5A5A5u);
+            MO_UINT32 Result = Sentinel;
+
+            MO_BOOL Actual = ::MoMileFixedIntegerCheckedMultiplication32(
+                &Result,
+                Signed,
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            if (Expected)
+            {
+                ::Check(
+                    ExpectedResult == Result,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Sentinel == Result,
+                    Message,
+                    Location);
+            }
+        };
+
+        auto Negative = [](
+            MO_UINT32 Magnitude) -> MO_UINT32
+        {
+            return static_cast<MO_UINT32>(0) - Magnitude;
+        };
+
+        MO_UINT32 const U32Maximum = static_cast<MO_UINT32>(
+            static_cast<MO_UINT32>(0) - static_cast<MO_UINT32>(1));
+
+        MO_UINT32 const S32Maximum =
+            (static_cast<MO_UINT32>(1) << 31) - 1;
+
+        MO_UINT32 const S32Minimum =
+            static_cast<MO_UINT32>(1) << 31;
+
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedMultiplication32(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "null Result is invalid");
+
+        Test(
+            MO_FALSE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "unsigned 32-bit accepts 0 * 0");
+
+        Test(
+            MO_FALSE,
+            0,
+            U32Maximum,
+            MO_TRUE,
+            0,
+            "unsigned 32-bit accepts 0 * maximum");
+
+        Test(
+            MO_FALSE,
+            1,
+            U32Maximum,
+            MO_TRUE,
+            U32Maximum,
+            "unsigned 32-bit accepts 1 * maximum");
+
+        Test(
+            MO_FALSE,
+            65535u,
+            65537u,
+            MO_TRUE,
+            U32Maximum,
+            "unsigned 32-bit accepts 65535 * 65537");
+
+        Test(
+            MO_FALSE,
+            65536u,
+            65536u,
+            MO_FALSE,
+            0,
+            "unsigned 32-bit rejects 65536 * 65536");
+
+        Test(
+            MO_FALSE,
+            U32Maximum,
+            1,
+            MO_TRUE,
+            U32Maximum,
+            "unsigned 32-bit accepts maximum * 1");
+
+        Test(
+            MO_FALSE,
+            U32Maximum,
+            2,
+            MO_FALSE,
+            0,
+            "unsigned 32-bit rejects maximum * 2");
+
+        Test(
+            MO_FALSE,
+            static_cast<MO_UINT32>(1) << 31,
+            2,
+            MO_FALSE,
+            0,
+            "unsigned 32-bit rejects high-bit * 2");
+
+        Test(
+            MO_TRUE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "signed 32-bit accepts 0 * 0");
+
+        Test(
+            MO_TRUE,
+            0,
+            S32Minimum,
+            MO_TRUE,
+            0,
+            "signed 32-bit accepts 0 * minimum");
+
+        Test(
+            MO_TRUE,
+            1,
+            S32Maximum,
+            MO_TRUE,
+            S32Maximum,
+            "signed 32-bit accepts 1 * maximum");
+
+        Test(
+            MO_TRUE,
+            S32Maximum,
+            1,
+            MO_TRUE,
+            S32Maximum,
+            "signed 32-bit accepts maximum * 1");
+
+        Test(
+            MO_TRUE,
+            S32Maximum,
+            2,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects maximum * 2");
+
+        Test(
+            MO_TRUE,
+            46340u,
+            46340u,
+            MO_TRUE,
+            2147395600u,
+            "signed 32-bit accepts 46340 * 46340");
+
+        Test(
+            MO_TRUE,
+            46341u,
+            46341u,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects 46341 * 46341");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            1,
+            MO_TRUE,
+            Negative(1),
+            "signed 32-bit accepts -1 * 1");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            Negative(1),
+            MO_TRUE,
+            1,
+            "signed 32-bit accepts -1 * -1");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            1,
+            MO_TRUE,
+            S32Minimum,
+            "signed 32-bit accepts minimum * 1");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            0,
+            MO_TRUE,
+            0,
+            "signed 32-bit accepts minimum * 0");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            Negative(1),
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects minimum * -1");
+
+        Test(
+            MO_TRUE,
+            Negative(static_cast<MO_UINT32>(1) << 30),
+            2,
+            MO_TRUE,
+            S32Minimum,
+            "signed 32-bit accepts -2^30 * 2");
+
+        Test(
+            MO_TRUE,
+            Negative((static_cast<MO_UINT32>(1) << 30) + 1),
+            2,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects -(2^30 + 1) * 2");
+
+        Test(
+            MO_TRUE,
+            Negative(65536u),
+            Negative(32768u),
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects -65536 * -32768");
+
+        Test(
+            MO_TRUE,
+            Negative(65535u),
+            Negative(32768u),
+            MO_TRUE,
+            2147450880u,
+            "signed 32-bit accepts -65535 * -32768");
+
+        Test(
+            MO_TRUE,
+            Negative(2147483647u),
+            1,
+            MO_TRUE,
+            Negative(2147483647u),
+            "signed 32-bit accepts -2147483647 * 1");
+
+        Test(
+            MO_TRUE,
+            Negative(2147483647u),
+            2,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects -2147483647 * 2");
+
+        Test(
+            MO_TRUE,
+            S32Minimum,
+            S32Minimum,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects minimum * minimum");
+
+        std::printf("MoMileFixedIntegerCheckedMultiplication32Test passed.\n");
+    }
 }
 
 MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
@@ -1663,4 +2464,8 @@ MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
     ::MoMileFixedIntegerCheckedAddition16Test();
     ::MoMileFixedIntegerCheckedSubtraction16Test();
     ::MoMileFixedIntegerCheckedSubtraction16Test();
+
+    ::MoMileFixedIntegerCheckedAddition32Test();
+    ::MoMileFixedIntegerCheckedSubtraction32Test();
+    ::MoMileFixedIntegerCheckedSubtraction32Test();
 }
