@@ -849,6 +849,807 @@ namespace
 
         std::printf("MoMileFixedIntegerCheckedSubtraction8Test passed.\n");
     }
+
+    void MoMileFixedIntegerCheckedAddition16Test()
+    {
+        auto Test = [](
+            MO_BOOL Signed,
+            MO_UINT16 Left,
+            MO_UINT16 Right,
+            MO_BOOL Expected,
+            MO_UINT16 ExpectedResult,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_UINT16 const Sentinel = static_cast<MO_UINT16>(0xA5A5);
+            MO_UINT16 Result = Sentinel;
+
+            MO_BOOL Actual = ::MoMileFixedIntegerCheckedAddition16(
+                &Result,
+                Signed,
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            if (Expected)
+            {
+                ::Check(
+                    ExpectedResult == Result,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Sentinel == Result,
+                    Message,
+                    Location);
+            }
+        };
+
+        auto Negative = [](
+            MO_UINT16 Magnitude) -> MO_UINT16
+        {
+            return static_cast<MO_UINT16>(0) - Magnitude;
+        };
+
+        MO_UINT16 const U16Maximum = static_cast<MO_UINT16>(
+            static_cast<MO_UINT16>(0) - static_cast<MO_UINT16>(1));
+
+        MO_UINT16 const S16Maximum =
+            static_cast<MO_UINT16>((static_cast<MO_UINT16>(1) << 15) - 1);
+
+        MO_UINT16 const S16Minimum =
+            static_cast<MO_UINT16>(static_cast<MO_UINT16>(1) << 15);
+
+        Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedAddition16(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "null Result is invalid");
+
+        Test(
+            MO_FALSE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "unsigned 16-bit accepts 0 + 0");
+
+        Test(
+            MO_FALSE,
+            1,
+            2,
+            MO_TRUE,
+            3,
+            "unsigned 16-bit accepts 1 + 2");
+
+        Test(
+            MO_FALSE,
+            65534,
+            1,
+            MO_TRUE,
+            65535,
+            "unsigned 16-bit accepts 65534 + 1");
+
+        Test(
+            MO_FALSE,
+            U16Maximum,
+            0,
+            MO_TRUE,
+            U16Maximum,
+            "unsigned 16-bit accepts maximum + 0");
+
+        Test(
+            MO_FALSE,
+            U16Maximum,
+            1,
+            MO_FALSE,
+            0,
+            "unsigned 16-bit rejects maximum + 1");
+
+        Test(
+            MO_FALSE,
+            32768,
+            32768,
+            MO_FALSE,
+            0,
+            "unsigned 16-bit rejects 32768 + 32768");
+
+        Test(
+            MO_FALSE,
+            60000,
+            5535,
+            MO_TRUE,
+            65535,
+            "unsigned 16-bit accepts 60000 + 5535");
+
+        Test(
+            MO_FALSE,
+            60000,
+            5536,
+            MO_FALSE,
+            0,
+            "unsigned 16-bit rejects 60000 + 5536");
+
+        Test(
+            MO_TRUE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "signed 16-bit accepts 0 + 0");
+
+        Test(
+            MO_TRUE,
+            1,
+            1,
+            MO_TRUE,
+            2,
+            "signed 16-bit accepts 1 + 1");
+
+        Test(
+            MO_TRUE,
+            S16Maximum,
+            0,
+            MO_TRUE,
+            S16Maximum,
+            "signed 16-bit accepts maximum + 0");
+
+        Test(
+            MO_TRUE,
+            32766,
+            1,
+            MO_TRUE,
+            32767,
+            "signed 16-bit accepts 32766 + 1");
+
+        Test(
+            MO_TRUE,
+            S16Maximum,
+            1,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects maximum + 1");
+
+        Test(
+            MO_TRUE,
+            16384,
+            16383,
+            MO_TRUE,
+            32767,
+            "signed 16-bit accepts 16384 + 16383");
+
+        Test(
+            MO_TRUE,
+            16384,
+            16384,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects 16384 + 16384");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            1,
+            MO_TRUE,
+            0,
+            "signed 16-bit accepts -1 + 1");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            Negative(1),
+            MO_TRUE,
+            Negative(2),
+            "signed 16-bit accepts -1 + -1");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            0,
+            MO_TRUE,
+            S16Minimum,
+            "signed 16-bit accepts minimum + 0");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            1,
+            MO_TRUE,
+            Negative(32767),
+            "signed 16-bit accepts minimum + 1");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            Negative(1),
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects minimum + -1");
+
+        Test(
+            MO_TRUE,
+            Negative(32767),
+            Negative(1),
+            MO_TRUE,
+            S16Minimum,
+            "signed 16-bit accepts -32767 + -1");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            S16Minimum,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects minimum + minimum");
+
+        Test(
+            MO_TRUE,
+            S16Maximum,
+            Negative(1),
+            MO_TRUE,
+            32766,
+            "signed 16-bit accepts maximum + -1");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            S16Maximum,
+            MO_TRUE,
+            Negative(1),
+            "signed 16-bit accepts minimum + maximum");
+
+        std::printf("MoMileFixedIntegerCheckedAddition16Test passed.\n");
+    }
+
+    void MoMileFixedIntegerCheckedSubtraction16Test()
+    {
+        auto Test = [](
+            MO_BOOL Signed,
+            MO_UINT16 Left,
+            MO_UINT16 Right,
+            MO_BOOL Expected,
+            MO_UINT16 ExpectedResult,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_UINT16 const Sentinel = static_cast<MO_UINT16>(0xA5A5);
+            MO_UINT16 Result = Sentinel;
+
+            MO_BOOL Actual = ::MoMileFixedIntegerCheckedSubtraction16(
+                &Result,
+                Signed,
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            if (Expected)
+            {
+                ::Check(
+                    ExpectedResult == Result,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Sentinel == Result,
+                    Message,
+                    Location);
+            }
+        };
+
+        auto Negative = [](
+            MO_UINT16 Magnitude) -> MO_UINT16
+        {
+            return static_cast<MO_UINT16>(0) - Magnitude;
+        };
+
+        MO_UINT16 const U16Maximum = static_cast<MO_UINT16>(
+            static_cast<MO_UINT16>(0) - static_cast<MO_UINT16>(1));
+
+        MO_UINT16 const S16Maximum =
+            static_cast<MO_UINT16>((static_cast<MO_UINT16>(1) << 15) - 1);
+
+        MO_UINT16 const S16Minimum =
+            static_cast<MO_UINT16>(static_cast<MO_UINT16>(1) << 15);
+
+        Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedSubtraction16(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "null Result is invalid");
+
+        Test(
+            MO_FALSE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "unsigned 16-bit accepts 0 - 0");
+
+        Test(
+            MO_FALSE,
+            3,
+            2,
+            MO_TRUE,
+            1,
+            "unsigned 16-bit accepts 3 - 2");
+
+        Test(
+            MO_FALSE,
+            U16Maximum,
+            0,
+            MO_TRUE,
+            U16Maximum,
+            "unsigned 16-bit accepts maximum - 0");
+
+        Test(
+            MO_FALSE,
+            U16Maximum,
+            U16Maximum,
+            MO_TRUE,
+            0,
+            "unsigned 16-bit accepts maximum - maximum");
+
+        Test(
+            MO_FALSE,
+            0,
+            1,
+            MO_FALSE,
+            0,
+            "unsigned 16-bit rejects 0 - 1");
+
+        Test(
+            MO_FALSE,
+            10000,
+            10001,
+            MO_FALSE,
+            0,
+            "unsigned 16-bit rejects 10000 - 10001");
+
+        Test(
+            MO_TRUE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "signed 16-bit accepts 0 - 0");
+
+        Test(
+            MO_TRUE,
+            1,
+            0,
+            MO_TRUE,
+            1,
+            "signed 16-bit accepts 1 - 0");
+
+        Test(
+            MO_TRUE,
+            1,
+            1,
+            MO_TRUE,
+            0,
+            "signed 16-bit accepts 1 - 1");
+
+        Test(
+            MO_TRUE,
+            0,
+            1,
+            MO_TRUE,
+            Negative(1),
+            "signed 16-bit accepts 0 - 1");
+
+        Test(
+            MO_TRUE,
+            S16Maximum,
+            0,
+            MO_TRUE,
+            S16Maximum,
+            "signed 16-bit accepts maximum - 0");
+
+        Test(
+            MO_TRUE,
+            S16Maximum,
+            1,
+            MO_TRUE,
+            32766,
+            "signed 16-bit accepts maximum - 1");
+
+        Test(
+            MO_TRUE,
+            S16Maximum,
+            Negative(1),
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects maximum - -1");
+
+        Test(
+            MO_TRUE,
+            0,
+            Negative(1),
+            MO_TRUE,
+            1,
+            "signed 16-bit accepts 0 - -1");
+
+        Test(
+            MO_TRUE,
+            30000,
+            Negative(2767),
+            MO_TRUE,
+            32767,
+            "signed 16-bit accepts 30000 - -2767");
+
+        Test(
+            MO_TRUE,
+            30000,
+            Negative(2768),
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects 30000 - -2768");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            0,
+            MO_TRUE,
+            S16Minimum,
+            "signed 16-bit accepts minimum - 0");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            Negative(1),
+            MO_TRUE,
+            Negative(32767),
+            "signed 16-bit accepts minimum - -1");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            1,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects minimum - 1");
+
+        Test(
+            MO_TRUE,
+            Negative(32767),
+            1,
+            MO_TRUE,
+            S16Minimum,
+            "signed 16-bit accepts -32767 - 1");
+
+        Test(
+            MO_TRUE,
+            Negative(32767),
+            2,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects -32767 - 2");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            Negative(1),
+            MO_TRUE,
+            0,
+            "signed 16-bit accepts -1 - -1");
+
+        Test(
+            MO_TRUE,
+            S16Maximum,
+            S16Minimum,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects maximum - minimum");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            S16Maximum,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects minimum - maximum");
+
+        std::printf("MoMileFixedIntegerCheckedSubtraction16Test passed.\n");
+    }
+
+    void MoMileFixedIntegerCheckedMultiplication16Test()
+    {
+        auto Test = [](
+            MO_BOOL Signed,
+            MO_UINT16 Left,
+            MO_UINT16 Right,
+            MO_BOOL Expected,
+            MO_UINT16 ExpectedResult,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_UINT16 const Sentinel = static_cast<MO_UINT16>(0xA5A5);
+            MO_UINT16 Result = Sentinel;
+
+            MO_BOOL Actual = ::MoMileFixedIntegerCheckedMultiplication16(
+                &Result,
+                Signed,
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            if (Expected)
+            {
+                ::Check(
+                    ExpectedResult == Result,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Sentinel == Result,
+                    Message,
+                    Location);
+            }
+        };
+
+        auto Negative = [](
+            MO_UINT16 Magnitude) -> MO_UINT16
+        {
+            return static_cast<MO_UINT16>(0) - Magnitude;
+        };
+
+        MO_UINT16 const U16Maximum = static_cast<MO_UINT16>(
+            static_cast<MO_UINT16>(0) - static_cast<MO_UINT16>(1));
+
+        MO_UINT16 const S16Maximum =
+            static_cast<MO_UINT16>((static_cast<MO_UINT16>(1) << 15) - 1);
+
+        MO_UINT16 const S16Minimum =
+            static_cast<MO_UINT16>(static_cast<MO_UINT16>(1) << 15);
+
+        Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedMultiplication16(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "null Result is invalid");
+
+        Test(
+            MO_FALSE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "unsigned 16-bit accepts 0 * 0");
+
+        Test(
+            MO_FALSE,
+            0,
+            U16Maximum,
+            MO_TRUE,
+            0,
+            "unsigned 16-bit accepts 0 * maximum");
+
+        Test(
+            MO_FALSE,
+            1,
+            U16Maximum,
+            MO_TRUE,
+            U16Maximum,
+            "unsigned 16-bit accepts 1 * maximum");
+
+        Test(
+            MO_FALSE,
+            255,
+            257,
+            MO_TRUE,
+            65535,
+            "unsigned 16-bit accepts 255 * 257");
+
+        Test(
+            MO_FALSE,
+            256,
+            256,
+            MO_FALSE,
+            0,
+            "unsigned 16-bit rejects 256 * 256");
+
+        Test(
+            MO_FALSE,
+            U16Maximum,
+            1,
+            MO_TRUE,
+            U16Maximum,
+            "unsigned 16-bit accepts maximum * 1");
+
+        Test(
+            MO_FALSE,
+            U16Maximum,
+            2,
+            MO_FALSE,
+            0,
+            "unsigned 16-bit rejects maximum * 2");
+
+        Test(
+            MO_FALSE,
+            32768,
+            2,
+            MO_FALSE,
+            0,
+            "unsigned 16-bit rejects 32768 * 2");
+
+        Test(
+            MO_TRUE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "signed 16-bit accepts 0 * 0");
+
+        Test(
+            MO_TRUE,
+            0,
+            S16Minimum,
+            MO_TRUE,
+            0,
+            "signed 16-bit accepts 0 * minimum");
+
+        Test(
+            MO_TRUE,
+            1,
+            S16Maximum,
+            MO_TRUE,
+            S16Maximum,
+            "signed 16-bit accepts 1 * maximum");
+
+        Test(
+            MO_TRUE,
+            S16Maximum,
+            1,
+            MO_TRUE,
+            S16Maximum,
+            "signed 16-bit accepts maximum * 1");
+
+        Test(
+            MO_TRUE,
+            S16Maximum,
+            2,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects maximum * 2");
+
+        Test(
+            MO_TRUE,
+            181,
+            181,
+            MO_TRUE,
+            32761,
+            "signed 16-bit accepts 181 * 181");
+
+        Test(
+            MO_TRUE,
+            182,
+            181,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects 182 * 181");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            1,
+            MO_TRUE,
+            Negative(1),
+            "signed 16-bit accepts -1 * 1");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            Negative(1),
+            MO_TRUE,
+            1,
+            "signed 16-bit accepts -1 * -1");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            1,
+            MO_TRUE,
+            S16Minimum,
+            "signed 16-bit accepts minimum * 1");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            0,
+            MO_TRUE,
+            0,
+            "signed 16-bit accepts minimum * 0");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            Negative(1),
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects minimum * -1");
+
+        Test(
+            MO_TRUE,
+            Negative(16384),
+            2,
+            MO_TRUE,
+            S16Minimum,
+            "signed 16-bit accepts -16384 * 2");
+
+        Test(
+            MO_TRUE,
+            Negative(16385),
+            2,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects -16385 * 2");
+
+        Test(
+            MO_TRUE,
+            Negative(256),
+            Negative(128),
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects -256 * -128");
+
+        Test(
+            MO_TRUE,
+            Negative(255),
+            Negative(128),
+            MO_TRUE,
+            32640,
+            "signed 16-bit accepts -255 * -128");
+
+        Test(
+            MO_TRUE,
+            Negative(32767),
+            1,
+            MO_TRUE,
+            Negative(32767),
+            "signed 16-bit accepts -32767 * 1");
+
+        Test(
+            MO_TRUE,
+            Negative(32767),
+            2,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects -32767 * 2");
+
+        Test(
+            MO_TRUE,
+            S16Minimum,
+            S16Minimum,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects minimum * minimum");
+
+        std::printf("MoMileFixedIntegerCheckedMultiplication16Test passed.\n");
+    }
 }
 
 MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
@@ -858,4 +1659,8 @@ MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
     ::MoMileFixedIntegerCheckedAddition8Test();
     ::MoMileFixedIntegerCheckedSubtraction8Test();
     ::MoMileFixedIntegerCheckedSubtraction8Test();
+
+    ::MoMileFixedIntegerCheckedAddition16Test();
+    ::MoMileFixedIntegerCheckedSubtraction16Test();
+    ::MoMileFixedIntegerCheckedSubtraction16Test();
 }

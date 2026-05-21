@@ -9,3 +9,6 @@
 - MoMileFixedIntegerCheckedAddition8
 - MoMileFixedIntegerCheckedSubtraction8
 - MoMileFixedIntegerCheckedMultiplication8
+- MoMileFixedIntegerCheckedAddition16
+- MoMileFixedIntegerCheckedSubtraction16
+- MoMileFixedIntegerCheckedMultiplication16
