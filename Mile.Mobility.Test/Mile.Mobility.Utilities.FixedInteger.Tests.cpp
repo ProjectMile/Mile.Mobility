@@ -2451,6 +2451,798 @@ namespace
 
         std::printf("MoMileFixedIntegerCheckedMultiplication32Test passed.\n");
     }
+
+    void MoMileFixedIntegerCheckedAddition64Test()
+    {
+        auto Test = [](
+            MO_BOOL Signed,
+            MO_UINT64 Left,
+            MO_UINT64 Right,
+            MO_BOOL Expected,
+            MO_UINT64 ExpectedResult,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_UINT64 const Sentinel =
+                static_cast<MO_UINT64>(0xA5A5A5A5A5A5A5A5ull);
+
+            MO_UINT64 Result = Sentinel;
+
+            MO_BOOL Actual = ::MoMileFixedIntegerCheckedAddition64(
+                &Result,
+                Signed,
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            if (Expected)
+            {
+                ::Check(
+                    ExpectedResult == Result,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Sentinel == Result,
+                    Message,
+                    Location);
+            }
+        };
+
+        auto Negative = [](
+            MO_UINT64 Magnitude) -> MO_UINT64
+        {
+            return static_cast<MO_UINT64>(0) - Magnitude;
+        };
+
+        MO_UINT64 const U64Maximum = static_cast<MO_UINT64>(
+            static_cast<MO_UINT64>(0) - static_cast<MO_UINT64>(1));
+
+        MO_UINT64 const S64Maximum =
+            (static_cast<MO_UINT64>(1) << 63) - 1;
+
+        MO_UINT64 const S64Minimum =
+            static_cast<MO_UINT64>(1) << 63;
+
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedAddition64(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "null Result is invalid");
+
+        Test(
+            MO_FALSE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "unsigned 64-bit accepts 0 + 0");
+
+        Test(
+            MO_FALSE,
+            1,
+            2,
+            MO_TRUE,
+            3,
+            "unsigned 64-bit accepts 1 + 2");
+
+        Test(
+            MO_FALSE,
+            U64Maximum - 1,
+            1,
+            MO_TRUE,
+            U64Maximum,
+            "unsigned 64-bit accepts maximum - 1 + 1");
+
+        Test(
+            MO_FALSE,
+            U64Maximum,
+            0,
+            MO_TRUE,
+            U64Maximum,
+            "unsigned 64-bit accepts maximum + 0");
+
+        Test(
+            MO_FALSE,
+            U64Maximum,
+            1,
+            MO_FALSE,
+            0,
+            "unsigned 64-bit rejects maximum + 1");
+
+        Test(
+            MO_FALSE,
+            static_cast<MO_UINT64>(1) << 63,
+            static_cast<MO_UINT64>(1) << 63,
+            MO_FALSE,
+            0,
+            "unsigned 64-bit rejects high-bit + high-bit");
+
+        Test(
+            MO_TRUE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "signed 64-bit accepts 0 + 0");
+
+        Test(
+            MO_TRUE,
+            1,
+            1,
+            MO_TRUE,
+            2,
+            "signed 64-bit accepts 1 + 1");
+
+        Test(
+            MO_TRUE,
+            S64Maximum,
+            0,
+            MO_TRUE,
+            S64Maximum,
+            "signed 64-bit accepts maximum + 0");
+
+        Test(
+            MO_TRUE,
+            S64Maximum - 1,
+            1,
+            MO_TRUE,
+            S64Maximum,
+            "signed 64-bit accepts maximum - 1 + 1");
+
+        Test(
+            MO_TRUE,
+            S64Maximum,
+            1,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects maximum + 1");
+
+        Test(
+            MO_TRUE,
+            static_cast<MO_UINT64>(1) << 62,
+            (static_cast<MO_UINT64>(1) << 62) - 1,
+            MO_TRUE,
+            S64Maximum,
+            "signed 64-bit accepts 2^62 + (2^62 - 1)");
+
+        Test(
+            MO_TRUE,
+            static_cast<MO_UINT64>(1) << 62,
+            static_cast<MO_UINT64>(1) << 62,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects 2^62 + 2^62");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            1,
+            MO_TRUE,
+            0,
+            "signed 64-bit accepts -1 + 1");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            Negative(1),
+            MO_TRUE,
+            Negative(2),
+            "signed 64-bit accepts -1 + -1");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            0,
+            MO_TRUE,
+            S64Minimum,
+            "signed 64-bit accepts minimum + 0");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            1,
+            MO_TRUE,
+            Negative(9223372036854775807ull),
+            "signed 64-bit accepts minimum + 1");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            Negative(1),
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects minimum + -1");
+
+        Test(
+            MO_TRUE,
+            Negative(9223372036854775807ull),
+            Negative(1),
+            MO_TRUE,
+            S64Minimum,
+            "signed 64-bit accepts -9223372036854775807 + -1");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            S64Minimum,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects minimum + minimum");
+
+        Test(
+            MO_TRUE,
+            S64Maximum,
+            Negative(1),
+            MO_TRUE,
+            S64Maximum - 1,
+            "signed 64-bit accepts maximum + -1");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            S64Maximum,
+            MO_TRUE,
+            Negative(1),
+            "signed 64-bit accepts minimum + maximum");
+
+        std::printf("MoMileFixedIntegerCheckedAddition64Test passed.\n");
+    }
+
+    void MoMileFixedIntegerCheckedSubtraction64Test()
+    {
+        auto Test = [](
+            MO_BOOL Signed,
+            MO_UINT64 Left,
+            MO_UINT64 Right,
+            MO_BOOL Expected,
+            MO_UINT64 ExpectedResult,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_UINT64 const Sentinel =
+                static_cast<MO_UINT64>(0xA5A5A5A5A5A5A5A5ull);
+
+            MO_UINT64 Result = Sentinel;
+
+            MO_BOOL Actual = ::MoMileFixedIntegerCheckedSubtraction64(
+                &Result,
+                Signed,
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            if (Expected)
+            {
+                ::Check(
+                    ExpectedResult == Result,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Sentinel == Result,
+                    Message,
+                    Location);
+            }
+        };
+
+        auto Negative = [](
+            MO_UINT64 Magnitude) -> MO_UINT64
+        {
+            return static_cast<MO_UINT64>(0) - Magnitude;
+        };
+
+        MO_UINT64 const U64Maximum = static_cast<MO_UINT64>(
+            static_cast<MO_UINT64>(0) - static_cast<MO_UINT64>(1));
+
+        MO_UINT64 const S64Maximum =
+            (static_cast<MO_UINT64>(1) << 63) - 1;
+
+        MO_UINT64 const S64Minimum =
+            static_cast<MO_UINT64>(1) << 63;
+
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedSubtraction64(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "null Result is invalid");
+
+        Test(
+            MO_FALSE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "unsigned 64-bit accepts 0 - 0");
+
+        Test(
+            MO_FALSE,
+            3,
+            2,
+            MO_TRUE,
+            1,
+            "unsigned 64-bit accepts 3 - 2");
+
+        Test(
+            MO_FALSE,
+            U64Maximum,
+            0,
+            MO_TRUE,
+            U64Maximum,
+            "unsigned 64-bit accepts maximum - 0");
+
+        Test(
+            MO_FALSE,
+            U64Maximum,
+            U64Maximum,
+            MO_TRUE,
+            0,
+            "unsigned 64-bit accepts maximum - maximum");
+
+        Test(
+            MO_FALSE,
+            0,
+            1,
+            MO_FALSE,
+            0,
+            "unsigned 64-bit rejects 0 - 1");
+
+        Test(
+            MO_FALSE,
+            1000000000000ull,
+            1000000000001ull,
+            MO_FALSE,
+            0,
+            "unsigned 64-bit rejects 1000000000000 - 1000000000001");
+
+        Test(
+            MO_TRUE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "signed 64-bit accepts 0 - 0");
+
+        Test(
+            MO_TRUE,
+            1,
+            0,
+            MO_TRUE,
+            1,
+            "signed 64-bit accepts 1 - 0");
+
+        Test(
+            MO_TRUE,
+            1,
+            1,
+            MO_TRUE,
+            0,
+            "signed 64-bit accepts 1 - 1");
+
+        Test(
+            MO_TRUE,
+            0,
+            1,
+            MO_TRUE,
+            Negative(1),
+            "signed 64-bit accepts 0 - 1");
+
+        Test(
+            MO_TRUE,
+            S64Maximum,
+            0,
+            MO_TRUE,
+            S64Maximum,
+            "signed 64-bit accepts maximum - 0");
+
+        Test(
+            MO_TRUE,
+            S64Maximum,
+            1,
+            MO_TRUE,
+            S64Maximum - 1,
+            "signed 64-bit accepts maximum - 1");
+
+        Test(
+            MO_TRUE,
+            S64Maximum,
+            Negative(1),
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects maximum - -1");
+
+        Test(
+            MO_TRUE,
+            0,
+            Negative(1),
+            MO_TRUE,
+            1,
+            "signed 64-bit accepts 0 - -1");
+
+        Test(
+            MO_TRUE,
+            9000000000000000000ull,
+            Negative(223372036854775807ull),
+            MO_TRUE,
+            S64Maximum,
+            "signed 64-bit accepts 9000000000000000000 - -223372036854775807");
+
+        Test(
+            MO_TRUE,
+            9000000000000000000ull,
+            Negative(223372036854775808ull),
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects 9000000000000000000 - -223372036854775808");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            0,
+            MO_TRUE,
+            S64Minimum,
+            "signed 64-bit accepts minimum - 0");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            Negative(1),
+            MO_TRUE,
+            Negative(9223372036854775807ull),
+            "signed 64-bit accepts minimum - -1");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            1,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects minimum - 1");
+
+        Test(
+            MO_TRUE,
+            Negative(9223372036854775807ull),
+            1,
+            MO_TRUE,
+            S64Minimum,
+            "signed 64-bit accepts -9223372036854775807 - 1");
+
+        Test(
+            MO_TRUE,
+            Negative(9223372036854775807ull),
+            2,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects -9223372036854775807 - 2");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            Negative(1),
+            MO_TRUE,
+            0,
+            "signed 64-bit accepts -1 - -1");
+
+        Test(
+            MO_TRUE,
+            S64Maximum,
+            S64Minimum,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects maximum - minimum");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            S64Maximum,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects minimum - maximum");
+
+        std::printf("MoMileFixedIntegerCheckedSubtraction64Test passed.\n");
+    }
+
+    void MoMileFixedIntegerCheckedMultiplication64Test()
+    {
+        auto Test = [](
+            MO_BOOL Signed,
+            MO_UINT64 Left,
+            MO_UINT64 Right,
+            MO_BOOL Expected,
+            MO_UINT64 ExpectedResult,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_UINT64 const Sentinel =
+                static_cast<MO_UINT64>(0xA5A5A5A5A5A5A5A5ull);
+
+            MO_UINT64 Result = Sentinel;
+
+            MO_BOOL Actual = ::MoMileFixedIntegerCheckedMultiplication64(
+                &Result,
+                Signed,
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            if (Expected)
+            {
+                ::Check(
+                    ExpectedResult == Result,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Sentinel == Result,
+                    Message,
+                    Location);
+            }
+        };
+
+        auto Negative = [](
+            MO_UINT64 Magnitude) -> MO_UINT64
+        {
+            return static_cast<MO_UINT64>(0) - Magnitude;
+        };
+
+        MO_UINT64 const U64Maximum = static_cast<MO_UINT64>(
+            static_cast<MO_UINT64>(0) - static_cast<MO_UINT64>(1));
+
+        MO_UINT64 const S64Maximum =
+            (static_cast<MO_UINT64>(1) << 63) - 1;
+
+        MO_UINT64 const S64Minimum =
+            static_cast<MO_UINT64>(1) << 63;
+
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedMultiplication64(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "null Result is invalid");
+
+        Test(
+            MO_FALSE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "unsigned 64-bit accepts 0 * 0");
+
+        Test(
+            MO_FALSE,
+            0,
+            U64Maximum,
+            MO_TRUE,
+            0,
+            "unsigned 64-bit accepts 0 * maximum");
+
+        Test(
+            MO_FALSE,
+            1,
+            U64Maximum,
+            MO_TRUE,
+            U64Maximum,
+            "unsigned 64-bit accepts 1 * maximum");
+
+        Test(
+            MO_FALSE,
+            (static_cast<MO_UINT64>(1) << 32) - 1,
+            (static_cast<MO_UINT64>(1) << 32) + 1,
+            MO_TRUE,
+            U64Maximum,
+            "unsigned 64-bit accepts (2^32 - 1) * (2^32 + 1)");
+
+        Test(
+            MO_FALSE,
+            static_cast<MO_UINT64>(1) << 32,
+            static_cast<MO_UINT64>(1) << 32,
+            MO_FALSE,
+            0,
+            "unsigned 64-bit rejects 2^32 * 2^32");
+
+        Test(
+            MO_FALSE,
+            U64Maximum,
+            1,
+            MO_TRUE,
+            U64Maximum,
+            "unsigned 64-bit accepts maximum * 1");
+
+        Test(
+            MO_FALSE,
+            U64Maximum,
+            2,
+            MO_FALSE,
+            0,
+            "unsigned 64-bit rejects maximum * 2");
+
+        Test(
+            MO_FALSE,
+            static_cast<MO_UINT64>(1) << 63,
+            2,
+            MO_FALSE,
+            0,
+            "unsigned 64-bit rejects high-bit * 2");
+
+        Test(
+            MO_TRUE,
+            0,
+            0,
+            MO_TRUE,
+            0,
+            "signed 64-bit accepts 0 * 0");
+
+        Test(
+            MO_TRUE,
+            0,
+            S64Minimum,
+            MO_TRUE,
+            0,
+            "signed 64-bit accepts 0 * minimum");
+
+        Test(
+            MO_TRUE,
+            1,
+            S64Maximum,
+            MO_TRUE,
+            S64Maximum,
+            "signed 64-bit accepts 1 * maximum");
+
+        Test(
+            MO_TRUE,
+            S64Maximum,
+            1,
+            MO_TRUE,
+            S64Maximum,
+            "signed 64-bit accepts maximum * 1");
+
+        Test(
+            MO_TRUE,
+            S64Maximum,
+            2,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects maximum * 2");
+
+        Test(
+            MO_TRUE,
+            3037000499ull,
+            3037000499ull,
+            MO_TRUE,
+            9223372030926249001ull,
+            "signed 64-bit accepts 3037000499 * 3037000499");
+
+        Test(
+            MO_TRUE,
+            3037000500ull,
+            3037000500ull,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects 3037000500 * 3037000500");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            1,
+            MO_TRUE,
+            Negative(1),
+            "signed 64-bit accepts -1 * 1");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            Negative(1),
+            MO_TRUE,
+            1,
+            "signed 64-bit accepts -1 * -1");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            1,
+            MO_TRUE,
+            S64Minimum,
+            "signed 64-bit accepts minimum * 1");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            0,
+            MO_TRUE,
+            0,
+            "signed 64-bit accepts minimum * 0");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            Negative(1),
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects minimum * -1");
+
+        Test(
+            MO_TRUE,
+            Negative(static_cast<MO_UINT64>(1) << 62),
+            2,
+            MO_TRUE,
+            S64Minimum,
+            "signed 64-bit accepts -2^62 * 2");
+
+        Test(
+            MO_TRUE,
+            Negative((static_cast<MO_UINT64>(1) << 62) + 1),
+            2,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects -(2^62 + 1) * 2");
+
+        Test(
+            MO_TRUE,
+            Negative(static_cast<MO_UINT64>(1) << 32),
+            static_cast<MO_UINT64>(1) << 31,
+            MO_TRUE,
+            S64Minimum,
+            "signed 64-bit accepts -2^32 * 2^31");
+
+        Test(
+            MO_TRUE,
+            Negative(static_cast<MO_UINT64>(1) << 32),
+            static_cast<MO_UINT64>(1) << 32,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects -2^32 * 2^32");
+
+        Test(
+            MO_TRUE,
+            Negative(9223372036854775807ull),
+            1,
+            MO_TRUE,
+            Negative(9223372036854775807ull),
+            "signed 64-bit accepts -9223372036854775807 * 1");
+
+        Test(
+            MO_TRUE,
+            Negative(9223372036854775807ull),
+            2,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects -9223372036854775807 * 2");
+
+        Test(
+            MO_TRUE,
+            S64Minimum,
+            S64Minimum,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects minimum * minimum");
+
+        std::printf("MoMileFixedIntegerCheckedMultiplication64Test passed.\n");
+    }
+
 }
 
 MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
@@ -2468,4 +3260,8 @@ MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
     ::MoMileFixedIntegerCheckedAddition32Test();
     ::MoMileFixedIntegerCheckedSubtraction32Test();
     ::MoMileFixedIntegerCheckedSubtraction32Test();
+
+    ::MoMileFixedIntegerCheckedAddition64Test();
+    ::MoMileFixedIntegerCheckedSubtraction64Test();
+    ::MoMileFixedIntegerCheckedSubtraction64Test();
 }
