@@ -3,7 +3,17 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1243B3E4-9E83-4127-98FE-F2A1FE44D59D}</ProjectGuid>
     <RootNamespace>Mile.Mobility.Test</RootNamespace>
-    <MileProjectType>StaticLibrary</MileProjectType>
+    <MileProjectType>ConsoleApplication</MileProjectType>
+    <MileProjectEnableVCLTLSupport>true</MileProjectEnableVCLTLSupport>
+    <MileProjectUseProjectProperties>true</MileProjectUseProjectProperties>
+    <MileProjectCompanyName>Project Mile</MileProjectCompanyName>
+    <MileProjectFileDescription>Mile.Mobility.Test</MileProjectFileDescription>
+    <MileProjectInternalName>Mile.Mobility.Test</MileProjectInternalName>
+    <MileProjectLegalCopyright>© Project Mile. All rights reserved.</MileProjectLegalCopyright>
+    <MileProjectOriginalFilename>Mile.Mobility.Test.exe</MileProjectOriginalFilename>
+    <MileProjectProductName>Mile.Mobility.Test</MileProjectProductName>
+    <MileProjectVersion>1.1.$([System.DateTime]::Today.Subtract($([System.DateTime]::Parse('2024-11-04'))).TotalDays).0</MileProjectVersion>
+    <MileProjectVersionTag Condition="false">Alpha 1</MileProjectVersionTag>
   </PropertyGroup>
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1917" Project="Mile.Project.Platform.x86.props" />
   <Import Sdk="Mile.Project.Configurations" Version="1.0.1917" Project="Mile.Project.Platform.x64.props" />
@@ -14,8 +24,7 @@
     <IncludePath>$(MSBuildThisFileDirectory)..\Mile.Mobility\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemGroup>
-    <ClCompile Include="Mile.Mobility.Test.Mobility.cpp" />
-    <ClCompile Include="Mile.Mobility.Test.Windows.cpp" />
+    <ClCompile Include="Mile.Mobility.Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Portable.Types.h" />
