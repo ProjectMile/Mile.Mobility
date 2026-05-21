@@ -11,6 +11,7 @@
 #include <Windows.h>
 
 #include <Mile.Mobility.Portable.Types.h>
+#include <Mile.Mobility.Utilities.FixedInteger.h>
 
 #include <Mile.Project.Version.h>
 
@@ -21,15 +22,19 @@
 #include <cstdio>
 #include <cstdlib>
 
+MO_EXTERN_C MO_VOID MoMileFixedIntegerTests();
+
 int main()
 {
     std::printf(
         "Mile.Mobility Tests (Development Use)"
-        " " MILE_MOBILITY_VERSION_UTF8_STRING "\r\n"
-        "(c) Kenji Mouri. All rights reserved.\r\n"
-        "\r\n");
+        " " MILE_MOBILITY_VERSION_UTF8_STRING "\n"
+        "(c) Kenji Mouri. All rights reserved.\n"
+        "\n");
 
-    std::printf("Under construction.\r\n");
+    ::MoMileFixedIntegerTests();
+
+    std::printf("\nAll Mile.Mobility Tests executed.\n");
 
     std::getchar();
 

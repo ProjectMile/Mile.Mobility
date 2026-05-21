@@ -26,6 +26,7 @@
   <ItemGroup>
     <ClCompile Include="..\Mile.Mobility\Mile.Mobility.Utilities.FixedInteger.c" />
     <ClCompile Include="Mile.Mobility.Test.cpp" />
+    <ClCompile Include="Mile.Mobility.Utilities.FixedInteger.Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Utilities.FixedInteger.h" />

@@ -5,3 +5,7 @@
 - Only depends on Mile.Mobility.Portable.Types.h.
 
 ### Functions
+
+- MoMileFixedIntegerCheckedAddition8
+- MoMileFixedIntegerCheckedSubtraction8
+- MoMileFixedIntegerCheckedMultiplication8
