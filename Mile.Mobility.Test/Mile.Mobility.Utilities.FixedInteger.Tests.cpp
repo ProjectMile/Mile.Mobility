@@ -847,7 +847,23 @@ namespace
             0,
             "signed 8-bit rejects minimum * minimum");
 
-        std::printf("MoMileFixedIntegerCheckedSubtraction8Test passed.\n");
+        Test(
+            MO_TRUE,
+            1,
+            S8Minimum,
+            MO_TRUE,
+            S8Minimum,
+            "signed 8-bit accepts 1 * minimum");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            S8Minimum,
+            MO_FALSE,
+            0,
+            "signed 8-bit rejects -1 * minimum");
+
+        std::printf("MoMileFixedIntegerCheckedMultiplication8Test passed.\n");
     }
 
     void MoMileFixedIntegerCheckedAddition16Test()
@@ -1647,6 +1663,22 @@ namespace
             MO_FALSE,
             0,
             "signed 16-bit rejects minimum * minimum");
+
+        Test(
+            MO_TRUE,
+            1,
+            S16Minimum,
+            MO_TRUE,
+            S16Minimum,
+            "signed 16-bit accepts 1 * minimum");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            S16Minimum,
+            MO_FALSE,
+            0,
+            "signed 16-bit rejects -1 * minimum");
 
         std::printf("MoMileFixedIntegerCheckedMultiplication16Test passed.\n");
     }
@@ -2449,6 +2481,22 @@ namespace
             0,
             "signed 32-bit rejects minimum * minimum");
 
+        Test(
+            MO_TRUE,
+            1,
+            S32Minimum,
+            MO_TRUE,
+            S32Minimum,
+            "signed 32-bit accepts 1 * minimum");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            S32Minimum,
+            MO_FALSE,
+            0,
+            "signed 32-bit rejects -1 * minimum");
+
         std::printf("MoMileFixedIntegerCheckedMultiplication32Test passed.\n");
     }
 
@@ -3240,9 +3288,270 @@ namespace
             0,
             "signed 64-bit rejects minimum * minimum");
 
+        Test(
+            MO_TRUE,
+            1,
+            S64Minimum,
+            MO_TRUE,
+            S64Minimum,
+            "signed 64-bit accepts 1 * minimum");
+
+        Test(
+            MO_TRUE,
+            Negative(1),
+            S64Minimum,
+            MO_FALSE,
+            0,
+            "signed 64-bit rejects -1 * minimum");
+
         std::printf("MoMileFixedIntegerCheckedMultiplication64Test passed.\n");
     }
 
+    void MoMileFixedIntegerCheckedAdditionTest()
+    {
+        MO_UINTN const UnsignedMaximum =
+            static_cast<MO_UINTN>(0) - static_cast<MO_UINTN>(1);
+
+#if (MO_POINTER_SIZE == 8)
+        MO_UINTN const SignedMaximum =
+            (static_cast<MO_UINTN>(1ull) << 63) - 1;
+#elif (MO_POINTER_SIZE == 4)
+        MO_UINTN const SignedMaximum =
+            (static_cast<MO_UINTN>(1u) << 31) - 1;
+#elif (MO_POINTER_SIZE == 2)
+        MO_UINTN const SignedMaximum =
+            (static_cast<MO_UINTN>(1u) << 15) - 1;
+#elif (MO_POINTER_SIZE == 1)
+        MO_UINTN const SignedMaximum =
+            (static_cast<MO_UINTN>(1u) << 7) - 1;
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger.Tests] Unsupported platform."
+#endif
+
+        MO_UINTN const Sentinel = static_cast<MO_UINTN>(0xA5);
+        MO_UINTN Result = Sentinel;
+
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedAddition(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "native-width addition rejects null Result");
+
+        Result = Sentinel;
+        ::Check(
+            MO_TRUE == ::MoMileFixedIntegerCheckedAddition(
+                &Result,
+                MO_FALSE,
+                1,
+                2),
+            "native-width unsigned addition accepts 1 + 2");
+        ::Check(
+            3 == Result,
+            "native-width unsigned addition returns 3");
+
+        Result = Sentinel;
+        ::Check(
+            MO_TRUE == ::MoMileFixedIntegerCheckedAddition(
+                &Result,
+                MO_TRUE,
+                static_cast<MO_UINTN>(0) - 1,
+                1),
+            "native-width signed addition accepts -1 + 1");
+        ::Check(
+            0 == Result,
+            "native-width signed addition returns 0");
+
+        Result = Sentinel;
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedAddition(
+                &Result,
+                MO_FALSE,
+                UnsignedMaximum,
+                1),
+            "native-width unsigned addition rejects maximum + 1");
+        ::Check(
+            Sentinel == Result,
+            "native-width addition keeps result on failure");
+
+        Result = Sentinel;
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedAddition(
+                &Result,
+                MO_TRUE,
+                SignedMaximum,
+                1),
+            "native-width signed addition rejects maximum + 1");
+        ::Check(
+            Sentinel == Result,
+            "native-width signed addition keeps result on failure");
+
+        std::printf("MoMileFixedIntegerCheckedAdditionTest passed.\n");
+    }
+
+    void MoMileFixedIntegerCheckedSubtractionTest()
+    {
+#if (MO_POINTER_SIZE == 8)
+        MO_UINTN const SignedMinimum =
+            static_cast<MO_UINTN>(1ull) << 63;
+#elif (MO_POINTER_SIZE == 4)
+        MO_UINTN const SignedMinimum =
+            static_cast<MO_UINTN>(1u) << 31;
+#elif (MO_POINTER_SIZE == 2)
+        MO_UINTN const SignedMinimum =
+            static_cast<MO_UINTN>(1u) << 15;
+#elif (MO_POINTER_SIZE == 1)
+        MO_UINTN const SignedMinimum =
+            static_cast<MO_UINTN>(1u) << 7;
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger.Tests] Unsupported platform."
+#endif
+
+        MO_UINTN const Sentinel = static_cast<MO_UINTN>(0xA5);
+        MO_UINTN Result = Sentinel;
+
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedSubtraction(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "native-width subtraction rejects null Result");
+
+        Result = Sentinel;
+        ::Check(
+            MO_TRUE == ::MoMileFixedIntegerCheckedSubtraction(
+                &Result,
+                MO_FALSE,
+                3,
+                2),
+            "native-width unsigned subtraction accepts 3 - 2");
+        ::Check(
+            1 == Result,
+            "native-width unsigned subtraction returns 1");
+
+        Result = Sentinel;
+        ::Check(
+            MO_TRUE == ::MoMileFixedIntegerCheckedSubtraction(
+                &Result,
+                MO_TRUE,
+                static_cast<MO_UINTN>(0) - 1,
+                static_cast<MO_UINTN>(0) - 1),
+            "native-width signed subtraction accepts -1 - -1");
+        ::Check(
+            0 == Result,
+            "native-width signed subtraction returns 0");
+
+        Result = Sentinel;
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedSubtraction(
+                &Result,
+                MO_FALSE,
+                0,
+                1),
+            "native-width unsigned subtraction rejects 0 - 1");
+        ::Check(
+            Sentinel == Result,
+            "native-width subtraction keeps result on failure");
+
+        Result = Sentinel;
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedSubtraction(
+                &Result,
+                MO_TRUE,
+                SignedMinimum,
+                1),
+            "native-width signed subtraction rejects minimum - 1");
+        ::Check(
+            Sentinel == Result,
+            "native-width signed subtraction keeps result on failure");
+
+        std::printf("MoMileFixedIntegerCheckedSubtractionTest passed.\n");
+    }
+
+    void MoMileFixedIntegerCheckedMultiplicationTest()
+    {
+        MO_UINTN const UnsignedMaximum =
+            static_cast<MO_UINTN>(0) - static_cast<MO_UINTN>(1);
+
+#if (MO_POINTER_SIZE == 8)
+        MO_UINTN const SignedMinimum =
+            static_cast<MO_UINTN>(1ull) << 63;
+#elif (MO_POINTER_SIZE == 4)
+        MO_UINTN const SignedMinimum =
+            static_cast<MO_UINTN>(1u) << 31;
+#elif (MO_POINTER_SIZE == 2)
+        MO_UINTN const SignedMinimum =
+            static_cast<MO_UINTN>(1u) << 15;
+#elif (MO_POINTER_SIZE == 1)
+        MO_UINTN const SignedMinimum =
+            static_cast<MO_UINTN>(1u) << 7;
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger.Tests] Unsupported platform."
+#endif
+
+        MO_UINTN const Sentinel = static_cast<MO_UINTN>(0xA5);
+        MO_UINTN Result = Sentinel;
+
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedMultiplication(
+                nullptr,
+                MO_FALSE,
+                0,
+                0),
+            "native-width multiplication rejects null Result");
+
+        Result = Sentinel;
+        ::Check(
+            MO_TRUE == ::MoMileFixedIntegerCheckedMultiplication(
+                &Result,
+                MO_FALSE,
+                3,
+                7),
+            "native-width unsigned multiplication accepts 3 * 7");
+        ::Check(
+            21 == Result,
+            "native-width unsigned multiplication returns 21");
+
+        Result = Sentinel;
+        ::Check(
+            MO_TRUE == ::MoMileFixedIntegerCheckedMultiplication(
+                &Result,
+                MO_TRUE,
+                static_cast<MO_UINTN>(0) - 1,
+                1),
+            "native-width signed multiplication accepts -1 * 1");
+        ::Check(
+            (static_cast<MO_UINTN>(0) - 1) == Result,
+            "native-width signed multiplication returns -1");
+
+        Result = Sentinel;
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedMultiplication(
+                &Result,
+                MO_FALSE,
+                UnsignedMaximum,
+                2),
+            "native-width unsigned multiplication rejects maximum * 2");
+        ::Check(
+            Sentinel == Result,
+            "native-width multiplication keeps result on failure");
+
+        Result = Sentinel;
+        ::Check(
+            MO_FALSE == ::MoMileFixedIntegerCheckedMultiplication(
+                &Result,
+                MO_TRUE,
+                SignedMinimum,
+                static_cast<MO_UINTN>(0) - 1),
+            "native-width signed multiplication rejects minimum * -1");
+        ::Check(
+            Sentinel == Result,
+            "native-width signed multiplication keeps result on failure");
+
+        std::printf("MoMileFixedIntegerCheckedMultiplicationTest passed.\n");
+    }
 }
 
 MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
@@ -3251,26 +3560,23 @@ MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
 
     ::MoMileFixedIntegerCheckedAddition8Test();
     ::MoMileFixedIntegerCheckedSubtraction8Test();
-    ::MoMileFixedIntegerCheckedSubtraction8Test();
+    ::MoMileFixedIntegerCheckedMultiplication8Test();
 
     ::MoMileFixedIntegerCheckedAddition16Test();
     ::MoMileFixedIntegerCheckedSubtraction16Test();
-    ::MoMileFixedIntegerCheckedSubtraction16Test();
+    ::MoMileFixedIntegerCheckedMultiplication16Test();
 
     ::MoMileFixedIntegerCheckedAddition32Test();
     ::MoMileFixedIntegerCheckedSubtraction32Test();
-    ::MoMileFixedIntegerCheckedSubtraction32Test();
+    ::MoMileFixedIntegerCheckedMultiplication32Test();
 
     ::MoMileFixedIntegerCheckedAddition64Test();
     ::MoMileFixedIntegerCheckedSubtraction64Test();
-    ::MoMileFixedIntegerCheckedSubtraction64Test();
+    ::MoMileFixedIntegerCheckedMultiplication64Test();
 
-    // MoMileFixedIntegerCheckedAddition is wrapper of other functions, so does
-    // not need to be tested separately.
-    // MoMileFixedIntegerCheckedSubtraction is wrapper of other functions, so
-    // does not need to be tested separately.
-    // MoMileFixedIntegerCheckedMultiplication is wrapper of other functions, so
-    // does not need to be tested separately.
+    ::MoMileFixedIntegerCheckedAdditionTest();
+    ::MoMileFixedIntegerCheckedSubtractionTest();
+    ::MoMileFixedIntegerCheckedMultiplicationTest();
 
     std::printf("\nAll MoMileFixedInteger tests passed.\n");
 }

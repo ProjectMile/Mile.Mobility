@@ -10,6 +10,16 @@
 
 #include "Mile.Mobility.Utilities.FixedInteger.h"
 
+ /* Check the assumptions on the fixed width integer types. */
+
+MO_C_STATIC_ASSERT(1 == sizeof(MO_UINT8));
+MO_C_STATIC_ASSERT(2 == sizeof(MO_UINT16));
+MO_C_STATIC_ASSERT(4 == sizeof(MO_UINT32));
+MO_C_STATIC_ASSERT(8 == sizeof(MO_UINT64));
+MO_C_STATIC_ASSERT(MO_POINTER_SIZE == sizeof(MO_UINTN));
+
+/* Internal macro to compute the sign bit mask. */
+
 #define MO_INTERNAL_SIGN_BIT_MASK(TYPE) \
     ((TYPE)(((TYPE)(1)) << (sizeof(TYPE) * 8 - 1)))
 
@@ -29,7 +39,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition8(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
@@ -42,7 +52,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition8(
             if (0 == ((Left ^ Right) & SignBitMask) &&
                 0 != ((Left ^ Candidate) & SignBitMask))
             {
-                // The signed addition overflowed.
+                /* The signed addition overflowed. */
                 return MO_FALSE;
             }
         }
@@ -50,13 +60,14 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition8(
         {
             if (Candidate < Left)
             {
-                // The unsigned addition overflowed.
+                /* The unsigned addition overflowed. */
                 return MO_FALSE;
             }
         }
 
-        // Set the result only when the addition succeeds and the result is
-        // representable in the range determined by the fixed width and Signed.
+        /* Set the result only when the addition succeeds and the result is */
+        /* representable in the range determined by the fixed width and */
+        /* Signed. */
         *Result = Candidate;
     }
 
@@ -77,13 +88,13 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction8(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
     if (!Signed && Left < Right)
     {
-        // The unsigned subtraction underflowed.
+        /* The unsigned subtraction underflowed. */
         return MO_FALSE;
     }
 
@@ -96,13 +107,14 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction8(
             if (0 != ((Left ^ Right) & SignBitMask) &&
                 0 != ((Left ^ Candidate) & SignBitMask))
             {
-                // The signed subtraction overflowed.
+                /* The signed subtraction overflowed. */
                 return MO_FALSE;
             }
         }
 
-        // Set the result only when the subtraction succeeds and the result is
-        // representable in the range determined by the fixed width and Signed.
+        /* Set the result only when the addition succeeds and the result is */
+        /* representable in the range determined by the fixed width and */
+        /* Signed. */
         *Result = Candidate;
     }
 
@@ -123,7 +135,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication8(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
@@ -172,7 +184,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication8(
             {
                 if (LeftMagnitude > Limit || RightMagnitude > Limit)
                 {
-                    // The multiplication result is out of range.
+                    /* The multiplication result is out of range. */
                     return MO_FALSE;
                 }
 
@@ -188,7 +200,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication8(
                 {
                     if (LeftMagnitude > Limit / RightMagnitude)
                     {
-                        // The multiplication result is out of range.
+                        /* The multiplication result is out of range. */
                         return MO_FALSE;
                     }
 
@@ -196,9 +208,9 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication8(
                 }
             }
 
-            // Set the result only when the multiplication succeeds and the
-            // result is representable in the range determined by the fixed
-            // width and Signed.
+            /* Set the result only when the multiplication succeeds and the */
+            /* result is representable in the range determined by the fixed */
+            /* width and Signed. */
             *Result = (Signed && ResultNegative)
                 ? (((VALUE_TYPE)(0)) - ResultMagnitude)
                 : ResultMagnitude;
@@ -222,7 +234,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition16(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
@@ -235,7 +247,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition16(
             if (0 == ((Left ^ Right) & SignBitMask) &&
                 0 != ((Left ^ Candidate) & SignBitMask))
             {
-                // The signed addition overflowed.
+                /* The signed addition overflowed. */
                 return MO_FALSE;
             }
         }
@@ -243,13 +255,14 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition16(
         {
             if (Candidate < Left)
             {
-                // The unsigned addition overflowed.
+                /* The unsigned addition overflowed. */
                 return MO_FALSE;
             }
         }
 
-        // Set the result only when the addition succeeds and the result is
-        // representable in the range determined by the fixed width and Signed.
+        /* Set the result only when the addition succeeds and the result is */
+        /* representable in the range determined by the fixed width and */
+        /* Signed. */
         *Result = Candidate;
     }
 
@@ -270,13 +283,13 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction16(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
     if (!Signed && Left < Right)
     {
-        // The unsigned subtraction underflowed.
+        /* The unsigned subtraction underflowed. */
         return MO_FALSE;
     }
 
@@ -289,13 +302,14 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction16(
             if (0 != ((Left ^ Right) & SignBitMask) &&
                 0 != ((Left ^ Candidate) & SignBitMask))
             {
-                // The signed subtraction overflowed.
+                /* The signed subtraction overflowed. */
                 return MO_FALSE;
             }
         }
 
-        // Set the result only when the subtraction succeeds and the result is
-        // representable in the range determined by the fixed width and Signed.
+        /* Set the result only when the addition succeeds and the result is */
+        /* representable in the range determined by the fixed width and */
+        /* Signed. */
         *Result = Candidate;
     }
 
@@ -316,7 +330,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication16(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
@@ -365,7 +379,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication16(
             {
                 if (LeftMagnitude > Limit || RightMagnitude > Limit)
                 {
-                    // The multiplication result is out of range.
+                    /* The multiplication result is out of range. */
                     return MO_FALSE;
                 }
 
@@ -381,7 +395,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication16(
                 {
                     if (LeftMagnitude > Limit / RightMagnitude)
                     {
-                        // The multiplication result is out of range.
+                        /* The multiplication result is out of range. */
                         return MO_FALSE;
                     }
 
@@ -389,9 +403,9 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication16(
                 }
             }
 
-            // Set the result only when the multiplication succeeds and the
-            // result is representable in the range determined by the fixed
-            // width and Signed.
+            /* Set the result only when the multiplication succeeds and the */
+            /* result is representable in the range determined by the fixed */
+            /* width and Signed. */
             *Result = (Signed && ResultNegative)
                 ? (((VALUE_TYPE)(0)) - ResultMagnitude)
                 : ResultMagnitude;
@@ -415,7 +429,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition32(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
@@ -428,7 +442,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition32(
             if (0 == ((Left ^ Right) & SignBitMask) &&
                 0 != ((Left ^ Candidate) & SignBitMask))
             {
-                // The signed addition overflowed.
+                /* The signed addition overflowed. */
                 return MO_FALSE;
             }
         }
@@ -436,13 +450,14 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition32(
         {
             if (Candidate < Left)
             {
-                // The unsigned addition overflowed.
+                /* The unsigned addition overflowed. */
                 return MO_FALSE;
             }
         }
 
-        // Set the result only when the addition succeeds and the result is
-        // representable in the range determined by the fixed width and Signed.
+        /* Set the result only when the addition succeeds and the result is */
+        /* representable in the range determined by the fixed width and */
+        /* Signed. */
         *Result = Candidate;
     }
 
@@ -463,13 +478,13 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction32(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
     if (!Signed && Left < Right)
     {
-        // The unsigned subtraction underflowed.
+        /* The unsigned subtraction underflowed. */
         return MO_FALSE;
     }
 
@@ -482,13 +497,14 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction32(
             if (0 != ((Left ^ Right) & SignBitMask) &&
                 0 != ((Left ^ Candidate) & SignBitMask))
             {
-                // The signed subtraction overflowed.
+                /* The signed subtraction overflowed. */
                 return MO_FALSE;
             }
         }
 
-        // Set the result only when the subtraction succeeds and the result is
-        // representable in the range determined by the fixed width and Signed.
+        /* Set the result only when the addition succeeds and the result is */
+        /* representable in the range determined by the fixed width and */
+        /* Signed. */
         *Result = Candidate;
     }
 
@@ -509,7 +525,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication32(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
@@ -558,7 +574,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication32(
             {
                 if (LeftMagnitude > Limit || RightMagnitude > Limit)
                 {
-                    // The multiplication result is out of range.
+                    /* The multiplication result is out of range. */
                     return MO_FALSE;
                 }
 
@@ -574,7 +590,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication32(
                 {
                     if (LeftMagnitude > Limit / RightMagnitude)
                     {
-                        // The multiplication result is out of range.
+                        /* The multiplication result is out of range. */
                         return MO_FALSE;
                     }
 
@@ -582,9 +598,9 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication32(
                 }
             }
 
-            // Set the result only when the multiplication succeeds and the
-            // result is representable in the range determined by the fixed
-            // width and Signed.
+            /* Set the result only when the multiplication succeeds and the */
+            /* result is representable in the range determined by the fixed */
+            /* width and Signed. */
             *Result = (Signed && ResultNegative)
                 ? (((VALUE_TYPE)(0)) - ResultMagnitude)
                 : ResultMagnitude;
@@ -608,7 +624,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition64(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
@@ -621,7 +637,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition64(
             if (0 == ((Left ^ Right) & SignBitMask) &&
                 0 != ((Left ^ Candidate) & SignBitMask))
             {
-                // The signed addition overflowed.
+                /* The signed addition overflowed. */
                 return MO_FALSE;
             }
         }
@@ -629,13 +645,14 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition64(
         {
             if (Candidate < Left)
             {
-                // The unsigned addition overflowed.
+                /* The unsigned addition overflowed. */
                 return MO_FALSE;
             }
         }
 
-        // Set the result only when the addition succeeds and the result is
-        // representable in the range determined by the fixed width and Signed.
+        /* Set the result only when the addition succeeds and the result is */
+        /* representable in the range determined by the fixed width and */
+        /* Signed. */
         *Result = Candidate;
     }
 
@@ -656,13 +673,13 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction64(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
     if (!Signed && Left < Right)
     {
-        // The unsigned subtraction underflowed.
+        /* The unsigned subtraction underflowed. */
         return MO_FALSE;
     }
 
@@ -675,13 +692,14 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction64(
             if (0 != ((Left ^ Right) & SignBitMask) &&
                 0 != ((Left ^ Candidate) & SignBitMask))
             {
-                // The signed subtraction overflowed.
+                /* The signed subtraction overflowed. */
                 return MO_FALSE;
             }
         }
 
-        // Set the result only when the subtraction succeeds and the result is
-        // representable in the range determined by the fixed width and Signed.
+        /* Set the result only when the addition succeeds and the result is */
+        /* representable in the range determined by the fixed width and */
+        /* Signed. */
         *Result = Candidate;
     }
 
@@ -702,7 +720,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication64(
 
     if (!Result)
     {
-        // The result pointer must not be null.
+        /* The result pointer must not be null. */
         return MO_FALSE;
     }
 
@@ -751,7 +769,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication64(
             {
                 if (LeftMagnitude > Limit || RightMagnitude > Limit)
                 {
-                    // The multiplication result is out of range.
+                    /* The multiplication result is out of range. */
                     return MO_FALSE;
                 }
 
@@ -767,7 +785,7 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication64(
                 {
                     if (LeftMagnitude > Limit / RightMagnitude)
                     {
-                        // The multiplication result is out of range.
+                        /* The multiplication result is out of range. */
                         return MO_FALSE;
                     }
 
@@ -775,9 +793,9 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication64(
                 }
             }
 
-            // Set the result only when the multiplication succeeds and the
-            // result is representable in the range determined by the fixed
-            // width and Signed.
+            /* Set the result only when the multiplication succeeds and the */
+            /* result is representable in the range determined by the fixed */
+            /* width and Signed. */
             *Result = (Signed && ResultNegative)
                 ? (((VALUE_TYPE)(0)) - ResultMagnitude)
                 : ResultMagnitude;
