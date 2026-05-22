@@ -789,3 +789,108 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication64(
 #undef VALUE_TYPE
 #undef VALUE_SIGN_BIT_MASK
 }
+
+MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition(
+    _Mo_Out_ PMO_UINTN Result,
+    _Mo_In_ MO_BOOL Signed,
+    _Mo_In_ MO_UINTN Left,
+    _Mo_In_ MO_UINTN Right)
+{
+#if (MO_POINTER_SIZE == 8)
+    return MoMileFixedIntegerCheckedAddition64(
+        (PMO_UINT64)Result,
+        Signed,
+        (MO_UINT64)Left,
+        (MO_UINT64)Right);
+#elif (MO_POINTER_SIZE == 4)
+    return MoMileFixedIntegerCheckedAddition32(
+        (PMO_UINT32)Result,
+        Signed,
+        (MO_UINT32)Left,
+        (MO_UINT32)Right);
+#elif (MO_POINTER_SIZE == 2)
+    return MoMileFixedIntegerCheckedAddition16(
+        (PMO_UINT16)Result,
+        Signed,
+        (MO_UINT16)Left,
+        (MO_UINT16)Right);
+#elif (MO_POINTER_SIZE == 1)
+    return MoMileFixedIntegerCheckedAddition8(
+        (PMO_UINT8)Result,
+        Signed,
+        (MO_UINT8)Left,
+        (MO_UINT8)Right);
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
+#endif
+}
+
+MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction(
+    _Mo_Out_ PMO_UINTN Result,
+    _Mo_In_ MO_BOOL Signed,
+    _Mo_In_ MO_UINTN Left,
+    _Mo_In_ MO_UINTN Right)
+{
+#if (MO_POINTER_SIZE == 8)
+    return MoMileFixedIntegerCheckedSubtraction64(
+        (PMO_UINT64)Result,
+        Signed,
+        (MO_UINT64)Left,
+        (MO_UINT64)Right);
+#elif (MO_POINTER_SIZE == 4)
+    return MoMileFixedIntegerCheckedSubtraction32(
+        (PMO_UINT32)Result,
+        Signed,
+        (MO_UINT32)Left,
+        (MO_UINT32)Right);
+#elif (MO_POINTER_SIZE == 2)
+    return MoMileFixedIntegerCheckedSubtraction16(
+        (PMO_UINT16)Result,
+        Signed,
+        (MO_UINT16)Left,
+        (MO_UINT16)Right);
+#elif (MO_POINTER_SIZE == 1)
+    return MoMileFixedIntegerCheckedSubtraction8(
+        (PMO_UINT8)Result,
+        Signed,
+        (MO_UINT8)Left,
+        (MO_UINT8)Right);
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
+#endif
+}
+
+MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication(
+    _Mo_Out_ PMO_UINTN Result,
+    _Mo_In_ MO_BOOL Signed,
+    _Mo_In_ MO_UINTN Left,
+    _Mo_In_ MO_UINTN Right)
+{
+#if (MO_POINTER_SIZE == 8)
+    return MoMileFixedIntegerCheckedMultiplication64(
+        (PMO_UINT64)Result,
+        Signed,
+        (MO_UINT64)Left,
+        (MO_UINT64)Right);
+#elif (MO_POINTER_SIZE == 4)
+    return MoMileFixedIntegerCheckedMultiplication32(
+        (PMO_UINT32)Result,
+        Signed,
+        (MO_UINT32)Left,
+        (MO_UINT32)Right);
+#elif (MO_POINTER_SIZE == 2)
+    return MoMileFixedIntegerCheckedMultiplication16(
+        (PMO_UINT16)Result,
+        Signed,
+        (MO_UINT16)Left,
+        (MO_UINT16)Right);
+#elif (MO_POINTER_SIZE == 1)
+    return MoMileFixedIntegerCheckedMultiplication8(
+        (PMO_UINT8)Result,
+        Signed,
+        (MO_UINT8)Left,
+        (MO_UINT8)Right);
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
+#endif
+}

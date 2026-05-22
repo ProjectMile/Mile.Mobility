@@ -331,4 +331,85 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication64(
     _Mo_In_ MO_UINT64 Left,
     _Mo_In_ MO_UINT64 Right);
 
+/**
+  * @brief Performs checked addition of two integer values with a fixed native
+  *        width.
+  * @param Result The pointer to the variable that receives the result of
+  *               (Left + Right). Result must not be null. If the return value
+  *               is MO_FALSE, the value pointed to by Result is not modified.
+  * @param Signed Indicates whether the fixed native-width integer values are
+  *               signed (MO_TRUE) or unsigned (MO_FALSE). If MO_FALSE, the valid
+  *               range is 0 to (2 ^ N) - 1, where N is the number of bits in
+  *               MO_UINTN. If MO_TRUE, Left and Right are interpreted as signed
+  *               integer values represented as native-width unsigned integer
+  *               values; a negative value -X is represented as the native-width
+  *               unsigned integer value (2 ^ N) - X, and the valid range is
+  *               -(2 ^ (N - 1)) to (2 ^ (N - 1)) - 1. The result is returned
+  *               using the same representation.
+  * @param Left The first operand.
+  * @param Right The second operand.
+  * @return MO_TRUE if the addition succeeds and the result is representable in
+  *         the range determined by the fixed native width and Signed. MO_FALSE
+  *         if Result is null or the result is out of range.
+  */
+MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedAddition(
+    _Mo_Out_ PMO_UINTN Result,
+    _Mo_In_ MO_BOOL Signed,
+    _Mo_In_ MO_UINTN Left,
+    _Mo_In_ MO_UINTN Right);
+
+/**
+  * @brief Performs checked subtraction of two integer values with a fixed
+  *        native width.
+  * @param Result The pointer to the variable that receives the result of
+  *               (Left - Right). Result must not be null. If the return value
+  *               is MO_FALSE, the value pointed to by Result is not modified.
+  * @param Signed Indicates whether the fixed native-width integer values are
+  *               signed (MO_TRUE) or unsigned (MO_FALSE). If MO_FALSE, the valid
+  *               range is 0 to (2 ^ N) - 1, where N is the number of bits in
+  *               MO_UINTN. If MO_TRUE, Left and Right are interpreted as signed
+  *               integer values represented as native-width unsigned integer
+  *               values; a negative value -X is represented as the native-width
+  *               unsigned integer value (2 ^ N) - X, and the valid range is
+  *               -(2 ^ (N - 1)) to (2 ^ (N - 1)) - 1. The result is returned
+  *               using the same representation.
+  * @param Left The first operand.
+  * @param Right The second operand.
+  * @return MO_TRUE if the subtraction succeeds and the result is representable
+  *         in the range determined by the fixed native width and Signed.
+  *         MO_FALSE if Result is null or the result is out of range.
+  */
+MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedSubtraction(
+    _Mo_Out_ PMO_UINTN Result,
+    _Mo_In_ MO_BOOL Signed,
+    _Mo_In_ MO_UINTN Left,
+    _Mo_In_ MO_UINTN Right);
+
+/**
+  * @brief Performs checked multiplication of two integer values with a fixed
+  *        native width.
+  * @param Result The pointer to the variable that receives the result of
+  *               (Left * Right). Result must not be null. If the return value
+  *               is MO_FALSE, the value pointed to by Result is not modified.
+  * @param Signed Indicates whether the fixed native-width integer values are
+  *               signed (MO_TRUE) or unsigned (MO_FALSE). If MO_FALSE, the valid
+  *               range is 0 to (2 ^ N) - 1, where N is the number of bits in
+  *               MO_UINTN. If MO_TRUE, Left and Right are interpreted as signed
+  *               integer values represented as native-width unsigned integer
+  *               values; a negative value -X is represented as the native-width
+  *               unsigned integer value (2 ^ N) - X, and the valid range is
+  *               -(2 ^ (N - 1)) to (2 ^ (N - 1)) - 1. The result is returned
+  *               using the same representation.
+  * @param Left The first operand.
+  * @param Right The second operand.
+  * @return MO_TRUE if the multiplication succeeds and the result is
+  *         representable in the range determined by the fixed native width and
+  *         Signed. MO_FALSE if Result is null or the result is out of range.
+  */
+MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication(
+    _Mo_Out_ PMO_UINTN Result,
+    _Mo_In_ MO_BOOL Signed,
+    _Mo_In_ MO_UINTN Left,
+    _Mo_In_ MO_UINTN Right);
+
 #endif // !MILE_MOBILITY_UTILITIES_FIXEDINTEGER

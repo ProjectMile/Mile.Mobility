@@ -3264,4 +3264,13 @@ MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
     ::MoMileFixedIntegerCheckedAddition64Test();
     ::MoMileFixedIntegerCheckedSubtraction64Test();
     ::MoMileFixedIntegerCheckedSubtraction64Test();
+
+    // MoMileFixedIntegerCheckedAddition is wrapper of other functions, so does
+    // not need to be tested separately.
+    // MoMileFixedIntegerCheckedSubtraction is wrapper of other functions, so
+    // does not need to be tested separately.
+    // MoMileFixedIntegerCheckedMultiplication is wrapper of other functions, so
+    // does not need to be tested separately.
+
+    std::printf("\nAll MoMileFixedInteger tests passed.\n");
 }

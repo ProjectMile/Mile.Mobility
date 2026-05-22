@@ -18,3 +18,6 @@
 - MoMileFixedIntegerCheckedAddition64
 - MoMileFixedIntegerCheckedSubtraction64
 - MoMileFixedIntegerCheckedMultiplication64
+- MoMileFixedIntegerCheckedAddition
+- MoMileFixedIntegerCheckedSubtraction
+- MoMileFixedIntegerCheckedMultiplication
