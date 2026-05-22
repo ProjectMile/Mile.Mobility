@@ -611,4 +611,80 @@ MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian(
     _Mo_Out_ MO_POINTER BaseAddress,
     _Mo_In_ MO_UINTN Value);
 
+/**
+  * @brief Compares two sequence values with a fixed 8-bit width.
+  * @param Left The left sequence value.
+  * @param Right The right sequence value.
+  * @return The signed 8-bit wrapping distance from Right to Left, computed as
+  *         (Left - Right) modulo (2 ^ 8). A positive value means Left is after
+  *         Right, a negative value means Left is before Right, and zero means
+  *         they are equal, provided that the actual distance is less than
+  *         (2 ^ 7). The exact half-range distance is ambiguous and returns
+  *         -(2 ^ 7).
+  */
+MO_EXTERN_C MO_INT8 MOAPI MoMileFixedIntegerSequenceCompare8(
+    _Mo_In_ MO_UINT8 Left,
+    _Mo_In_ MO_UINT8 Right);
+
+/**
+  * @brief Compares two sequence values with a fixed 16-bit width.
+  * @param Left The left sequence value.
+  * @param Right The right sequence value.
+  * @return The signed 16-bit wrapping distance from Right to Left, computed as
+  *         (Left - Right) modulo (2 ^ 16). A positive value means Left is after
+  *         Right, a negative value means Left is before Right, and zero means
+  *         they are equal, provided that the actual distance is less than
+  *         (2 ^ 15). The exact half-range distance is ambiguous and returns
+  *         -(2 ^ 15).
+  */
+MO_EXTERN_C MO_INT16 MOAPI MoMileFixedIntegerSequenceCompare16(
+    _Mo_In_ MO_UINT16 Left,
+    _Mo_In_ MO_UINT16 Right);
+
+/**
+  * @brief Compares two sequence values with a fixed 32-bit width.
+  * @param Left The left sequence value.
+  * @param Right The right sequence value.
+  * @return The signed 32-bit wrapping distance from Right to Left, computed as
+  *         (Left - Right) modulo (2 ^ 32). A positive value means Left is after
+  *         Right, a negative value means Left is before Right, and zero means
+  *         they are equal, provided that the actual distance is less than
+  *         (2 ^ 31). The exact half-range distance is ambiguous and returns
+  *         -(2 ^ 31).
+  */
+MO_EXTERN_C MO_INT32 MOAPI MoMileFixedIntegerSequenceCompare32(
+    _Mo_In_ MO_UINT32 Left,
+    _Mo_In_ MO_UINT32 Right);
+
+/**
+  * @brief Compares two sequence values with a fixed 64-bit width.
+  * @param Left The left sequence value.
+  * @param Right The right sequence value.
+  * @return The signed 64-bit wrapping distance from Right to Left, computed as
+  *         (Left - Right) modulo (2 ^ 64). A positive value means Left is after
+  *         Right, a negative value means Left is before Right, and zero means
+  *         they are equal, provided that the actual distance is less than
+  *         (2 ^ 63). The exact half-range distance is ambiguous and returns
+  *         -(2 ^ 63).
+  */
+MO_EXTERN_C MO_INT64 MOAPI MoMileFixedIntegerSequenceCompare64(
+    _Mo_In_ MO_UINT64 Left,
+    _Mo_In_ MO_UINT64 Right);
+
+/**
+  * @brief Compares two sequence values with a fixed native width.
+  * @param Left The left sequence value.
+  * @param Right The right sequence value.
+  * @return The signed native-width wrapping distance from Right to Left,
+  *         computed as (Left - Right) modulo (2 ^ N), where N is the number of
+  *         bits in MO_UINTN. A positive value means Left is after Right, a
+  *         negative value means Left is before Right, and zero means they are
+  *         equal, provided that the actual distance is less than (2 ^ (N - 1)).
+  *         The exact half-range distance is ambiguous and returns
+  *         -(2 ^ (N - 1)).
+  */
+MO_EXTERN_C MO_INTN MOAPI MoMileFixedIntegerSequenceCompare(
+    _Mo_In_ MO_UINTN Left,
+    _Mo_In_ MO_UINTN Right);
+
 #endif // !MILE_MOBILITY_UTILITIES_FIXEDINTEGER

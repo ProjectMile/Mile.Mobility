@@ -1145,3 +1145,164 @@ MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian(
 #error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
 #endif
 }
+
+MO_EXTERN_C MO_INT8 MOAPI MoMileFixedIntegerSequenceCompare8(
+    _Mo_In_ MO_UINT8 Left,
+    _Mo_In_ MO_UINT8 Right)
+{
+#define VALUE_TYPE MO_UINT8
+#define SIGNED_VALUE_TYPE MO_INT8
+#define VALUE_SIGN_BIT_MASK MO_INTERNAL_SIGN_BIT_MASK_8
+#define SIGNED_VALUE_MAXIMUM MO_INT8_MAX
+#define SIGNED_VALUE_MINIMUM MO_INT8_MIN
+
+    VALUE_TYPE Difference = Left - Right;
+
+    if (Difference <= ((VALUE_TYPE)(SIGNED_VALUE_MAXIMUM)))
+    {
+        return ((SIGNED_VALUE_TYPE)(Difference));
+    }
+
+    if (Difference == VALUE_SIGN_BIT_MASK)
+    {
+        return ((SIGNED_VALUE_TYPE)(SIGNED_VALUE_MINIMUM));
+    }
+
+    {
+        VALUE_TYPE Magnitude = ((VALUE_TYPE)(((VALUE_TYPE)(0)) - Difference));
+        return ((SIGNED_VALUE_TYPE)(-((SIGNED_VALUE_TYPE)(Magnitude))));
+    }
+
+#undef VALUE_TYPE
+#undef SIGNED_VALUE_TYPE
+#undef VALUE_SIGN_BIT_MASK
+#undef SIGNED_VALUE_MAXIMUM
+#undef SIGNED_VALUE_MINIMUM
+}
+
+MO_EXTERN_C MO_INT16 MOAPI MoMileFixedIntegerSequenceCompare16(
+    _Mo_In_ MO_UINT16 Left,
+    _Mo_In_ MO_UINT16 Right)
+{
+#define VALUE_TYPE MO_UINT16
+#define SIGNED_VALUE_TYPE MO_INT16
+#define VALUE_SIGN_BIT_MASK MO_INTERNAL_SIGN_BIT_MASK_16
+#define SIGNED_VALUE_MAXIMUM MO_INT16_MAX
+#define SIGNED_VALUE_MINIMUM MO_INT16_MIN
+
+    VALUE_TYPE Difference = Left - Right;
+
+    if (Difference <= ((VALUE_TYPE)(SIGNED_VALUE_MAXIMUM)))
+    {
+        return ((SIGNED_VALUE_TYPE)(Difference));
+    }
+
+    if (Difference == VALUE_SIGN_BIT_MASK)
+    {
+        return ((SIGNED_VALUE_TYPE)(SIGNED_VALUE_MINIMUM));
+    }
+
+    {
+        VALUE_TYPE Magnitude = ((VALUE_TYPE)(((VALUE_TYPE)(0)) - Difference));
+        return ((SIGNED_VALUE_TYPE)(-((SIGNED_VALUE_TYPE)(Magnitude))));
+    }
+
+#undef VALUE_TYPE
+#undef SIGNED_VALUE_TYPE
+#undef VALUE_SIGN_BIT_MASK
+#undef SIGNED_VALUE_MAXIMUM
+#undef SIGNED_VALUE_MINIMUM
+}
+
+MO_EXTERN_C MO_INT32 MOAPI MoMileFixedIntegerSequenceCompare32(
+    _Mo_In_ MO_UINT32 Left,
+    _Mo_In_ MO_UINT32 Right)
+{
+#define VALUE_TYPE MO_UINT32
+#define SIGNED_VALUE_TYPE MO_INT32
+#define VALUE_SIGN_BIT_MASK MO_INTERNAL_SIGN_BIT_MASK_32
+#define SIGNED_VALUE_MAXIMUM MO_INT32_MAX
+#define SIGNED_VALUE_MINIMUM MO_INT32_MIN
+
+    VALUE_TYPE Difference = Left - Right;
+
+    if (Difference <= ((VALUE_TYPE)(SIGNED_VALUE_MAXIMUM)))
+    {
+        return ((SIGNED_VALUE_TYPE)(Difference));
+    }
+
+    if (Difference == VALUE_SIGN_BIT_MASK)
+    {
+        return ((SIGNED_VALUE_TYPE)(SIGNED_VALUE_MINIMUM));
+    }
+
+    {
+        VALUE_TYPE Magnitude = ((VALUE_TYPE)(((VALUE_TYPE)(0)) - Difference));
+        return ((SIGNED_VALUE_TYPE)(-((SIGNED_VALUE_TYPE)(Magnitude))));
+    }
+
+#undef VALUE_TYPE
+#undef SIGNED_VALUE_TYPE
+#undef VALUE_SIGN_BIT_MASK
+#undef SIGNED_VALUE_MAXIMUM
+#undef SIGNED_VALUE_MINIMUM
+}
+
+MO_EXTERN_C MO_INT64 MOAPI MoMileFixedIntegerSequenceCompare64(
+    _Mo_In_ MO_UINT64 Left,
+    _Mo_In_ MO_UINT64 Right)
+{
+#define VALUE_TYPE MO_UINT64
+#define SIGNED_VALUE_TYPE MO_INT64
+#define VALUE_SIGN_BIT_MASK MO_INTERNAL_SIGN_BIT_MASK_64
+#define SIGNED_VALUE_MAXIMUM MO_INT64_MAX
+#define SIGNED_VALUE_MINIMUM MO_INT64_MIN
+
+    VALUE_TYPE Difference = Left - Right;
+
+    if (Difference <= ((VALUE_TYPE)(SIGNED_VALUE_MAXIMUM)))
+    {
+        return ((SIGNED_VALUE_TYPE)(Difference));
+    }
+
+    if (Difference == VALUE_SIGN_BIT_MASK)
+    {
+        return ((SIGNED_VALUE_TYPE)(SIGNED_VALUE_MINIMUM));
+    }
+
+    {
+        VALUE_TYPE Magnitude = ((VALUE_TYPE)(((VALUE_TYPE)(0)) - Difference));
+        return ((SIGNED_VALUE_TYPE)(-((SIGNED_VALUE_TYPE)(Magnitude))));
+    }
+
+#undef VALUE_TYPE
+#undef SIGNED_VALUE_TYPE
+#undef VALUE_SIGN_BIT_MASK
+#undef SIGNED_VALUE_MAXIMUM
+#undef SIGNED_VALUE_MINIMUM
+}
+
+MO_EXTERN_C MO_INTN MOAPI MoMileFixedIntegerSequenceCompare(
+    _Mo_In_ MO_UINTN Left,
+    _Mo_In_ MO_UINTN Right)
+{
+#if (MO_POINTER_SIZE == 8)
+    return ((MO_INTN)(MoMileFixedIntegerSequenceCompare64(
+        ((MO_UINT64)(Left)),
+        ((MO_UINT64)(Right)))));
+#elif (MO_POINTER_SIZE == 4)
+    return ((MO_INTN)(MoMileFixedIntegerSequenceCompare32(
+        ((MO_UINT32)(Left)),
+        ((MO_UINT32)(Right)))));
+#elif (MO_POINTER_SIZE == 2)
+    return ((MO_INTN)(MoMileFixedIntegerSequenceCompare16(
+        ((MO_UINT16)(Left)),
+        ((MO_UINT16)(Right)))));
+#elif (MO_POINTER_SIZE == 1)
+    return ((MO_INTN)(MoMileFixedIntegerSequenceCompare8(
+        ((MO_UINT8)(Left)),
+        ((MO_UINT8)(Right)))));
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
+#endif
+}

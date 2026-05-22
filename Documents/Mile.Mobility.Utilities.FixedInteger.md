@@ -41,3 +41,9 @@
   - MoMileFixedIntegerWriteBigEndian
   - MoMileFixedIntegerReadLittleEndian
   - MoMileFixedIntegerWriteLittleEndian
+- Sequence Compare:
+  - MoMileFixedIntegerSequenceCompare8
+  - MoMileFixedIntegerSequenceCompare16
+  - MoMileFixedIntegerSequenceCompare32
+  - MoMileFixedIntegerSequenceCompare64
+  - MoMileFixedIntegerSequenceCompare

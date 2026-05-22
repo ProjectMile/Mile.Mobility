@@ -4032,6 +4032,907 @@ namespace
 
         std::printf("MoMileFixedIntegerReadWriteTest passed.\n");
     }
+
+    void MoMileFixedIntegerSequenceCompare8Test()
+    {
+        auto Test = [](
+            MO_UINT8 Left,
+            MO_UINT8 Right,
+            MO_INT8 Expected,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_INT8 Actual = ::MoMileFixedIntegerSequenceCompare8(
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            MO_INT8 Reverse = ::MoMileFixedIntegerSequenceCompare8(
+                Right,
+                Left);
+
+            MO_UINT8 const Difference =
+                static_cast<MO_UINT8>(Left - Right);
+
+            if (Difference == static_cast<MO_UINT8>(0x80))
+            {
+                ::Check(
+                    static_cast<MO_INT8>(-128) == Reverse,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Actual == static_cast<MO_INT8>(-Reverse),
+                    Message,
+                    Location);
+            }
+        };
+
+        Test(
+            0,
+            0,
+            0,
+            "sequence compare 8 accepts equal zero");
+
+        Test(
+            5,
+            3,
+            2,
+            "sequence compare 8 returns positive distance");
+
+        Test(
+            3,
+            5,
+            -2,
+            "sequence compare 8 returns negative distance");
+
+        Test(
+            0,
+            255,
+            1,
+            "sequence compare 8 handles forward wrap");
+
+        Test(
+            255,
+            0,
+            -1,
+            "sequence compare 8 handles backward wrap");
+
+        Test(
+            127,
+            0,
+            127,
+            "sequence compare 8 accepts maximum positive distance");
+
+        Test(
+            0,
+            127,
+            -127,
+            "sequence compare 8 accepts maximum negative distance");
+
+        Test(
+            128,
+            0,
+            static_cast<MO_INT8>(-128),
+            "sequence compare 8 returns ambiguous half-range distance");
+
+        Test(
+            0,
+            128,
+            static_cast<MO_INT8>(-128),
+            "sequence compare 8 returns ambiguous reverse half-range distance");
+
+        Test(
+            129,
+            0,
+            static_cast<MO_INT8>(-127),
+            "sequence compare 8 maps half-range plus one to -127");
+
+        Test(
+            0,
+            129,
+            127,
+            "sequence compare 8 maps reverse half-range plus one to 127");
+
+        Test(
+            128,
+            1,
+            127,
+            "sequence compare 8 maps half-range minus one to 127");
+
+        Test(
+            1,
+            128,
+            static_cast<MO_INT8>(-127),
+            "sequence compare 8 maps reverse half-range minus one to -127");
+
+        Test(
+            255,
+            127,
+            static_cast<MO_INT8>(-128),
+            "sequence compare 8 returns shifted half-range distance");
+
+        Test(
+            127,
+            255,
+            static_cast<MO_INT8>(-128),
+            "sequence compare 8 returns shifted reverse half-range distance");
+
+        Test(
+            200,
+            100,
+            100,
+            "sequence compare 8 returns positive non-wrapping distance");
+
+        Test(
+            100,
+            200,
+            -100,
+            "sequence compare 8 returns negative wrapping distance");
+
+        for (int Left = 0; Left < 256; ++Left)
+        {
+            for (int Right = 0; Right < 256; ++Right)
+            {
+                MO_UINT8 const LeftValue = static_cast<MO_UINT8>(Left);
+                MO_UINT8 const RightValue = static_cast<MO_UINT8>(Right);
+
+                MO_UINT8 const Difference =
+                    static_cast<MO_UINT8>(LeftValue - RightValue);
+
+                MO_INT8 Expected = 0;
+
+                if (Difference <= static_cast<MO_UINT8>(127))
+                {
+                    Expected = static_cast<MO_INT8>(Difference);
+                }
+                else if (Difference == static_cast<MO_UINT8>(0x80))
+                {
+                    Expected = static_cast<MO_INT8>(-128);
+                }
+                else
+                {
+                    MO_UINT8 const Magnitude =
+                        static_cast<MO_UINT8>(0 - Difference);
+
+                    Expected = static_cast<MO_INT8>(
+                        -static_cast<MO_INT8>(Magnitude));
+                }
+
+                MO_INT8 const Actual = ::MoMileFixedIntegerSequenceCompare8(
+                    LeftValue,
+                    RightValue);
+
+                ::Check(
+                    Expected == Actual,
+                    "sequence compare 8 exhaustive result mismatch");
+
+                MO_INT8 const Reverse = ::MoMileFixedIntegerSequenceCompare8(
+                    RightValue,
+                    LeftValue);
+
+                if (Difference == static_cast<MO_UINT8>(0x80))
+                {
+                    ::Check(
+                        static_cast<MO_INT8>(-128) == Reverse,
+                        "sequence compare 8 exhaustive reverse half-range mismatch");
+                }
+                else
+                {
+                    ::Check(
+                        Actual == static_cast<MO_INT8>(-Reverse),
+                        "sequence compare 8 exhaustive antisymmetry mismatch");
+                }
+            }
+        }
+
+        std::printf("MoMileFixedIntegerSequenceCompare8Test passed.\n");
+    }
+
+    void MoMileFixedIntegerSequenceCompare16Test()
+    {
+        auto Test = [](
+            MO_UINT16 Left,
+            MO_UINT16 Right,
+            MO_INT16 Expected,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_INT16 Actual = ::MoMileFixedIntegerSequenceCompare16(
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            MO_INT16 Reverse = ::MoMileFixedIntegerSequenceCompare16(
+                Right,
+                Left);
+
+            MO_UINT16 const Difference =
+                static_cast<MO_UINT16>(Left - Right);
+
+            if (Difference == static_cast<MO_UINT16>(0x8000u))
+            {
+                ::Check(
+                    static_cast<MO_INT16>(-32768) == Reverse,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Actual == static_cast<MO_INT16>(-Reverse),
+                    Message,
+                    Location);
+            }
+        };
+
+        Test(
+            0,
+            0,
+            0,
+            "sequence compare 16 accepts equal zero");
+
+        Test(
+            5,
+            3,
+            2,
+            "sequence compare 16 returns positive distance");
+
+        Test(
+            3,
+            5,
+            -2,
+            "sequence compare 16 returns negative distance");
+
+        Test(
+            0,
+            65535,
+            1,
+            "sequence compare 16 handles forward wrap");
+
+        Test(
+            65535,
+            0,
+            -1,
+            "sequence compare 16 handles backward wrap");
+
+        Test(
+            32767,
+            0,
+            32767,
+            "sequence compare 16 accepts maximum positive distance");
+
+        Test(
+            0,
+            32767,
+            -32767,
+            "sequence compare 16 accepts maximum negative distance");
+
+        Test(
+            32768,
+            0,
+            static_cast<MO_INT16>(-32768),
+            "sequence compare 16 returns ambiguous half-range distance");
+
+        Test(
+            0,
+            32768,
+            static_cast<MO_INT16>(-32768),
+            "sequence compare 16 returns ambiguous reverse half-range distance");
+
+        Test(
+            32769,
+            0,
+            static_cast<MO_INT16>(-32767),
+            "sequence compare 16 maps half-range plus one to -32767");
+
+        Test(
+            0,
+            32769,
+            32767,
+            "sequence compare 16 maps reverse half-range plus one to 32767");
+
+        Test(
+            32768,
+            1,
+            32767,
+            "sequence compare 16 maps half-range minus one to 32767");
+
+        Test(
+            1,
+            32768,
+            static_cast<MO_INT16>(-32767),
+            "sequence compare 16 maps reverse half-range minus one to -32767");
+
+        Test(
+            65535,
+            32767,
+            static_cast<MO_INT16>(-32768),
+            "sequence compare 16 returns shifted half-range distance");
+
+        Test(
+            32767,
+            65535,
+            static_cast<MO_INT16>(-32768),
+            "sequence compare 16 returns shifted reverse half-range distance");
+
+        Test(
+            40000,
+            10000,
+            30000,
+            "sequence compare 16 returns positive non-wrapping distance");
+
+        Test(
+            10000,
+            40000,
+            -30000,
+            "sequence compare 16 returns negative wrapping distance");
+
+        std::printf("MoMileFixedIntegerSequenceCompare16Test passed.\n");
+    }
+
+    void MoMileFixedIntegerSequenceCompare32Test()
+    {
+        auto Test = [](
+            MO_UINT32 Left,
+            MO_UINT32 Right,
+            MO_INT32 Expected,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_INT32 Actual = ::MoMileFixedIntegerSequenceCompare32(
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            MO_INT32 Reverse = ::MoMileFixedIntegerSequenceCompare32(
+                Right,
+                Left);
+
+            MO_UINT32 const Difference =
+                static_cast<MO_UINT32>(Left - Right);
+
+            if (Difference == static_cast<MO_UINT32>(0x80000000u))
+            {
+                ::Check(
+                    static_cast<MO_INT32>(static_cast<MO_UINT32>(0x80000000u)) ==
+                    Reverse,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Actual == -Reverse,
+                    Message,
+                    Location);
+            }
+        };
+
+        Test(
+            0,
+            0,
+            0,
+            "sequence compare 32 accepts equal zero");
+
+        Test(
+            5,
+            3,
+            2,
+            "sequence compare 32 returns positive distance");
+
+        Test(
+            3,
+            5,
+            -2,
+            "sequence compare 32 returns negative distance");
+
+        Test(
+            0,
+            0xFFFFFFFFu,
+            1,
+            "sequence compare 32 handles forward wrap");
+
+        Test(
+            0xFFFFFFFFu,
+            0,
+            -1,
+            "sequence compare 32 handles backward wrap");
+
+        Test(
+            0x7FFFFFFFu,
+            0,
+            0x7FFFFFFF,
+            "sequence compare 32 accepts maximum positive distance");
+
+        Test(
+            0,
+            0x7FFFFFFFu,
+            -2147483647,
+            "sequence compare 32 accepts maximum negative distance");
+
+        Test(
+            0x80000000u,
+            0,
+            static_cast<MO_INT32>(static_cast<MO_UINT32>(0x80000000u)),
+            "sequence compare 32 returns ambiguous half-range distance");
+
+        Test(
+            0,
+            0x80000000u,
+            static_cast<MO_INT32>(static_cast<MO_UINT32>(0x80000000u)),
+            "sequence compare 32 returns ambiguous reverse half-range distance");
+
+        Test(
+            0x80000001u,
+            0,
+            -2147483647,
+            "sequence compare 32 maps half-range plus one to -2147483647");
+
+        Test(
+            0,
+            0x80000001u,
+            2147483647,
+            "sequence compare 32 maps reverse half-range plus one to 2147483647");
+
+        Test(
+            0x80000000u,
+            1,
+            2147483647,
+            "sequence compare 32 maps half-range minus one to 2147483647");
+
+        Test(
+            1,
+            0x80000000u,
+            -2147483647,
+            "sequence compare 32 maps reverse half-range minus one to -2147483647");
+
+        Test(
+            0xFFFFFFFFu,
+            0x7FFFFFFFu,
+            static_cast<MO_INT32>(static_cast<MO_UINT32>(0x80000000u)),
+            "sequence compare 32 returns shifted half-range distance");
+
+        Test(
+            0x7FFFFFFFu,
+            0xFFFFFFFFu,
+            static_cast<MO_INT32>(static_cast<MO_UINT32>(0x80000000u)),
+            "sequence compare 32 returns shifted reverse half-range distance");
+
+        Test(
+            3000000000u,
+            1000000000u,
+            2000000000,
+            "sequence compare 32 returns positive non-wrapping distance");
+
+        Test(
+            1000000000u,
+            3000000000u,
+            -2000000000,
+            "sequence compare 32 returns negative wrapping distance");
+
+        std::printf("MoMileFixedIntegerSequenceCompare32Test passed.\n");
+    }
+
+    void MoMileFixedIntegerSequenceCompare64Test()
+    {
+        auto Test = [](
+            MO_UINT64 Left,
+            MO_UINT64 Right,
+            MO_INT64 Expected,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_INT64 Actual = ::MoMileFixedIntegerSequenceCompare64(
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            MO_INT64 Reverse = ::MoMileFixedIntegerSequenceCompare64(
+                Right,
+                Left);
+
+            MO_UINT64 const Difference =
+                static_cast<MO_UINT64>(Left - Right);
+
+            if (Difference == 0x8000000000000000ull)
+            {
+                ::Check(
+                    static_cast<MO_INT64>(
+                        static_cast<MO_UINT64>(0x8000000000000000ull)) ==
+                    Reverse,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Actual == -Reverse,
+                    Message,
+                    Location);
+            }
+        };
+
+        Test(
+            0,
+            0,
+            0,
+            "sequence compare 64 accepts equal zero");
+
+        Test(
+            5,
+            3,
+            2,
+            "sequence compare 64 returns positive distance");
+
+        Test(
+            3,
+            5,
+            -2,
+            "sequence compare 64 returns negative distance");
+
+        Test(
+            0,
+            0xFFFFFFFFFFFFFFFFull,
+            1,
+            "sequence compare 64 handles forward wrap");
+
+        Test(
+            0xFFFFFFFFFFFFFFFFull,
+            0,
+            -1,
+            "sequence compare 64 handles backward wrap");
+
+        Test(
+            0x7FFFFFFFFFFFFFFFull,
+            0,
+            0x7FFFFFFFFFFFFFFFll,
+            "sequence compare 64 accepts maximum positive distance");
+
+        Test(
+            0,
+            0x7FFFFFFFFFFFFFFFull,
+            -0x7FFFFFFFFFFFFFFFll,
+            "sequence compare 64 accepts maximum negative distance");
+
+        Test(
+            0x8000000000000000ull,
+            0,
+            static_cast<MO_INT64>(static_cast<MO_UINT64>(0x8000000000000000ull)),
+            "sequence compare 64 returns ambiguous half-range distance");
+
+        Test(
+            0,
+            0x8000000000000000ull,
+            static_cast<MO_INT64>(static_cast<MO_UINT64>(0x8000000000000000ull)),
+            "sequence compare 64 returns ambiguous reverse half-range distance");
+
+        Test(
+            0x8000000000000001ull,
+            0,
+            -9223372036854775807ll,
+            "sequence compare 64 maps half-range plus one to -9223372036854775807");
+
+        Test(
+            0,
+            0x8000000000000001ull,
+            9223372036854775807ll,
+            "sequence compare 64 maps reverse half-range plus one to 9223372036854775807");
+
+        Test(
+            0x8000000000000000ull,
+            1,
+            9223372036854775807ll,
+            "sequence compare 64 maps half-range minus one to 9223372036854775807");
+
+        Test(
+            1,
+            0x8000000000000000ull,
+            -9223372036854775807ll,
+            "sequence compare 64 maps reverse half-range minus one to -9223372036854775807");
+
+        Test(
+            0xFFFFFFFFFFFFFFFFull,
+            0x7FFFFFFFFFFFFFFFull,
+            static_cast<MO_INT64>(static_cast<MO_UINT64>(0x8000000000000000ull)),
+            "sequence compare 64 returns shifted half-range distance");
+
+        Test(
+            0x7FFFFFFFFFFFFFFFull,
+            0xFFFFFFFFFFFFFFFFull,
+            static_cast<MO_INT64>(static_cast<MO_UINT64>(0x8000000000000000ull)),
+            "sequence compare 64 returns shifted reverse half-range distance");
+
+        Test(
+            9000000000000000000ull,
+            7000000000000000000ull,
+            2000000000000000000ll,
+            "sequence compare 64 returns positive non-wrapping distance");
+
+        Test(
+            7000000000000000000ull,
+            9000000000000000000ull,
+            -2000000000000000000ll,
+            "sequence compare 64 returns negative wrapping distance");
+
+        std::printf("MoMileFixedIntegerSequenceCompare64Test passed.\n");
+    }
+
+    void MoMileFixedIntegerSequenceCompareTest()
+    {
+        auto Test = [](
+            MO_UINTN Left,
+            MO_UINTN Right,
+            MO_INTN Expected,
+            std::string_view Message = {},
+            std::source_location const& Location = std::source_location::current())
+        {
+            MO_INTN Actual = ::MoMileFixedIntegerSequenceCompare(
+                Left,
+                Right);
+
+            ::Check(
+                Expected == Actual,
+                Message,
+                Location);
+
+            MO_INTN Reverse = ::MoMileFixedIntegerSequenceCompare(
+                Right,
+                Left);
+
+            MO_UINTN const Difference =
+                static_cast<MO_UINTN>(Left - Right);
+
+#if (MO_POINTER_SIZE == 8)
+            if (Difference == static_cast<MO_UINTN>(0x8000000000000000ull))
+#elif (MO_POINTER_SIZE == 4)
+            if (Difference == static_cast<MO_UINTN>(0x80000000u))
+#elif (MO_POINTER_SIZE == 2)
+            if (Difference == static_cast<MO_UINTN>(0x8000u))
+#elif (MO_POINTER_SIZE == 1)
+            if (Difference == static_cast<MO_UINTN>(0x80u))
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger.Test] Unsupported platform."
+#endif
+            {
+                ::Check(
+                    Expected == Reverse,
+                    Message,
+                    Location);
+            }
+            else
+            {
+                ::Check(
+                    Actual == static_cast<MO_INTN>(-Reverse),
+                    Message,
+                    Location);
+                    }
+        };
+
+#if (MO_POINTER_SIZE == 8)
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(0),
+            "native sequence compare accepts equal zero");
+
+        Test(
+            static_cast<MO_UINTN>(5),
+            static_cast<MO_UINTN>(3),
+            static_cast<MO_INTN>(2),
+            "native sequence compare returns positive distance");
+
+        Test(
+            static_cast<MO_UINTN>(3),
+            static_cast<MO_UINTN>(5),
+            static_cast<MO_INTN>(-2),
+            "native sequence compare returns negative distance");
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0xFFFFFFFFFFFFFFFFull),
+            static_cast<MO_INTN>(1),
+            "native sequence compare handles forward wrap");
+
+        Test(
+            static_cast<MO_UINTN>(0x7FFFFFFFFFFFFFFFull),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(0x7FFFFFFFFFFFFFFFll),
+            "native sequence compare accepts maximum positive distance");
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0x7FFFFFFFFFFFFFFFull),
+            static_cast<MO_INTN>(-0x7FFFFFFFFFFFFFFFll),
+            "native sequence compare accepts maximum negative distance");
+
+        Test(
+            static_cast<MO_UINTN>(0x8000000000000000ull),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(static_cast<MO_UINT64>(0x8000000000000000ull)),
+            "native sequence compare returns ambiguous half-range distance");
+
+        Test(
+            static_cast<MO_UINTN>(0x8000000000000001ull),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(-9223372036854775807ll),
+            "native sequence compare maps half-range plus one to negative");
+
+#elif (MO_POINTER_SIZE == 4)
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(0),
+            "native sequence compare accepts equal zero");
+
+        Test(
+            static_cast<MO_UINTN>(5),
+            static_cast<MO_UINTN>(3),
+            static_cast<MO_INTN>(2),
+            "native sequence compare returns positive distance");
+
+        Test(
+            static_cast<MO_UINTN>(3),
+            static_cast<MO_UINTN>(5),
+            static_cast<MO_INTN>(-2),
+            "native sequence compare returns negative distance");
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0xFFFFFFFFu),
+            static_cast<MO_INTN>(1),
+            "native sequence compare handles forward wrap");
+
+        Test(
+            static_cast<MO_UINTN>(0x7FFFFFFFu),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(0x7FFFFFFF),
+            "native sequence compare accepts maximum positive distance");
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0x7FFFFFFFu),
+            static_cast<MO_INTN>(-2147483647),
+            "native sequence compare accepts maximum negative distance");
+
+        Test(
+            static_cast<MO_UINTN>(0x80000000u),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(static_cast<MO_UINT32>(0x80000000u)),
+            "native sequence compare returns ambiguous half-range distance");
+
+        Test(
+            static_cast<MO_UINTN>(0x80000001u),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(-2147483647),
+            "native sequence compare maps half-range plus one to negative");
+
+#elif (MO_POINTER_SIZE == 2)
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(0),
+            "native sequence compare accepts equal zero");
+
+        Test(
+            static_cast<MO_UINTN>(5),
+            static_cast<MO_UINTN>(3),
+            static_cast<MO_INTN>(2),
+            "native sequence compare returns positive distance");
+
+        Test(
+            static_cast<MO_UINTN>(3),
+            static_cast<MO_UINTN>(5),
+            static_cast<MO_INTN>(-2),
+            "native sequence compare returns negative distance");
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0xFFFFu),
+            static_cast<MO_INTN>(1),
+            "native sequence compare handles forward wrap");
+
+        Test(
+            static_cast<MO_UINTN>(0x7FFFu),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(0x7FFF),
+            "native sequence compare accepts maximum positive distance");
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0x7FFFu),
+            static_cast<MO_INTN>(-32767),
+            "native sequence compare accepts maximum negative distance");
+
+        Test(
+            static_cast<MO_UINTN>(0x8000u),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(static_cast<MO_UINT16>(0x8000u)),
+            "native sequence compare returns ambiguous half-range distance");
+
+        Test(
+            static_cast<MO_UINTN>(0x8001u),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(-32767),
+            "native sequence compare maps half-range plus one to negative");
+
+#elif (MO_POINTER_SIZE == 1)
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(0),
+            "native sequence compare accepts equal zero");
+
+        Test(
+            static_cast<MO_UINTN>(5),
+            static_cast<MO_UINTN>(3),
+            static_cast<MO_INTN>(2),
+            "native sequence compare returns positive distance");
+
+        Test(
+            static_cast<MO_UINTN>(3),
+            static_cast<MO_UINTN>(5),
+            static_cast<MO_INTN>(-2),
+            "native sequence compare returns negative distance");
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0xFFu),
+            static_cast<MO_INTN>(1),
+            "native sequence compare handles forward wrap");
+
+        Test(
+            static_cast<MO_UINTN>(0x7Fu),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(0x7F),
+            "native sequence compare accepts maximum positive distance");
+
+        Test(
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_UINTN>(0x7Fu),
+            static_cast<MO_INTN>(-127),
+            "native sequence compare accepts maximum negative distance");
+
+        Test(
+            static_cast<MO_UINTN>(0x80u),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(static_cast<MO_UINT8>(0x80u)),
+            "native sequence compare returns ambiguous half-range distance");
+
+        Test(
+            static_cast<MO_UINTN>(0x81u),
+            static_cast<MO_UINTN>(0),
+            static_cast<MO_INTN>(-127),
+            "native sequence compare maps half-range plus one to negative");
+
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger.Test] Unsupported platform."
+#endif
+
+        std::printf("MoMileFixedIntegerSequenceCompareTest passed.\n");
+    }
 }
 
 MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
@@ -4063,6 +4964,12 @@ MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
     ::MoMileFixedIntegerReadWrite32Test();
     ::MoMileFixedIntegerReadWrite64Test();
     ::MoMileFixedIntegerReadWriteTest();
+
+    ::MoMileFixedIntegerSequenceCompare8Test();
+    ::MoMileFixedIntegerSequenceCompare16Test();
+    ::MoMileFixedIntegerSequenceCompare32Test();
+    ::MoMileFixedIntegerSequenceCompare64Test();
+    ::MoMileFixedIntegerSequenceCompareTest();
 
     std::printf("\nAll MoMileFixedInteger tests passed.\n");
 }
