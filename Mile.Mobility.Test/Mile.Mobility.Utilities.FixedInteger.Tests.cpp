@@ -3552,6 +3552,486 @@ namespace
 
         std::printf("MoMileFixedIntegerCheckedMultiplicationTest passed.\n");
     }
+
+    void MoMileFixedIntegerReadWrite8Test()
+    {
+        {
+            MO_UINT8 Buffer[1] =
+            {
+                static_cast<MO_UINT8>(0xA5)
+            };
+
+            ::Check(
+                static_cast<MO_UINT8>(0xA5) ==
+                ::MoMileFixedIntegerRead8(Buffer),
+                "Read8 reads one byte");
+        }
+
+        {
+            MO_UINT8 Buffer[1] =
+            {
+                static_cast<MO_UINT8>(0xA5)
+            };
+
+            ::MoMileFixedIntegerWrite8(
+                Buffer,
+                static_cast<MO_UINT8>(0x5A));
+
+            ::Check(
+                static_cast<MO_UINT8>(0x5A) == Buffer[0],
+                "Write8 writes one byte");
+        }
+
+        std::printf("MoMileFixedIntegerReadWrite8Test passed.\n");
+    }
+
+    void MoMileFixedIntegerReadWrite16Test()
+    {
+        {
+            MO_UINT8 Buffer[2] =
+            {
+                static_cast<MO_UINT8>(0x12),
+                static_cast<MO_UINT8>(0x34)
+            };
+
+            ::Check(
+                static_cast<MO_UINT16>(0x1234) ==
+                ::MoMileFixedIntegerReadBigEndian16(Buffer),
+                "ReadBigEndian16 reads big-endian bytes");
+        }
+
+        {
+            MO_UINT8 Buffer[2] =
+            {
+                static_cast<MO_UINT8>(0x34),
+                static_cast<MO_UINT8>(0x12)
+            };
+
+            ::Check(
+                static_cast<MO_UINT16>(0x1234) ==
+                ::MoMileFixedIntegerReadLittleEndian16(Buffer),
+                "ReadLittleEndian16 reads little-endian bytes");
+        }
+
+        {
+            MO_UINT8 Buffer[2] =
+            {
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5)
+            };
+
+            ::MoMileFixedIntegerWriteBigEndian16(
+                Buffer,
+                static_cast<MO_UINT16>(0x1234));
+
+            ::Check(
+                static_cast<MO_UINT8>(0x12) == Buffer[0],
+                "WriteBigEndian16 writes high byte");
+            ::Check(
+                static_cast<MO_UINT8>(0x34) == Buffer[1],
+                "WriteBigEndian16 writes low byte");
+        }
+
+        {
+            MO_UINT8 Buffer[2] =
+            {
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5)
+            };
+
+            ::MoMileFixedIntegerWriteLittleEndian16(
+                Buffer,
+                static_cast<MO_UINT16>(0x1234));
+
+            ::Check(
+                static_cast<MO_UINT8>(0x34) == Buffer[0],
+                "WriteLittleEndian16 writes low byte");
+            ::Check(
+                static_cast<MO_UINT8>(0x12) == Buffer[1],
+                "WriteLittleEndian16 writes high byte");
+        }
+
+        std::printf("MoMileFixedIntegerReadWrite16Test passed.\n");
+    }
+
+    void MoMileFixedIntegerReadWrite32Test()
+    {
+        {
+            MO_UINT8 Buffer[4] =
+            {
+                static_cast<MO_UINT8>(0x12),
+                static_cast<MO_UINT8>(0x34),
+                static_cast<MO_UINT8>(0x56),
+                static_cast<MO_UINT8>(0x78)
+            };
+
+            ::Check(
+                static_cast<MO_UINT32>(0x12345678u) ==
+                ::MoMileFixedIntegerReadBigEndian32(Buffer),
+                "ReadBigEndian32 reads big-endian bytes");
+        }
+
+        {
+            MO_UINT8 Buffer[4] =
+            {
+                static_cast<MO_UINT8>(0x78),
+                static_cast<MO_UINT8>(0x56),
+                static_cast<MO_UINT8>(0x34),
+                static_cast<MO_UINT8>(0x12)
+            };
+
+            ::Check(
+                static_cast<MO_UINT32>(0x12345678u) ==
+                ::MoMileFixedIntegerReadLittleEndian32(Buffer),
+                "ReadLittleEndian32 reads little-endian bytes");
+        }
+
+        {
+            MO_UINT8 Buffer[4] =
+            {
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5)
+            };
+
+            ::MoMileFixedIntegerWriteBigEndian32(
+                Buffer,
+                static_cast<MO_UINT32>(0x12345678u));
+
+            ::Check(
+                static_cast<MO_UINT8>(0x12) == Buffer[0],
+                "WriteBigEndian32 writes byte 0");
+            ::Check(
+                static_cast<MO_UINT8>(0x34) == Buffer[1],
+                "WriteBigEndian32 writes byte 1");
+            ::Check(
+                static_cast<MO_UINT8>(0x56) == Buffer[2],
+                "WriteBigEndian32 writes byte 2");
+            ::Check(
+                static_cast<MO_UINT8>(0x78) == Buffer[3],
+                "WriteBigEndian32 writes byte 3");
+        }
+
+        {
+            MO_UINT8 Buffer[4] =
+            {
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5)
+            };
+
+            ::MoMileFixedIntegerWriteLittleEndian32(
+                Buffer,
+                static_cast<MO_UINT32>(0x12345678u));
+
+            ::Check(
+                static_cast<MO_UINT8>(0x78) == Buffer[0],
+                "WriteLittleEndian32 writes byte 0");
+            ::Check(
+                static_cast<MO_UINT8>(0x56) == Buffer[1],
+                "WriteLittleEndian32 writes byte 1");
+            ::Check(
+                static_cast<MO_UINT8>(0x34) == Buffer[2],
+                "WriteLittleEndian32 writes byte 2");
+            ::Check(
+                static_cast<MO_UINT8>(0x12) == Buffer[3],
+                "WriteLittleEndian32 writes byte 3");
+        }
+
+        std::printf("MoMileFixedIntegerReadWrite32Test passed.\n");
+    }
+
+    void MoMileFixedIntegerReadWrite64Test()
+    {
+        {
+            MO_UINT8 Buffer[8] =
+            {
+                static_cast<MO_UINT8>(0x01),
+                static_cast<MO_UINT8>(0x23),
+                static_cast<MO_UINT8>(0x45),
+                static_cast<MO_UINT8>(0x67),
+                static_cast<MO_UINT8>(0x89),
+                static_cast<MO_UINT8>(0xAB),
+                static_cast<MO_UINT8>(0xCD),
+                static_cast<MO_UINT8>(0xEF)
+            };
+
+            ::Check(
+                static_cast<MO_UINT64>(0x0123456789ABCDEFull) ==
+                ::MoMileFixedIntegerReadBigEndian64(Buffer),
+                "ReadBigEndian64 reads big-endian bytes");
+        }
+
+        {
+            MO_UINT8 Buffer[8] =
+            {
+                static_cast<MO_UINT8>(0xEF),
+                static_cast<MO_UINT8>(0xCD),
+                static_cast<MO_UINT8>(0xAB),
+                static_cast<MO_UINT8>(0x89),
+                static_cast<MO_UINT8>(0x67),
+                static_cast<MO_UINT8>(0x45),
+                static_cast<MO_UINT8>(0x23),
+                static_cast<MO_UINT8>(0x01)
+            };
+
+            ::Check(
+                static_cast<MO_UINT64>(0x0123456789ABCDEFull) ==
+                ::MoMileFixedIntegerReadLittleEndian64(Buffer),
+                "ReadLittleEndian64 reads little-endian bytes");
+        }
+
+        {
+            MO_UINT8 Buffer[8] =
+            {
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5)
+            };
+
+            ::MoMileFixedIntegerWriteBigEndian64(
+                Buffer,
+                static_cast<MO_UINT64>(0x0123456789ABCDEFull));
+
+            ::Check(static_cast<MO_UINT8>(0x01) == Buffer[0],
+                "WriteBigEndian64 writes byte 0");
+            ::Check(static_cast<MO_UINT8>(0x23) == Buffer[1],
+                "WriteBigEndian64 writes byte 1");
+            ::Check(static_cast<MO_UINT8>(0x45) == Buffer[2],
+                "WriteBigEndian64 writes byte 2");
+            ::Check(static_cast<MO_UINT8>(0x67) == Buffer[3],
+                "WriteBigEndian64 writes byte 3");
+            ::Check(static_cast<MO_UINT8>(0x89) == Buffer[4],
+                "WriteBigEndian64 writes byte 4");
+            ::Check(static_cast<MO_UINT8>(0xAB) == Buffer[5],
+                "WriteBigEndian64 writes byte 5");
+            ::Check(static_cast<MO_UINT8>(0xCD) == Buffer[6],
+                "WriteBigEndian64 writes byte 6");
+            ::Check(static_cast<MO_UINT8>(0xEF) == Buffer[7],
+                "WriteBigEndian64 writes byte 7");
+        }
+
+        {
+            MO_UINT8 Buffer[8] =
+            {
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5),
+                static_cast<MO_UINT8>(0xA5)
+            };
+
+            ::MoMileFixedIntegerWriteLittleEndian64(
+                Buffer,
+                static_cast<MO_UINT64>(0x0123456789ABCDEFull));
+
+            ::Check(static_cast<MO_UINT8>(0xEF) == Buffer[0],
+                "WriteLittleEndian64 writes byte 0");
+            ::Check(static_cast<MO_UINT8>(0xCD) == Buffer[1],
+                "WriteLittleEndian64 writes byte 1");
+            ::Check(static_cast<MO_UINT8>(0xAB) == Buffer[2],
+                "WriteLittleEndian64 writes byte 2");
+            ::Check(static_cast<MO_UINT8>(0x89) == Buffer[3],
+                "WriteLittleEndian64 writes byte 3");
+            ::Check(static_cast<MO_UINT8>(0x67) == Buffer[4],
+                "WriteLittleEndian64 writes byte 4");
+            ::Check(static_cast<MO_UINT8>(0x45) == Buffer[5],
+                "WriteLittleEndian64 writes byte 5");
+            ::Check(static_cast<MO_UINT8>(0x23) == Buffer[6],
+                "WriteLittleEndian64 writes byte 6");
+            ::Check(static_cast<MO_UINT8>(0x01) == Buffer[7],
+                "WriteLittleEndian64 writes byte 7");
+        }
+
+        std::printf("MoMileFixedIntegerReadWrite64Test passed.\n");
+    }
+
+    void MoMileFixedIntegerReadWriteTest()
+    {
+#if (MO_POINTER_SIZE == 8)
+
+        MO_UINTN const Value =
+            static_cast<MO_UINTN>(0x0123456789ABCDEFull);
+
+        {
+            MO_UINT8 Buffer[8] = {};
+
+            ::MoMileFixedIntegerWriteBigEndian(Buffer, Value);
+
+            ::Check(static_cast<MO_UINT8>(0x01) == Buffer[0],
+                "WriteBigEndian native writes byte 0");
+            ::Check(static_cast<MO_UINT8>(0x23) == Buffer[1],
+                "WriteBigEndian native writes byte 1");
+            ::Check(static_cast<MO_UINT8>(0x45) == Buffer[2],
+                "WriteBigEndian native writes byte 2");
+            ::Check(static_cast<MO_UINT8>(0x67) == Buffer[3],
+                "WriteBigEndian native writes byte 3");
+            ::Check(static_cast<MO_UINT8>(0x89) == Buffer[4],
+                "WriteBigEndian native writes byte 4");
+            ::Check(static_cast<MO_UINT8>(0xAB) == Buffer[5],
+                "WriteBigEndian native writes byte 5");
+            ::Check(static_cast<MO_UINT8>(0xCD) == Buffer[6],
+                "WriteBigEndian native writes byte 6");
+            ::Check(static_cast<MO_UINT8>(0xEF) == Buffer[7],
+                "WriteBigEndian native writes byte 7");
+
+            ::Check(
+                Value == ::MoMileFixedIntegerReadBigEndian(Buffer),
+                "ReadBigEndian native reads written value");
+        }
+
+        {
+            MO_UINT8 Buffer[8] = {};
+
+            ::MoMileFixedIntegerWriteLittleEndian(Buffer, Value);
+
+            ::Check(static_cast<MO_UINT8>(0xEF) == Buffer[0],
+                "WriteLittleEndian native writes byte 0");
+            ::Check(static_cast<MO_UINT8>(0xCD) == Buffer[1],
+                "WriteLittleEndian native writes byte 1");
+            ::Check(static_cast<MO_UINT8>(0xAB) == Buffer[2],
+                "WriteLittleEndian native writes byte 2");
+            ::Check(static_cast<MO_UINT8>(0x89) == Buffer[3],
+                "WriteLittleEndian native writes byte 3");
+            ::Check(static_cast<MO_UINT8>(0x67) == Buffer[4],
+                "WriteLittleEndian native writes byte 4");
+            ::Check(static_cast<MO_UINT8>(0x45) == Buffer[5],
+                "WriteLittleEndian native writes byte 5");
+            ::Check(static_cast<MO_UINT8>(0x23) == Buffer[6],
+                "WriteLittleEndian native writes byte 6");
+            ::Check(static_cast<MO_UINT8>(0x01) == Buffer[7],
+                "WriteLittleEndian native writes byte 7");
+
+            ::Check(
+                Value == ::MoMileFixedIntegerReadLittleEndian(Buffer),
+                "ReadLittleEndian native reads written value");
+        }
+
+#elif (MO_POINTER_SIZE == 4)
+
+        MO_UINTN const Value =
+            static_cast<MO_UINTN>(0x12345678u);
+
+        {
+            MO_UINT8 Buffer[4] = {};
+
+            ::MoMileFixedIntegerWriteBigEndian(Buffer, Value);
+
+            ::Check(static_cast<MO_UINT8>(0x12) == Buffer[0],
+                "WriteBigEndian native writes byte 0");
+            ::Check(static_cast<MO_UINT8>(0x34) == Buffer[1],
+                "WriteBigEndian native writes byte 1");
+            ::Check(static_cast<MO_UINT8>(0x56) == Buffer[2],
+                "WriteBigEndian native writes byte 2");
+            ::Check(static_cast<MO_UINT8>(0x78) == Buffer[3],
+                "WriteBigEndian native writes byte 3");
+
+            ::Check(
+                Value == ::MoMileFixedIntegerReadBigEndian(Buffer),
+                "ReadBigEndian native reads written value");
+        }
+
+        {
+            MO_UINT8 Buffer[4] = {};
+
+            ::MoMileFixedIntegerWriteLittleEndian(Buffer, Value);
+
+            ::Check(static_cast<MO_UINT8>(0x78) == Buffer[0],
+                "WriteLittleEndian native writes byte 0");
+            ::Check(static_cast<MO_UINT8>(0x56) == Buffer[1],
+                "WriteLittleEndian native writes byte 1");
+            ::Check(static_cast<MO_UINT8>(0x34) == Buffer[2],
+                "WriteLittleEndian native writes byte 2");
+            ::Check(static_cast<MO_UINT8>(0x12) == Buffer[3],
+                "WriteLittleEndian native writes byte 3");
+
+            ::Check(
+                Value == ::MoMileFixedIntegerReadLittleEndian(Buffer),
+                "ReadLittleEndian native reads written value");
+        }
+
+#elif (MO_POINTER_SIZE == 2)
+
+        MO_UINTN const Value =
+            static_cast<MO_UINTN>(0x1234u);
+
+        {
+            MO_UINT8 Buffer[2] = {};
+
+            ::MoMileFixedIntegerWriteBigEndian(Buffer, Value);
+
+            ::Check(static_cast<MO_UINT8>(0x12) == Buffer[0],
+                "WriteBigEndian native writes byte 0");
+            ::Check(static_cast<MO_UINT8>(0x34) == Buffer[1],
+                "WriteBigEndian native writes byte 1");
+
+            ::Check(
+                Value == ::MoMileFixedIntegerReadBigEndian(Buffer),
+                "ReadBigEndian native reads written value");
+        }
+
+        {
+            MO_UINT8 Buffer[2] = {};
+
+            ::MoMileFixedIntegerWriteLittleEndian(Buffer, Value);
+
+            ::Check(static_cast<MO_UINT8>(0x34) == Buffer[0],
+                "WriteLittleEndian native writes byte 0");
+            ::Check(static_cast<MO_UINT8>(0x12) == Buffer[1],
+                "WriteLittleEndian native writes byte 1");
+
+            ::Check(
+                Value == ::MoMileFixedIntegerReadLittleEndian(Buffer),
+                "ReadLittleEndian native reads written value");
+        }
+
+#elif (MO_POINTER_SIZE == 1)
+
+        MO_UINTN const Value =
+            static_cast<MO_UINTN>(0x5Au);
+
+        {
+            MO_UINT8 Buffer[1] = {};
+
+            ::MoMileFixedIntegerWriteBigEndian(Buffer, Value);
+
+            ::Check(static_cast<MO_UINT8>(0x5A) == Buffer[0],
+                "WriteBigEndian native writes byte 0");
+
+            ::Check(
+                Value == ::MoMileFixedIntegerReadBigEndian(Buffer),
+                "ReadBigEndian native reads written value");
+        }
+
+        {
+            MO_UINT8 Buffer[1] = {};
+
+            ::MoMileFixedIntegerWriteLittleEndian(Buffer, Value);
+
+            ::Check(static_cast<MO_UINT8>(0x5A) == Buffer[0],
+                "WriteLittleEndian native writes byte 0");
+
+            ::Check(
+                Value == ::MoMileFixedIntegerReadLittleEndian(Buffer),
+                "ReadLittleEndian native reads written value");
+        }
+
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger.Test] Unsupported platform."
+#endif
+
+        std::printf("MoMileFixedIntegerReadWriteTest passed.\n");
+    }
 }
 
 MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
@@ -3577,6 +4057,12 @@ MO_EXTERN_C MO_VOID MoMileFixedIntegerTests()
     ::MoMileFixedIntegerCheckedAdditionTest();
     ::MoMileFixedIntegerCheckedSubtractionTest();
     ::MoMileFixedIntegerCheckedMultiplicationTest();
+
+    ::MoMileFixedIntegerReadWrite8Test();
+    ::MoMileFixedIntegerReadWrite16Test();
+    ::MoMileFixedIntegerReadWrite32Test();
+    ::MoMileFixedIntegerReadWrite64Test();
+    ::MoMileFixedIntegerReadWriteTest();
 
     std::printf("\nAll MoMileFixedInteger tests passed.\n");
 }

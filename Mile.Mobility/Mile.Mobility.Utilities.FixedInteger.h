@@ -412,4 +412,203 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication(
     _Mo_In_ MO_UINTN Left,
     _Mo_In_ MO_UINTN Right);
 
+/**
+  * @brief Reads an integer value with a fixed 8-bit width from memory.
+  * @param BaseAddress The address of at least 1 readable byte. The address must
+  *                    be valid; this function does not validate it.
+  * @return The integer value with a fixed 8-bit width read from BaseAddress.
+  */
+MO_EXTERN_C MO_UINT8 MOAPI MoMileFixedIntegerRead8(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress);
+
+/**
+  * @brief Writes an integer value with a fixed 8-bit width to memory.
+  * @param BaseAddress The address of at least 1 writable byte. The address must
+  *                    be valid; this function does not validate it.
+  * @param Value The integer value with a fixed 8-bit width to write.
+  */
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWrite8(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT8 Value);
+
+/**
+  * @brief Reads a big-endian integer value with a fixed 16-bit width from
+  *        memory.
+  * @param BaseAddress The address of at least 2 readable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @return The big-endian integer value with a fixed 16-bit width read from
+  *         BaseAddress.
+  */
+MO_EXTERN_C MO_UINT16 MOAPI MoMileFixedIntegerReadBigEndian16(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress);
+
+/**
+  * @brief Writes a big-endian integer value with a fixed 16-bit width to memory.
+  * @param BaseAddress The address of at least 2 writable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @param Value The integer value with a fixed 16-bit width to write in
+  *              big-endian byte order.
+  */
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteBigEndian16(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT16 Value);
+
+/**
+  * @brief Reads a little-endian integer value with a fixed 16-bit width from
+  *        memory.
+  * @param BaseAddress The address of at least 2 readable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @return The little-endian integer value with a fixed 16-bit width read from
+  *         BaseAddress.
+  */
+MO_EXTERN_C MO_UINT16 MOAPI MoMileFixedIntegerReadLittleEndian16(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress);
+
+/**
+  * @brief Writes a little-endian integer value with a fixed 16-bit width to
+  *        memory.
+  * @param BaseAddress The address of at least 2 writable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @param Value The integer value with a fixed 16-bit width to write in
+  *              little-endian byte order.
+  */
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian16(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT16 Value);
+
+/**
+  * @brief Reads a big-endian integer value with a fixed 32-bit width from
+  *        memory.
+  * @param BaseAddress The address of at least 4 readable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @return The big-endian integer value with a fixed 32-bit width read from
+  *         BaseAddress.
+  */
+MO_EXTERN_C MO_UINT32 MOAPI MoMileFixedIntegerReadBigEndian32(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress);
+
+/**
+  * @brief Writes a big-endian integer value with a fixed 32-bit width to memory.
+  * @param BaseAddress The address of at least 4 writable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @param Value The integer value with a fixed 32-bit width to write in
+  *              big-endian byte order.
+  */
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteBigEndian32(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT32 Value);
+
+/**
+  * @brief Reads a little-endian integer value with a fixed 32-bit width from
+  *        memory.
+  * @param BaseAddress The address of at least 4 readable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @return The little-endian integer value with a fixed 32-bit width read from
+  *         BaseAddress.
+  */
+MO_EXTERN_C MO_UINT32 MOAPI MoMileFixedIntegerReadLittleEndian32(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress);
+
+/**
+  * @brief Writes a little-endian integer value with a fixed 32-bit width to
+  *        memory.
+  * @param BaseAddress The address of at least 4 writable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @param Value The integer value with a fixed 32-bit width to write in
+  *              little-endian byte order.
+  */
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian32(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT32 Value);
+
+/**
+  * @brief Reads a big-endian integer value with a fixed 64-bit width from
+  *        memory.
+  * @param BaseAddress The address of at least 8 readable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @return The big-endian integer value with a fixed 64-bit width read from
+  *         BaseAddress.
+  */
+MO_EXTERN_C MO_UINT64 MOAPI MoMileFixedIntegerReadBigEndian64(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress);
+
+/**
+  * @brief Writes a big-endian integer value with a fixed 64-bit width to memory.
+  * @param BaseAddress The address of at least 8 writable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @param Value The integer value with a fixed 64-bit width to write in
+  *              big-endian byte order.
+  */
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteBigEndian64(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT64 Value);
+
+/**
+  * @brief Reads a little-endian integer value with a fixed 64-bit width from
+  *        memory.
+  * @param BaseAddress The address of at least 8 readable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @return The little-endian integer value with a fixed 64-bit width read from
+  *         BaseAddress.
+  */
+MO_EXTERN_C MO_UINT64 MOAPI MoMileFixedIntegerReadLittleEndian64(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress);
+
+/**
+  * @brief Writes a little-endian integer value with a fixed 64-bit width to
+  *        memory.
+  * @param BaseAddress The address of at least 8 writable bytes. The address must
+  *                    be valid; this function does not validate it.
+  * @param Value The integer value with a fixed 64-bit width to write in
+  *              little-endian byte order.
+  */
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian64(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT64 Value);
+
+/**
+  * @brief Reads a big-endian integer value with a fixed native width from
+  *        memory.
+  * @param BaseAddress The address of a readable native-width byte sequence. The
+  *                    address must be valid; this function does not validate it.
+  * @return The big-endian integer value with a fixed native width read from
+  *         BaseAddress.
+  */
+MO_EXTERN_C MO_UINTN MOAPI MoMileFixedIntegerReadBigEndian(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress);
+
+/**
+  * @brief Writes a big-endian integer value with a fixed native width to memory.
+  * @param BaseAddress The address of a writable native-width byte sequence. The
+  *                    address must be valid; this function does not validate it.
+  * @param Value The integer value with a fixed native width to write in
+  *              big-endian byte order.
+  */
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteBigEndian(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINTN Value);
+
+/**
+  * @brief Reads a little-endian integer value with a fixed native width from
+  *        memory.
+  * @param BaseAddress The address of a readable native-width byte sequence. The
+  *                    address must be valid; this function does not validate it.
+  * @return The little-endian integer value with a fixed native width read from
+  *         BaseAddress.
+  */
+MO_EXTERN_C MO_UINTN MOAPI MoMileFixedIntegerReadLittleEndian(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress);
+
+/**
+  * @brief Writes a little-endian integer value with a fixed native width to
+  *        memory.
+  * @param BaseAddress The address of a writable native-width byte sequence. The
+  *                    address must be valid; this function does not validate it.
+  * @param Value The integer value with a fixed native width to write in
+  *              little-endian byte order.
+  */
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINTN Value);
+
 #endif // !MILE_MOBILITY_UTILITIES_FIXEDINTEGER

@@ -10,6 +10,7 @@ Portable parts of the essential infrastructures.
 
 - [Definitions in Mile.Mobility.Portable.Types.h](Documents/Mile.Mobility.Portable.Types.md)
 - [Definitions in Mile.Mobility.Portable.Types.Legacy.h](Documents/Mile.Mobility.Portable.Types.Legacy.md)
+- [Definitions in Mile.Mobility.Utilities.FixedInteger.h](Documents/Mile.Mobility.Utilities.FixedInteger.md)
 
 ## Documents
 

@@ -912,3 +912,236 @@ MO_EXTERN_C MO_BOOL MOAPI MoMileFixedIntegerCheckedMultiplication(
 #error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
 #endif
 }
+
+MO_EXTERN_C MO_UINT8 MOAPI MoMileFixedIntegerRead8(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress)
+{
+    MO_CONST MO_UINT8* Base = ((MO_CONST MO_UINT8*)(BaseAddress));
+    return Base[0];
+}
+
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWrite8(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT8 Value)
+{
+    MO_UINT8* Base = ((MO_UINT8*)(BaseAddress));
+    Base[0] = Value;
+}
+
+MO_EXTERN_C MO_UINT16 MOAPI MoMileFixedIntegerReadBigEndian16(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress)
+{
+    MO_CONST MO_UINT8* Base = ((MO_CONST MO_UINT8*)(BaseAddress));
+
+    return
+        (((MO_UINT16)(Base[0])) << 8) |
+        (((MO_UINT16)(Base[1])) << 0);
+}
+
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteBigEndian16(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT16 Value)
+{
+    MO_UINT8* Base = ((MO_UINT8*)(BaseAddress));
+
+    Base[0] = ((MO_UINT8)(Value >> 8));
+    Base[1] = ((MO_UINT8)(Value >> 0));
+}
+
+MO_EXTERN_C MO_UINT16 MOAPI MoMileFixedIntegerReadLittleEndian16(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress)
+{
+    MO_CONST MO_UINT8* Base = ((MO_CONST MO_UINT8*)(BaseAddress));
+
+    return
+        (((MO_UINT16)(Base[0])) << 0) |
+        (((MO_UINT16)(Base[1])) << 8);
+}
+
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian16(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT16 Value)
+{
+    MO_UINT8* Base = ((MO_UINT8*)(BaseAddress));
+
+    Base[0] = ((MO_UINT8)(Value >> 0));
+    Base[1] = ((MO_UINT8)(Value >> 8));
+}
+
+MO_EXTERN_C MO_UINT32 MOAPI MoMileFixedIntegerReadBigEndian32(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress)
+{
+    MO_CONST MO_UINT8* Base = ((MO_CONST MO_UINT8*)(BaseAddress));
+
+    return
+        (((MO_UINT32)(Base[0])) << 24) |
+        (((MO_UINT32)(Base[1])) << 16) |
+        (((MO_UINT32)(Base[2])) << 8) |
+        (((MO_UINT32)(Base[3])) << 0);
+}
+
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteBigEndian32(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT32 Value)
+{
+    MO_UINT8* Base = ((MO_UINT8*)(BaseAddress));
+
+    Base[0] = ((MO_UINT8)(Value >> 24));
+    Base[1] = ((MO_UINT8)(Value >> 16));
+    Base[2] = ((MO_UINT8)(Value >> 8));
+    Base[3] = ((MO_UINT8)(Value >> 0));
+}
+
+MO_EXTERN_C MO_UINT32 MOAPI MoMileFixedIntegerReadLittleEndian32(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress)
+{
+    MO_CONST MO_UINT8* Base = ((MO_CONST MO_UINT8*)(BaseAddress));
+
+    return
+        (((MO_UINT32)(Base[0])) << 0) |
+        (((MO_UINT32)(Base[1])) << 8) |
+        (((MO_UINT32)(Base[2])) << 16) |
+        (((MO_UINT32)(Base[3])) << 24);
+}
+
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian32(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT32 Value)
+{
+    MO_UINT8* Base = ((MO_UINT8*)(BaseAddress));
+
+    Base[0] = ((MO_UINT8)(Value >> 0));
+    Base[1] = ((MO_UINT8)(Value >> 8));
+    Base[2] = ((MO_UINT8)(Value >> 16));
+    Base[3] = ((MO_UINT8)(Value >> 24));
+}
+
+MO_EXTERN_C MO_UINT64 MOAPI MoMileFixedIntegerReadBigEndian64(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress)
+{
+    MO_CONST MO_UINT8* Base = ((MO_CONST MO_UINT8*)(BaseAddress));
+
+    return
+        (((MO_UINT64)(Base[0])) << 56) |
+        (((MO_UINT64)(Base[1])) << 48) |
+        (((MO_UINT64)(Base[2])) << 40) |
+        (((MO_UINT64)(Base[3])) << 32) |
+        (((MO_UINT64)(Base[4])) << 24) |
+        (((MO_UINT64)(Base[5])) << 16) |
+        (((MO_UINT64)(Base[6])) << 8) |
+        (((MO_UINT64)(Base[7])) << 0);
+}
+
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteBigEndian64(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT64 Value)
+{
+    MO_UINT8* Base = ((MO_UINT8*)(BaseAddress));
+
+    Base[0] = ((MO_UINT8)(Value >> 56));
+    Base[1] = ((MO_UINT8)(Value >> 48));
+    Base[2] = ((MO_UINT8)(Value >> 40));
+    Base[3] = ((MO_UINT8)(Value >> 32));
+    Base[4] = ((MO_UINT8)(Value >> 24));
+    Base[5] = ((MO_UINT8)(Value >> 16));
+    Base[6] = ((MO_UINT8)(Value >> 8));
+    Base[7] = ((MO_UINT8)(Value >> 0));
+}
+
+MO_EXTERN_C MO_UINT64 MOAPI MoMileFixedIntegerReadLittleEndian64(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress)
+{
+    MO_CONST MO_UINT8* Base = ((MO_CONST MO_UINT8*)(BaseAddress));
+
+    return
+        (((MO_UINT64)(Base[0])) << 0) |
+        (((MO_UINT64)(Base[1])) << 8) |
+        (((MO_UINT64)(Base[2])) << 16) |
+        (((MO_UINT64)(Base[3])) << 24) |
+        (((MO_UINT64)(Base[4])) << 32) |
+        (((MO_UINT64)(Base[5])) << 40) |
+        (((MO_UINT64)(Base[6])) << 48) |
+        (((MO_UINT64)(Base[7])) << 56);
+}
+
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian64(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINT64 Value)
+{
+    MO_UINT8* Base = ((MO_UINT8*)(BaseAddress));
+
+    Base[0] = ((MO_UINT8)(Value >> 0));
+    Base[1] = ((MO_UINT8)(Value >> 8));
+    Base[2] = ((MO_UINT8)(Value >> 16));
+    Base[3] = ((MO_UINT8)(Value >> 24));
+    Base[4] = ((MO_UINT8)(Value >> 32));
+    Base[5] = ((MO_UINT8)(Value >> 40));
+    Base[6] = ((MO_UINT8)(Value >> 48));
+    Base[7] = ((MO_UINT8)(Value >> 56));
+}
+
+MO_EXTERN_C MO_UINTN MOAPI MoMileFixedIntegerReadBigEndian(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress)
+{
+#if (MO_POINTER_SIZE == 8)
+    return (MO_UINTN)MoMileFixedIntegerReadBigEndian64(BaseAddress);
+#elif (MO_POINTER_SIZE == 4)
+    return (MO_UINTN)MoMileFixedIntegerReadBigEndian32(BaseAddress);
+#elif (MO_POINTER_SIZE == 2)
+    return (MO_UINTN)MoMileFixedIntegerReadBigEndian16(BaseAddress);
+#elif (MO_POINTER_SIZE == 1)
+    return (MO_UINTN)MoMileFixedIntegerRead8(BaseAddress);
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
+#endif
+}
+
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteBigEndian(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINTN Value)
+{
+#if (MO_POINTER_SIZE == 8)
+    MoMileFixedIntegerWriteBigEndian64(BaseAddress, (MO_UINT64)Value);
+#elif (MO_POINTER_SIZE == 4)
+    MoMileFixedIntegerWriteBigEndian32(BaseAddress, (MO_UINT32)Value);
+#elif (MO_POINTER_SIZE == 2)
+    MoMileFixedIntegerWriteBigEndian16(BaseAddress, (MO_UINT16)Value);
+#elif (MO_POINTER_SIZE == 1)
+    MoMileFixedIntegerWrite8(BaseAddress, (MO_UINT8)Value);
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
+#endif
+}
+
+MO_EXTERN_C MO_UINTN MOAPI MoMileFixedIntegerReadLittleEndian(
+    _Mo_In_ MO_CONSTANT_POINTER BaseAddress)
+{
+#if (MO_POINTER_SIZE == 8)
+    return (MO_UINTN)MoMileFixedIntegerReadLittleEndian64(BaseAddress);
+#elif (MO_POINTER_SIZE == 4)
+    return (MO_UINTN)MoMileFixedIntegerReadLittleEndian32(BaseAddress);
+#elif (MO_POINTER_SIZE == 2)
+    return (MO_UINTN)MoMileFixedIntegerReadLittleEndian16(BaseAddress);
+#elif (MO_POINTER_SIZE == 1)
+    return (MO_UINTN)MoMileFixedIntegerRead8(BaseAddress);
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
+#endif
+}
+
+MO_EXTERN_C MO_VOID MOAPI MoMileFixedIntegerWriteLittleEndian(
+    _Mo_Out_ MO_POINTER BaseAddress,
+    _Mo_In_ MO_UINTN Value)
+{
+#if (MO_POINTER_SIZE == 8)
+    MoMileFixedIntegerWriteLittleEndian64(BaseAddress, (MO_UINT64)Value);
+#elif (MO_POINTER_SIZE == 4)
+    MoMileFixedIntegerWriteLittleEndian32(BaseAddress, (MO_UINT32)Value);
+#elif (MO_POINTER_SIZE == 2)
+    MoMileFixedIntegerWriteLittleEndian16(BaseAddress, (MO_UINT16)Value);
+#elif (MO_POINTER_SIZE == 1)
+    MoMileFixedIntegerWrite8(BaseAddress, (MO_UINT8)Value);
+#else
+#error "[Mile.Mobility.Utilities.FixedInteger] Unsupported platform."
+#endif
+}
