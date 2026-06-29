@@ -37,6 +37,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Mile.Mobility\Mile.Mobility.Utilities.FixedInteger.c" />
+    <ClCompile Include="..\Mile.Mobility\Mile.Mobility.Utilities.MemoryAccess.c" />
     <ClCompile Include="Mile.Mobility.Test.cpp" />
     <ClCompile Include="Mile.Mobility.Utilities.FixedInteger.Tests.cpp" />
   </ItemGroup>
@@ -44,6 +45,7 @@
     <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Utilities.FixedInteger.h" />
     <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Portable.Types.h" />
     <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Portable.Types.Legacy.h" />
+    <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Utilities.MemoryAccess.h" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mile.Windows.UniCrt">

@@ -6,6 +6,9 @@
       <Filter>Mile.Mobility</Filter>
     </ClCompile>
     <ClCompile Include="Mile.Mobility.Utilities.FixedInteger.Tests.cpp" />
+    <ClCompile Include="..\Mile.Mobility\Mile.Mobility.Utilities.MemoryAccess.c">
+      <Filter>Mile.Mobility</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Mile.Mobility">
@@ -20,6 +23,9 @@
       <Filter>Mile.Mobility</Filter>
     </ClInclude>
     <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Utilities.FixedInteger.h">
+      <Filter>Mile.Mobility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Mile.Mobility\Mile.Mobility.Utilities.MemoryAccess.h">
       <Filter>Mile.Mobility</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,6 +12,7 @@
   <Target Name="MileMobilityBuildNativeSource" BeforeTargets="BeforeClCompile">
     <ItemGroup>
       <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Source\Native\Mile.Mobility.Utilities.FixedInteger.c" />
+      <ClCompile Include="$(MSBuildThisFileDirectory)..\..\Source\Native\Mile.Mobility.Utilities.MemoryAccess.c" />
     </ItemGroup>
   </Target>
 </Project>
