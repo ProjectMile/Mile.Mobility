@@ -19,3 +19,6 @@
   - MoMileInterlockedAnd32
 	- MoMileInterlockedOr32
 	- MoMileInterlockedXor32
+- Memory Barrier:
+	- MoMileCompilerBarrier
+	- MoMileMemoryBarrier

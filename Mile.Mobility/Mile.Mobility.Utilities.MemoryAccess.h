@@ -209,4 +209,35 @@ MO_EXTERN_C MO_UINT32 MOAPI MoMileInterlockedXor32(
     _Mo_InOut_ MO_UINT32 volatile* Value,
     _Mo_In_ MO_UINT32 Mask);
 
+#ifdef _MSC_VER
+MO_EXTERN_C MO_VOID _ReadWriteBarrier(MO_VOID);
+#pragma intrinsic(_ReadWriteBarrier)
+#endif /* _MSC_VER */
+
+/**
+ * @brief Limits the compiler optimizations that can reorder memory accesses
+ *        across the point of the call.
+ */
+static MO_FORCEINLINE MO_VOID MoMileCompilerBarrier(MO_VOID)
+{
+#ifdef _MSC_VER /* MSVC */
+#ifdef __cplusplus
+    ::_ReadWriteBarrier();
+#else
+    _ReadWriteBarrier();
+#endif
+#elif defined(__GNUC__) || defined(__clang__) /* GCC and Clang */
+    __asm__ __volatile__("" : : : "memory");
+#else
+#error "[Mile.Mobility.Utilities.MemoryAccess] Unsupported platform."
+#endif
+}
+
+/**
+ * @brief Creates a hardware memory barrier (fence) that prevents the CPU from
+ *        re-ordering read and write operations. It may also prevent the
+ *        compiler from re-ordering read and write operations.
+ */
+MO_EXTERN_C MO_VOID MOAPI MoMileMemoryBarrier(MO_VOID);
+
 #endif // !MILE_MOBILITY_UTILITIES_MEMORYACCESS
