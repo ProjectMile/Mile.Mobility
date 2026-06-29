@@ -7,18 +7,18 @@
 ### Functions
 
 - Atomic Operations:
-	- MoMileInterlockedCompareExchange8
-	- MoMileInterlockedCompareExchange16
-	- MoMileInterlockedCompareExchange32
-	- MoMileInterlockedCompareExchange64
-	- MoMileInterlockedCompareExchangePointer
-	- MoMileInterlockedExchange32
-	- MoMileInterlockedExchangePointer
-	- MoMileInterlockedIncrement32
-	- MoMileInterlockedDecrement32
+  - MoMileInterlockedCompareExchange8
+  - MoMileInterlockedCompareExchange16
+  - MoMileInterlockedCompareExchange32
+  - MoMileInterlockedCompareExchange64
+  - MoMileInterlockedCompareExchangePointer
+  - MoMileInterlockedExchange32
+  - MoMileInterlockedExchangePointer
+  - MoMileInterlockedIncrement32
+  - MoMileInterlockedDecrement32
   - MoMileInterlockedAnd32
-	- MoMileInterlockedOr32
-	- MoMileInterlockedXor32
+  - MoMileInterlockedOr32
+  - MoMileInterlockedXor32
 - Memory Barrier:
-	- MoMileCompilerBarrier
-	- MoMileMemoryBarrier
+  - MoMileCompilerBarrier
+  - MoMileMemoryBarrier

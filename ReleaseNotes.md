@@ -1,5 +1,28 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.1.602.0**
+
+- Introduce Mile.Mobility.Utilities.MemoryAccess for Memory Access Utilities.
+  - Introduce following functions:
+    - Atomic Operations:
+      - MoMileInterlockedCompareExchange8
+      - MoMileInterlockedCompareExchange16
+      - MoMileInterlockedCompareExchange32
+      - MoMileInterlockedCompareExchange64
+      - MoMileInterlockedCompareExchangePointer
+      - MoMileInterlockedExchange32
+      - MoMileInterlockedExchangePointer
+      - MoMileInterlockedIncrement32
+      - MoMileInterlockedDecrement32
+      - MoMileInterlockedAnd32
+      - MoMileInterlockedOr32
+      - MoMileInterlockedXor32
+    - Memory Barrier:
+      - MoMileCompilerBarrier
+      - MoMileMemoryBarrier
+- Improve the MSVC ARM32 target check logic for Mile.Mobility.Portable.Types.
+- Fix the comment for Mile.Mobility.Utilities.FixedInteger.
+
 **Mile.Mobility 1.1.564.0**
 
 - Introduce Mile.Mobility.Utilities.FixedInteger for Fixed Width Integer
