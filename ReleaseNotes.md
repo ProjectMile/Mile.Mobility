@@ -1,5 +1,21 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.1.677.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following constant values:
+    - Signed Integer 
+      - MO_INT8_WIDTH, MO_INT16_WIDTH, MO_INT32_WIDTH, MO_INT64_WIDTH
+    - Unsigned Integer
+      - MO_UINT8_WIDTH, MO_UINT16_WIDTH, MO_UINT32_WIDTH, MO_UINT64_WIDTH
+    - Native Integer
+      - MO_INTN_WIDTH, MO_UINTN_WIDTH
+    - Character 
+      - MO_CHAR_WIDTH, MO_WIDE_CHAR_WIDTH
+  - Extend the definitions of the following constant values:
+    - Character 
+      - MO_CHAR_MIN, MO_CHAR_MAX
+
 **Mile.Mobility 1.1.602.0**
 
 - Introduce Mile.Mobility.Utilities.MemoryAccess for Memory Access Utilities.

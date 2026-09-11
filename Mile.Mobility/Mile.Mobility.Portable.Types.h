@@ -127,6 +127,16 @@ typedef unsigned long long MO_UINT64, *PMO_UINT64;
 #define MO_UINT32_MAX 0xFFFFFFFFU
 #define MO_UINT64_MAX 0xFFFFFFFFFFFFFFFFULL
 
+#define MO_INT8_WIDTH 8
+#define MO_INT16_WIDTH 16
+#define MO_INT32_WIDTH 32
+#define MO_INT64_WIDTH 64
+
+#define MO_UINT8_WIDTH 8
+#define MO_UINT16_WIDTH 16
+#define MO_UINT32_WIDTH 32
+#define MO_UINT64_WIDTH 64
+
 #ifndef MO_POINTER_SIZE
 #if defined(_WIN64) || defined(_LP64) || defined(__LP64__)
 #define MO_POINTER_SIZE 8
@@ -156,6 +166,8 @@ typedef MO_UINT64 MO_UINTN;
 #define MO_INTN_MIN MO_INT64_MIN
 #define MO_INTN_MAX MO_INT64_MAX
 #define MO_UINTN_MAX MO_UINT64_MAX
+#define MO_INTN_WIDTH MO_INT64_WIDTH
+#define MO_UINTN_WIDTH MO_UINT64_WIDTH
 #elif (MO_POINTER_SIZE == 4)
 typedef MO_INT32 MO_INTN;
 typedef MO_UINT32 MO_UINTN;
@@ -163,6 +175,8 @@ typedef MO_UINT32 MO_UINTN;
 #define MO_INTN_MIN MO_INT32_MIN
 #define MO_INTN_MAX MO_INT32_MAX
 #define MO_UINTN_MAX MO_UINT32_MAX
+#define MO_INTN_WIDTH MO_INT32_WIDTH
+#define MO_UINTN_WIDTH MO_UINT32_WIDTH
 #elif (MO_POINTER_SIZE == 2)
 typedef MO_INT16 MO_INTN;
 typedef MO_UINT16 MO_UINTN;
@@ -170,6 +184,8 @@ typedef MO_UINT16 MO_UINTN;
 #define MO_INTN_MIN MO_INT16_MIN
 #define MO_INTN_MAX MO_INT16_MAX
 #define MO_UINTN_MAX MO_UINT16_MAX
+#define MO_INTN_WIDTH MO_INT16_WIDTH
+#define MO_UINTN_WIDTH MO_UINT16_WIDTH
 #elif (MO_POINTER_SIZE == 1)
 typedef MO_INT8 MO_INTN;
 typedef MO_UINT8 MO_UINTN;
@@ -177,6 +193,8 @@ typedef MO_UINT8 MO_UINTN;
 #define MO_INTN_MIN MO_INT8_MIN
 #define MO_INTN_MAX MO_INT8_MAX
 #define MO_UINTN_MAX MO_UINT8_MAX
+#define MO_INTN_WIDTH MO_INT8_WIDTH
+#define MO_UINTN_WIDTH MO_UINT8_WIDTH
 #else
 #error "[MO_INTN, MO_UINTN] Non-standard target. Please define a custom type."
 #endif
@@ -193,6 +211,12 @@ typedef MO_UINTN *PMO_UINTN;
 #ifndef MO_UINTN_MAX
 #error "[MO_UINTN_MAX] Non-standard target. Please define a custom value."
 #endif /* !MO_UINTN_MAX */
+#ifndef MO_INTN_WIDTH
+#error "[MO_INTN_WIDTH] Non-standard target. Please define a custom value."
+#endif /* !MO_INTN_WIDTH */
+#ifndef MO_UINTN_WIDTH
+#error "[MO_UINTN_WIDTH] Non-standard target. Please define a custom value."
+#endif /* !MO_UINTN_WIDTH */
 
 typedef MO_UINT8 MO_BOOL, *PMO_BOOL;
 #define MO_FALSE 0
@@ -200,8 +224,15 @@ typedef MO_UINT8 MO_BOOL, *PMO_BOOL;
 
 typedef char MO_CHAR, *PMO_CHAR;
 typedef MO_CONST char MO_CONSTANT_CHAR, *PMO_CONSTANT_CHAR;
+#if defined(_CHAR_UNSIGNED) || defined(__CHAR_UNSIGNED__)
 #define MO_CHAR_MIN 0x00
-#define MO_CHAR_MAX 0xFF
+#define MO_CHAR_MAX MO_UINT8_MAX
+#define MO_CHAR_WIDTH MO_UINT8_WIDTH
+#else
+#define MO_CHAR_MIN MO_INT8_MIN
+#define MO_CHAR_MAX MO_INT8_MAX
+#define MO_CHAR_WIDTH MO_INT8_WIDTH
+#endif
 
 #ifdef _WCHAR_T_DEFINED
 typedef wchar_t MO_WIDE_CHAR, *PMO_WIDE_CHAR;
@@ -211,6 +242,7 @@ typedef MO_UINT16 MO_WIDE_CHAR, *PMO_WIDE_CHAR;
 typedef MO_CONST MO_WIDE_CHAR MO_CONSTANT_WIDE_CHAR, *PMO_CONSTANT_WIDE_CHAR;
 #define MO_WIDE_CHAR_MIN 0x0000
 #define MO_WIDE_CHAR_MAX 0xFFFF
+#define MO_WIDE_CHAR_WIDTH 16
 
 typedef PMO_CHAR MO_STRING, *PMO_STRING;
 typedef PMO_WIDE_CHAR MO_WIDE_STRING, *PMO_WIDE_STRING;
