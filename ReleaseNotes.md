@@ -31,6 +31,11 @@
   - Extend the definitions of the following constant values:
     - Character 
       - MO_CHAR_MIN, MO_CHAR_MAX
+- Fix comment typo for MoMileFixedIntegerCheckedSubtraction series functions for
+  Mile.Mobility.Utilities.FixedInteger.h.
+- Use global.json to simplify the MSBuild Project SDK version resolving.
+- Add GitHub Action Support.
+- Update Mile.Project.Configurations to 1.1.2116.
 
 **Mile.Mobility 1.1.602.0**
 
