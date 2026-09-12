@@ -3,6 +3,9 @@
 **Mile.Mobility 1.1.677.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following types:
+    - Floating Point
+      - MO_FP32, MO_FP64
   - Introduce following constant values:
     - Signed Integer 
       - MO_INT8_WIDTH, MO_INT16_WIDTH, MO_INT32_WIDTH, MO_INT64_WIDTH
@@ -10,6 +13,19 @@
       - MO_UINT8_WIDTH, MO_UINT16_WIDTH, MO_UINT32_WIDTH, MO_UINT64_WIDTH
     - Native Integer
       - MO_INTN_WIDTH, MO_UINTN_WIDTH
+    - Floating Point
+      - MO_FP_INFINITY, MO_FP_NAN
+      - MO_FP_EVAL_METHOD, MO_FP_RADIX, MO_FP_ROUNDS
+      - MO_FP32_DECIMAL_DIG, MO_FP32_DIG
+      - MO_FP32_EPSILON, MO_FP32_HAS_SUBNORM, MO_FP32_MANT_DIG
+      - MO_FP32_MAX, MO_FP32_MAX_10_EXP, MO_FP32_MAX_EXP
+      - MO_FP32_MIN, MO_FP32_MIN_10_EXP, MO_FP32_MIN_EXP
+      - MO_FP32_SNAN, MO_FP32_TRUE_MIN
+      - MO_FP64_DECIMAL_DIG, MO_FP64_DIG
+      - MO_FP64_EPSILON, MO_FP64_HAS_SUBNORM, MO_FP64_MANT_DIG
+      - MO_FP64_MAX, MO_FP64_MAX_10_EXP, MO_FP64_MAX_EXP
+      - MO_FP64_MIN, MO_FP64_MIN_10_EXP, MO_FP64_MIN_EXP
+      - MO_FP64_SNAN, MO_FP64_TRUE_MIN
     - Character 
       - MO_CHAR_WIDTH, MO_WIDE_CHAR_WIDTH
   - Extend the definitions of the following constant values:

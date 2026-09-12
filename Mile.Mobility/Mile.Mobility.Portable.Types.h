@@ -222,6 +222,64 @@ typedef MO_UINT8 MO_BOOL, *PMO_BOOL;
 #define MO_FALSE 0
 #define MO_TRUE 1
 
+typedef float MO_FP32, *PMO_FP32;
+typedef double MO_FP64, *PMO_FP64;
+
+#if (defined(_MSC_VER) && (_MSC_VER >= 1900)) || \
+    defined(__GNUC__) || defined(__clang__)
+#define MO_FP_INFINITY (__builtin_huge_valf())
+#define MO_FP_NAN (__builtin_nanf("0"))
+#else
+#define MO_FP_INFINITY ((MO_FP32)(1e+300))
+#define MO_FP_NAN (-(MO_FP32)(((MO_FP32)(1e+300 * 1e+300)) * 0.0F))
+#endif
+
+#if defined(_M_FP_FAST)
+#define MO_FP_EVAL_METHOD (-1)
+#elif defined(_M_IX86) && (!defined(_M_IX86_FP) || (_M_IX86_FP < 2))
+#define MO_FP_EVAL_METHOD 2
+#elif defined(__FLT_EVAL_METHOD__)
+#define MO_FP_EVAL_METHOD __FLT_EVAL_METHOD__
+#else
+#define MO_FP_EVAL_METHOD 0
+#endif
+#define MO_FP_RADIX 2
+#define MO_FP_ROUNDS 1
+
+#define MO_FP32_DECIMAL_DIG 9
+#define MO_FP32_DIG 6
+#define MO_FP32_EPSILON 1.192092896e-07F
+#define MO_FP32_HAS_SUBNORM 1
+#define MO_FP32_MANT_DIG 24
+#define MO_FP32_MAX 3.402823466e+38F
+#define MO_FP32_MAX_10_EXP 38
+#define MO_FP32_MAX_EXP 128
+#define MO_FP32_MIN 1.175494351e-38F
+#define MO_FP32_MIN_10_EXP (-37)
+#define MO_FP32_MIN_EXP (-125)
+#if (defined(_MSC_VER) && (_MSC_VER >= 1900)) || \
+    defined(__GNUC__) || defined(__clang__)
+#define MO_FP32_SNAN (__builtin_nansf("1"))
+#endif
+#define MO_FP32_TRUE_MIN 1.401298464e-45F
+
+#define MO_FP64_DECIMAL_DIG 17
+#define MO_FP64_DIG 15
+#define MO_FP64_EPSILON 2.2204460492503131e-016
+#define MO_FP64_HAS_SUBNORM 1
+#define MO_FP64_MANT_DIG 53
+#define MO_FP64_MAX 1.7976931348623158e+308
+#define MO_FP64_MAX_10_EXP 308
+#define MO_FP64_MAX_EXP 1024
+#define MO_FP64_MIN 2.2250738585072014e-308
+#define MO_FP64_MIN_10_EXP (-307)
+#define MO_FP64_MIN_EXP (-1021)
+#if (defined(_MSC_VER) && (_MSC_VER >= 1900)) || \
+    defined(__GNUC__) || defined(__clang__)
+#define MO_FP64_SNAN (__builtin_nans("1"))
+#endif
+#define MO_FP64_TRUE_MIN 4.9406564584124654e-324
+
 typedef char MO_CHAR, *PMO_CHAR;
 typedef MO_CONST char MO_CONSTANT_CHAR, *PMO_CONSTANT_CHAR;
 #if defined(_CHAR_UNSIGNED) || defined(__CHAR_UNSIGNED__)
