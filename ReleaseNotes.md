@@ -1,5 +1,20 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.1.678.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Introduce following macros:
+    - MO_INT8_C
+    - MO_INT16_C
+    - MO_INT32_C
+    - MO_INT64_C
+    - MO_UINT8_C
+    - MO_UINT16_C
+    - MO_UINT32_C
+    - MO_UINT64_C
+    - MO_INTN_C
+    - MO_UINTN_C
+
 **Mile.Mobility 1.1.677.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
