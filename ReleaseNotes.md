@@ -14,6 +14,7 @@
     - MO_UINT64_C
     - MO_INTN_C
     - MO_UINTN_C
+- Add MileMobilityDisableSourceCompilation feature support.
 
 **Mile.Mobility 1.1.677.0**
 

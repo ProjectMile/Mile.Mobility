@@ -13,6 +13,15 @@ Portable parts of the essential infrastructures.
 - [Definitions in Mile.Mobility.Utilities.FixedInteger.h](Documents/Mile.Mobility.Utilities.FixedInteger.md)
 - [Definitions in Mile.Mobility.Utilities.MemoryAccess.h](Documents/Mile.Mobility.Utilities.MemoryAccess.md)
 
+## Available MSBuild project options
+
+If you don't want to compile the Mile.Mobility source files, please set the
+following option.
+
+```
+<MileMobilityDisableSourceCompilation>true</MileMobilityDisableSourceCompilation>
+```
+
 ## Documents
 
 - [License](License.md)
