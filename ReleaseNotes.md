@@ -1,5 +1,12 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.1.732.0**
+
+- Improve Mile.Mobility.Portable.Types.h.
+  - Improve the compiler adaptation mechanism.
+  - Introduce following macros:
+    - MILE_MOBILITY_UNKNOWN_COMPILER_ADAPTED
+
 **Mile.Mobility 1.1.678.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
