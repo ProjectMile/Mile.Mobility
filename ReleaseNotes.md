@@ -1,5 +1,9 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.1.751.0**
+
+- Use nullptr instead of MO_NULL for non Mile.Mobility.Portable.Types parts.
+
 **Mile.Mobility 1.1.732.0**
 
 - Improve Mile.Mobility.Portable.Types.h.
