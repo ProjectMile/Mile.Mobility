@@ -1,5 +1,9 @@
 ﻿# Mile.Mobility Release Notes
 
+**Mile.Mobility 1.1.753.0**
+
+- Fix comment formats.
+
 **Mile.Mobility 1.1.751.0**
 
 - Use nullptr instead of MO_NULL for non Mile.Mobility.Portable.Types parts.
